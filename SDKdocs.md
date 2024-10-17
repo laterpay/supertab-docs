@@ -60,8 +60,15 @@ const authentication = await supertab.auth(options);
 ```
 
 Authenticates the user with Supertab.
-- `options` (object):
-  - `silently` (boolean): Attempt silent authentication if true.
+
+#### options
+
+An optional `options` object supports following properties.
+
+<ParamField path="silently" type="boolean">
+  Attempt silent authentication if true
+</ParamField>
+
   - `screenHint` (string): 'login' or 'register' to specify the desired authentication screen.
   - `state` (object): Optional state object to pass through the authentication process.
   - `redirectUri` (string): The URI to redirect to after authentication.

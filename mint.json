@@ -58,10 +58,7 @@
     },
     {
       "group": "Supertab docs",
-      "pages": [
-        "SDKdocs",
-        "testmode"
-      ]
+      "pages": ["SDKdocs", "testmode"]
     },
     {
       "group": "API Documentation",

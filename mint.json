@@ -58,8 +58,8 @@
     {
       "group": "Supertab docs",
       "pages": [
-        "SDKdocs.md",
-        "testmode.md",
+        "SDKdocs",
+        "testmode",
       ]
     },
     {

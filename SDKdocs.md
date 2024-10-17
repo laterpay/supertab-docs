@@ -11,7 +11,7 @@ The Supertab Browser SDK allows developers to integrate Supertab functionality i
 
 To install the Supertab Browser SDK, use npm:
 
-```
+```javascript
 npm install @getsupertab/supertab-browser
 ```
 
@@ -23,14 +23,14 @@ The Supertab SDK can be initialized in two ways:
 
 ### 1. Using `window` global variables
 
-```
+```javascript
 window.SupertabInit({ clientId: 'your-client-id' });
 const supertab = window.Supertab;
 ```
 
 ### 2. Using `Supertab` class
 
-```
+```javascript
 import Supertab from '@getsupertab/supertab-browser';
 
 const supertab = new Supertab({ clientId: 'your-client-id' });
@@ -40,13 +40,13 @@ const supertab = new Supertab({ clientId: 'your-client-id' });
 
 ### Initialize
 
-```
+```javascript
 window.SupertabInit({ clientId: 'your-client-id' });
 ```
 
 or
 
-```
+```javascript
 const supertab = new Supertab({ clientId: 'your-client-id' });
 ```
 
@@ -55,7 +55,7 @@ Initializes the Supertab SDK. This should be the first function called before us
 
 ### auth
 
-```
+```javascript
 const authentication = await supertab.auth(options);
 ```
 
@@ -70,7 +70,7 @@ Returns an Authentication object if successful, or undefined if silent auth fail
 
 ### getCurrentUser
 
-```
+```javascript
 const user = await supertab.getCurrentUser();
 ```
 
@@ -80,7 +80,7 @@ Returns an object with the user's ID.
 
 ### getOfferings
 
-```
+```javascript
 const offerings = await supertab.getOfferings(options);
 ```
 
@@ -93,7 +93,7 @@ Returns an array of offering objects.
 
 ### checkAccess
 
-```
+```javascript
 const access = await supertab.checkAccess();
 ```
 

@@ -63,7 +63,7 @@ Authenticates the user with Supertab. Returns an Authentication object if succes
 
 #### options
 
-An optional `options` object supports following properties.
+An optional object supporting the following properties.
 
 <ParamField path="silently" type="boolean">
   Attempt silent authentication if true

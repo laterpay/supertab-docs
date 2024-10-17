@@ -103,7 +103,7 @@ Returns an object with a `validTo` property indicating when the access expires (
 
 ### getUserTab
 
-```
+```javascript
 const tab = await supertab.getUserTab();
 ```
 
@@ -113,7 +113,7 @@ Returns an object with tab details including ID, currency, limit, purchases, sta
 
 ### pay
 
-```
+```javascript
 await supertab.pay(tabId);
 ```
 
@@ -124,7 +124,7 @@ Returns a Promise that resolves when the payment process is complete.
 
 ### purchase
 
-```
+```javascript
 const purchase = await supertab.purchase(options);
 ```
 
@@ -137,7 +137,7 @@ Returns an object with purchase details.
 
 ### getApiVersion
 
-```
+```javascript
 const version = await supertab.getApiVersion();
 ```
 
@@ -147,7 +147,7 @@ Returns a string representing the API version.
 
 ### authStatus
 
-```
+```javascript
 const status = supertab.authStatus;
 ```
 
@@ -159,7 +159,7 @@ Returns an AuthStatus enum value.
 
 To authenticate a user:
 
-```
+```javascript
 try {
   const authentication = await supertab.auth({
     silently: true, // Attempt silent authentication
@@ -167,7 +167,7 @@ try {
     state: {}, // Optional state object
     redirectUri: 'https://your-redirect-uri.com'
   });
-  
+
   if (authentication) {
     console.log('User authenticated');
   } else {
@@ -182,7 +182,7 @@ try {
 
 To get information about the current user:
 
-```
+```javascript
 try {
   const user = await supertab.getCurrentUser();
   console.log('User ID:', user.id);
@@ -195,7 +195,7 @@ try {
 
 To retrieve available offerings:
 
-```
+```javascript
 try {
   const offerings = await supertab.getOfferings({ language: 'en-US' });
   console.log('Available offerings:', offerings);
@@ -208,7 +208,7 @@ try {
 
 To check user access:
 
-```
+```javascript
 try {
   const access = await supertab.checkAccess();
   if (access.validTo) {
@@ -225,7 +225,7 @@ try {
 
 To get the user's current tab:
 
-```
+```javascript
 try {
   const tab = await supertab.getUserTab();
   console.log('User tab:', tab);
@@ -236,7 +236,7 @@ try {
 
 To pay a tab:
 
-```
+```javascript
 try {
   await supertab.pay(tabId);
   console.log('Tab paid successfully');
@@ -249,7 +249,7 @@ try {
 
 To make a purchase:
 
-```
+```javascript
 try {
   const purchase = await supertab.purchase({
     offeringId: 'offering-id',
@@ -265,7 +265,7 @@ try {
 
 To get the API version:
 
-```
+```javascript
 try {
   const version = await supertab.getApiVersion();
   console.log('API Version:', version);
@@ -282,7 +282,7 @@ The SDK uses promises, so you can use try/catch blocks or .catch() methods to ha
 
 Below is a basic example of how to implement the Supertab SDK in a web application:
 
-```
+```html
 <html>
   <head>
     <script type="module" src="path/to/supertab-sdk.js"></script>
@@ -373,7 +373,7 @@ This example demonstrates how to initialize the SDK, handle authentication, retr
 
 You can provide custom system URLs when initializing the Supertab instance:
 
-```
+```javascript
 const supertab = new Supertab({
   clientId: 'your-client-id',
   systemUrls: {
@@ -390,7 +390,7 @@ const supertab = new Supertab({
 
 When calling methods that involve currency, you can specify a preferred currency code:
 
-```
+```javascript
 const offerings = await supertab.getOfferings({
   preferredCurrencyCode: 'EUR'
 });

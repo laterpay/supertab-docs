@@ -59,7 +59,7 @@ Initializes the Supertab SDK. This should be the first function called before us
 const authentication = await supertab.auth(options);
 ```
 
-Authenticates the user with Supertab.
+Authenticates the user with Supertab. Returns an Authentication object if successful, or undefined if silent auth fails.
 
 #### options
 
@@ -77,8 +77,6 @@ An optional `options` object supports following properties.
 <ParamField path="redirectUri" type="string">
   The URI to redirect to after authentication
 </ParamField>
-
-Returns an Authentication object if successful, or undefined if silent auth fails.
 
 ### getCurrentUser
 

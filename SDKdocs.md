@@ -68,10 +68,15 @@ An optional `options` object supports following properties.
 <ParamField path="silently" type="boolean">
   Attempt silent authentication if true
 </ParamField>
-
-  - `screenHint` (string): 'login' or 'register' to specify the desired authentication screen.
-  - `state` (object): Optional state object to pass through the authentication process.
-  - `redirectUri` (string): The URI to redirect to after authentication.
+<ParamField path="screenHint" type="string">
+  `login` or `register` to specify the desired authentication screen
+</ParamField>
+<ParamField path="state" type="object">
+  Optional state object to pass through the authentication process
+</ParamField>
+<ParamField path="redirectUri" type="string">
+  The URI to redirect to after authentication
+</ParamField>
 
 Returns an Authentication object if successful, or undefined if silent auth fails.
 

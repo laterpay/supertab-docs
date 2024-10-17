@@ -8,11 +8,11 @@
   "favicon": "/favicon.svg",
   "colors": {
     "primary": "#5B3580",
-    "light": "#5B3580",
+    "light": "#07C983",
     "dark": "#5B3580",
     "anchors": {
       "from": "#5B3580",
-      "to": "#5B3580"
+      "to": "#07C983"
     }
   },
   "topbarLinks": [
@@ -52,14 +52,15 @@
         "essentials/images",
         "essentials/settings",
         "essentials/navigation",
-        "essentials/reusable-snippets"
+        "essentials/reusable-snippets",
+        "SDKdocs"
       ]
     },
     {
       "group": "Supertab docs",
       "pages": [
         "SDKdocs",
-        "testmode",
+        "testmode"
       ]
     },
     {

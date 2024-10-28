@@ -46,11 +46,11 @@
     },
     {
       "group": "Tutorials",
-      "pages": ["SDKdocs", "testmode"]
+      "pages": ["tutorials/test-mode"]
     },
     {
       "group": "How To's",
-      "pages": ["SDKdocs", "testmode"]
+      "pages": []
     },
     {
       "group": "API Documentation",

@@ -47,7 +47,7 @@
     {
       "group": "Tutorials",
       "pages": ["tutorials/quick-start", "tutorials/testmode"]
-    },
+    }
   ],
   "footerSocials": {
     "x": "https://x.com/mintlify",

@@ -42,7 +42,7 @@
   "navigation": [
     {
       "group": "Supertab Overview",
-      "pages": ["introduction"]
+      "pages": ["introduction", "supertab-overview/supertab-introduction", "supertab-overview/core-concepts"]
     },
     {
       "group": "Tutorials",

@@ -41,23 +41,15 @@
   ],
   "navigation": [
     {
-      "group": "Get Started",
-      "pages": ["introduction", "quickstart", "development"]
+      "group": "Supertab Overview",
+      "pages": ["introduction"]
     },
     {
-      "group": "Essentials",
-      "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets",
-        "SDKdocs"
-      ]
+      "group": "Tutorials",
+      "pages": ["SDKdocs", "testmode"]
     },
     {
-      "group": "Supertab docs",
+      "group": "How To's",
       "pages": ["SDKdocs", "testmode"]
     },
     {

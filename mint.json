@@ -39,7 +39,7 @@
       "icon": "square-terminal"
     }
   ],
-  "navigation": [
+  "navigation": [ 
     {
       "group": "Overview",
       "pages": ["introduction", "supertab-overview/supertab-introduction", "supertab-overview/core-concepts"]

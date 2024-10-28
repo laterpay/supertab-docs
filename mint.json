@@ -48,14 +48,6 @@
       "group": "Tutorials",
       "pages": ["tutorials/test-mode"]
     },
-    {
-      "group": "How To's",
-      "pages": []
-    },
-    {
-      "group": "API Documentation",
-      "pages": ["api-reference/introduction"]
-    }
   ],
   "footerSocials": {
     "x": "https://x.com/mintlify",

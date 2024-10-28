@@ -46,7 +46,7 @@
     },
     {
       "group": "Tutorials",
-      "pages": ["tutorials/test-mode"]
+      "pages": ["tutorials/quick-start", "tutorials/testmode"]
     },
   ],
   "footerSocials": {

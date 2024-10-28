@@ -41,6 +41,9 @@
   ],
   "navigation": [
     {
+      "Introduction": https://supertab.mintlify.app/introduction
+    },
+    {
       "group": "Supertab Overview",
       "pages": ["introduction", "supertab-overview/supertab-introduction", "supertab-overview/core-concepts"]
     },

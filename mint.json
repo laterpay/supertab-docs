@@ -41,8 +41,8 @@
   ],
   "navigation": [ 
     {
-      "group": "Overview",
-      "pages": ["introduction", "supertab-overview/supertab-introduction", "supertab-overview/core-concepts"]
+      "group": "Basics",
+      "pages": ["supertab-overview/supertab-introduction", "supertab-overview/core-concepts"]
     },
     {
       "group": "Tutorials",

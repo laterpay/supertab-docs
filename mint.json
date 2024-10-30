@@ -34,7 +34,7 @@
   "anchors": [
     {
       "name": "API Reference",
-      "openapi": "https://tapi.sbx.supertab.co/docs/openapi.json",
+      "openapi": "https://tapi.supertab.co/docs/openapi.json",
       "url": "api-reference",
       "icon": "square-terminal"
     }

@@ -50,6 +50,10 @@
     {
       "group": "Tutorials",
       "pages": ["tutorials/quick-start", "tutorials/testmode"]
+    },
+    {
+      "group": "How To Guides",
+      "pages": ["how-tos/howto-sell-a-pdf-with-button-tabjs"]
     }
   ],
   "footerSocials": {

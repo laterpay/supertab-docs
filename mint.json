@@ -39,19 +39,36 @@
       "icon": "square-terminal"
     }
   ],
-  "navigation": [ 
+  "navigation": [
     {
       "group": "Basics",
-      "pages": ["supertab-overview/supertab-introduction", "supertab-overview/core-concepts"]
+      "pages": [
+        "supertab-overview/supertab-introduction",
+        "supertab-overview/core-concepts"
+      ]
     },
     {
-      "group": "Tutorials",
-      "pages": ["tutorials/quick-start", "tutorials/testmode"]
+      "group": "Essentials",
+      "pages": [
+        "essentials/markdown",
+        "essentials/code",
+        "essentials/images",
+        "essentials/settings",
+        "essentials/navigation",
+        "essentials/reusable-snippets"
+      ]
+    },
+    {
+      "group": "Supertab docs",
+      "pages": ["SDKdocs", "testmode"]
+    },
+    {
+      "group": "API Documentation",
+      "pages": ["api-reference/introduction"]
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://linkedin.com/company/mintlify"
+    "x": "https://x.com/getsupertab",
+    "linkedin": "https://www.linkedin.com/company/supertab"
   }
 }

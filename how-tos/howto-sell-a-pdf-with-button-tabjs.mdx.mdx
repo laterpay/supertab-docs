@@ -78,12 +78,14 @@ You just need to make a few modifications to get this up and running:
 
 ```javascript
 containerElement: document.getElementById("pdf-button"),
+
 ```
 
 2. Within the onPurchaseCompleted callback function, add the following javascript, replacing the PDF path with the path to your PDF. (This code simply displays a link to the PDF when payment is complete): [EXPLAIN THIS more ] 
 
 ```javascript
 document.body.innerHTML += '<a href="https://ketotacular.com/downloads/pizza_recipe.pdf">View the PDF</a>'; 
+
 ```
 
 3. Your final code should look something like this: 
@@ -112,6 +114,7 @@ document.body.innerHTML += '<a href="https://ketotacular.com/downloads/pizza_rec
         },
       });
     </script> 
+
 ```
 
 4. Now just make sure you have a <div> on your page where the Add to Tab button will be called: 

@@ -9,7 +9,7 @@ Test Mode allows developers to test Experiences without processing real transact
 ## Key Features of Test Mode
 - Test mode replicates Live Mode behavior, except no real transactions occur. This allows comprehensive testing of all APIs and integration flows.
 - Each Site generates a Test Client ID and a Live Client ID. The Experience Editor automatically uses the correct ID based on the selected mode.
-- The Installation tab in the Experience Editor allows to toggle between modes and provides ready-to-use code snippets, eliminating the need for manual ID swapping. 
+- The Installation tab in the Experience Editor allows the toggling between modes and provides ready-to-use code snippets, eliminating the need for manual ID swapping. 
 - KYC is deferred until merchants are ready to go live. Merchants can create Sites, Offerings, and Experiences without completing KYC, but KYC must be completed before enabling Live Mode and starting to accept payments.
 
 ## Creating and Editing Experiences
@@ -20,7 +20,7 @@ Test Mode allows developers to test Experiences without processing real transact
     - The code must be installed on all pages where the Experience is intended to be displayed.
 
 
-## Using Stripe Test Cards
+## Using Stripe Test Credit Cards
 Use Stripe test cards to simulate various scenarios. Common test cards include:
 - Successful Payment: `4242 4242 4242 4242` (Visa)
 - Card Declined: `4000 0000 0000 0002`
@@ -35,7 +35,7 @@ For more, refer to [Stripe's Testing Guide](https://docs.stripe.com/testing).
 1. Install the Test Mode code snippet on all relevant pages.
 2. Visit the page displaying the Test Mode Experience.
 3. Keep adding Offerings to your Tab until you fill it up.
-4.Proceed to payment, and enter a Stripe test card.
+4. Proceed to payment, and enter a Stripe test card.
 5. Complete the form and confirm the transaction. The system will simulate the payment and return the result.
 
 ## Post-Transaction Testing and Monitoring
@@ -49,4 +49,3 @@ For more, refer to [Stripe's Testing Guide](https://docs.stripe.com/testing).
 3. Install the Live Mode code snippet on relevant pages.
 4. Use real cards for live transactions.
 5. Monitor live transactions in the Dashboard to ensure they process correctly.
-

@@ -41,19 +41,36 @@
   ],
   "navigation": [
     {
-      "group": "Basics",
+      "group": "Introduction",
       "pages": [
-        "supertab-overview/supertab-introduction",
-        "supertab-overview/core-concepts"
+        "supertab-introduction/overview/core-concepts",
+        "supertab-introduction/overview/common-usage",
+        "supertab-introduction/account-management/account-kyc"
       ]
     },
     {
-      "group": "Tutorials",
-      "pages": ["tutorials/quick-start", "tutorials/testmode"]
+      "group": "Supertab Experiences",
+      "pages": [
+        "supertab-experiences/sites",
+        "supertab-experiences/products-offerings-pricing",
+        "supertab-experiences/entitlements",
+        "supertab-experiences/experiences",
+        "supertab-experiences/test-mode"
+      ]
     },
     {
-      "group": "How To Guides",
-      "pages": ["how-tos/howto-sell-a-pdf-with-button-tabjs"]
+      "group": "Supertab Payments",
+      "pages": [
+        "supertab-payments/introduction"
+      ]
+    },
+    {
+      "group": "Integrate",
+      "pages": [
+        "supertab-integrate/google",
+        "supertab-integrate/tab-js",
+        "supertab-integrate/api"
+      ]
     }
   ],
   "footerSocials": {

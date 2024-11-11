@@ -1,3 +1,63 @@
 ---
 title: Introduction
+description: "Supertab's unique payment aggregation model makes small purchases possible"
 ---
+
+Sell any digital item or good for prices as low as $0.01. Supertab's payment aggregation system makes small purchases
+viable for the first time.
+
+## Customers
+
+Supertab provides a customer account and manages payment details, payments, invoicing and receipts, and fraud prevention.
+Customers can use their existing Supertab account when make purchases from you.
+
+## The Tab
+
+Purchases from many merchants are placed on a Tab, which aggregates purchases until reaching a predefined limit
+or inactivity period. Once this limit is reached the Tab closes and the customer is required to make payment.
+By combining purchases from across the internet onto a customer's Tab, Supertab is able to offer transaction fees
+not possible with traditional payment processing.
+
+### Limits and Inactivity
+
+Established customers for which Supertab holds payment details have a default limit of $5 (or local equiv.).
+Tabs reaching this limit must be paid. Customers expect to pay off their Tab once for every $5 of purchases
+they accumulate, or once per checkout for a purchases or purchases exceeding $5 total.
+
+Where Supertab holds payment details for a customer we automatically close the Tab and take payment after
+an inactivity period. Customers making no further purchases within 14 days of opening their Tab will make
+payment at the end of the inactivity period.
+
+## Checkout
+
+Customers see a Supertab checkout confirmation screen for every purchase or bundle of purchases they make.
+You may pass either a single purchase or list of purchases (shopping cart) for the customer to purchase
+using Supertab. Depending on their Tab limit the customer make not be required to make payment immediately –
+this is to allow the customer to make further purchases and utilise the benefits of Supertab's payment aggregation system.
+
+## Purchase Lifecycle
+
+### Pending
+
+Purchases begin in a `pending` state in which Supertab is either awaiting user approval to add the item to the
+customer's tab, or waiting for payment when a Tab limit has been crossed.
+
+### Completed
+
+Purchases are `completed` once the item has been successfully added to the customer's Tab, or when the Tab has been
+paid in the case of purchases which exceed the Tab limit.
+
+Once a purchases is `completed` you should grant access to the good or service the customer is purchasing.
+Payment will be taken at a later date.
+
+## Purchase Validation
+
+Sell with confidence by receiving notification of completed purchases, querying our API for purchases status
+or utilising our frontend tools to make sure your pending purchases have completed.
+
+## Payments
+
+Customers must make payment after reaching their Tab limit or after a period of inactivity.
+Where Supertab holds payment details for a customer we may take this payment automatically.
+You will receive funds immediately after the customer has paid off their Tab.
+

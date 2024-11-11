@@ -49,6 +49,13 @@
       ]
     },
     {
+      "group": "Supertab Payments",
+      "pages": [
+        "supertab-payments/introduction",
+        "supertab-payments/build"
+      ]
+    },
+    {
       "group": "Supertab Experiences",
       "pages": [
         "supertab-experiences/sites",
@@ -56,12 +63,6 @@
         "supertab-experiences/entitlements",
         "supertab-experiences/experiences",
         "supertab-experiences/test-mode"
-      ]
-    },
-    {
-      "group": "Supertab Payments",
-      "pages": [
-        "supertab-payments/introduction"
       ]
     },
     {

@@ -30,7 +30,8 @@
       "name": "API Reference",
       "url": "api-reference"
     }
-  ],
+  ]
+  
   "anchors": [
     {
       "name": "API Reference",
@@ -38,7 +39,8 @@
       "url": "api-reference",
       "icon": "square-terminal"
     }
-  ],
+  ]
+  
   "navigation": [
     {
       "group": "Introduction",
@@ -73,7 +75,8 @@
         "supertab-integrate/api"
       ]
     }
-  ],
+  ]
+  
   "footerSocials": {
     "x": "https://x.com/getsupertab",
     "linkedin": "https://www.linkedin.com/company/supertab"

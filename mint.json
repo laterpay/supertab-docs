@@ -58,6 +58,7 @@
     {
       "group": "Supertab Experiences",
       "pages": [
+        "supertab-experiences/introduction",
         "supertab-experiences/sites",
         "supertab-experiences/products-offerings-pricing",
         "supertab-experiences/entitlements",

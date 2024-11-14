@@ -31,6 +31,14 @@
       "url": "api-reference"
     }
   ],
+  "anchors": [
+    {
+      "name": "API Reference",
+      "openapi": "https://tapi.supertab.co/docs/openapi.json",
+      "url": "api-reference",
+      "icon": "square-terminal"
+    }
+  ],
   "navigation": [
     {
       "group": "Introduction",
@@ -64,16 +72,11 @@
         "supertab-integrate/tab-js",
         "supertab-integrate/api"
       ]
-    },
-    {
-      "group": "API Reference",
-      "openapi": "https://tapi.supertab.co/docs/openapi.json",
-      "url": "api-reference",
-      "icon": "square-terminal"
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/getsupertab",
-    "linkedin": "https://www.linkedin.com/company/supertab"
+    "x": "https://x.com/mintlify",
+    "github": "https://github.com/mintlify",
+    "linkedin": "https://linkedin.com/company/mintlify"
   }
 }

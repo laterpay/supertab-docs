@@ -3,7 +3,9 @@ title: "Purchase button"
 description: Use browser JS purchase button integration
 ---
 
-To get started with purchase button, first <a href="../supertab-experiences/experiences">set up the experience</a>. The code snippet generated in the last step of experience editor will look like the below.
+Supertab purchase button renders a button in DOM. When clicked, it initiates the purchase flow. Throughout the customer’s journey, various events may occur. Callback functions, defined in the initialization object, are triggered for these events, enabling you to handle them as needed.
+
+To get started with purchase button, first <a href="../supertab-experiences/experiences">set up the experience</a>. Once complete, the code snippet generated in the final step of the Experience Editor will look similar to the following:
 
 ```html
 <script type="module">
@@ -15,7 +17,8 @@ To get started with purchase button, first <a href="../supertab-experiences/expe
       clientId: "live_client.41aa0927-e29f-4572-add8-3c73fa0c0367",
       merchantName: "Your website name",
       merchantLogoUrl: "https://yourwebsite.com/path-to-logo.png",
-      offeringId: "offering.77bdfc93-5de0-48da-a9d0-65754e0bb947", // optional
+      offeringId: "offering.77bdfc93-5de0-48da-a9d0-65754e0bb947",
+      label: "Put it on my tab",
       onPurchaseCompleted: () => {
         //insert your code to grant user access
         console.log("Purchase completed!");
@@ -67,6 +70,10 @@ To get started with purchase button, first <a href="../supertab-experiences/expe
   offering is used.
 </ParamField>
 
+<ParamField path="label" type="string">
+  Purchase button label. Default: `Put it on my tab`.
+</ParamField>
+
 <ParamField path="uiConfig" type="object">
   An object defining custom colors for the button.
 
@@ -84,7 +91,8 @@ To get started with purchase button, first <a href="../supertab-experiences/expe
 
 <ParamField path="onPriorEntitlement" type="function">
   Called when a user has prior entitlement to the offering and can access the
-  content without a purchase.
+  content without a purchase. The prior entitlement may occur only for offerings
+  with access managed by Supertab – currently time passes and subscriptions.
 </ParamField>
 
 <ParamField path="onPurchaseCanceled" type="function">
@@ -93,6 +101,6 @@ To get started with purchase button, first <a href="../supertab-experiences/expe
 
 <ParamField path="onError" type="function">
   Called when there was an unexpected error that prevents the purchase flow to
-  continue. For example when wrong client ID and offering ID is supplied, or
+  continue. For example when wrong client ID and offering ID are supplied, or
   some API call failed because of network error.
 </ParamField>

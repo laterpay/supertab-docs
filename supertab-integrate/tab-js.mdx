@@ -1,3 +1,98 @@
 ---
-title: 'tab.js'
+title: "Purchase button"
+description: Use browser JS purchase button integration
 ---
+
+To get started with purchase button, first <a href="../supertab-experiences/experiences">set up the experience</a>. The code snippet generated in the last step of experience editor will look like the below.
+
+```html
+<script type="module">
+  import { createPurchaseButtonExperience } from "https://js.supertab.co/v1/experiences.js";
+
+  (async () => {
+    const { destroy } = await createPurchaseButtonExperience({
+      containerElement: document.getElementById("YOUR_ELEMENT_ID"),
+      clientId: "live_client.41aa0927-e29f-4572-add8-3c73fa0c0367",
+      merchantName: "Your website name",
+      merchantLogoUrl: "https://yourwebsite.com/path-to-logo.png",
+      offeringId: "offering.77bdfc93-5de0-48da-a9d0-65754e0bb947", // optional
+      onPurchaseCompleted: () => {
+        //insert your code to grant user access
+        console.log("Purchase completed!");
+      },
+      onPriorEntitlement: () => {
+        //insert your code to handle when prior entitlement is detected
+        console.log("User has prior entitlement.");
+      },
+      onPurchaseCanceled: () => {
+        //insert your code to handle when purchase is not completed
+        console.log("Purchase canceled!");
+      },
+      onError: () => {
+        //insert your code to handle an unexpected error
+        console.log("Purchase error!");
+      },
+      uiConfig: {
+        colors: {
+          text: "#9b4c4cff",
+          background: "#ffffffff",
+        },
+      },
+    });
+  })();
+</script>
+```
+
+## Initialization object properties
+
+<ParamField path="containerElement" type="Element" required>
+  DOM Element to render the purchase button in.
+</ParamField>
+
+<ParamField path="clientId" type="string" required>
+  Supertab client ID with `live_` or `test_` prefix. `test_` means the
+  integration runs in <a href="../supertab-experiences/test-mode">test mode</a>.
+</ParamField>
+
+<ParamField path="merchantName" type="string" required>
+  Your site name displayed in the purchase dialog on confirmation screen.
+</ParamField>
+
+<ParamField path="merchantLogoUrl" type="string" required>
+  URL path to your logo. Displayed on confirmation screen.
+</ParamField>
+
+<ParamField path="offeringId" type="string">
+  Offering ID to sell via the purchase button. If not supplied, the first site
+  offering is used.
+</ParamField>
+
+<ParamField path="uiConfig" type="object">
+  An object defining custom colors for the button.
+
+`text` HEX code for text color. Default: `#ffffff`
+
+`background` HEX code for background color. Default: `#0000000`
+
+</ParamField>
+
+### Callback functions
+
+<ParamField path="onPurchaseCompleted" type="function">
+  Called when the purchase is successfully completed.
+</ParamField>
+
+<ParamField path="onPriorEntitlement" type="function">
+  Called when a user has prior entitlement to the offering and can access the
+  content without a purchase.
+</ParamField>
+
+<ParamField path="onPurchaseCanceled" type="function">
+  Called when a user dismisses the purchase flow.
+</ParamField>
+
+<ParamField path="onError" type="function">
+  Called when there was an unexpected error that prevents the purchase flow to
+  continue. For example when wrong client ID and offering ID is supplied, or
+  some API call failed because of network error.
+</ParamField>

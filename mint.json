@@ -43,7 +43,7 @@
     {
       "group": "Introduction",
       "pages": [
-        "supertab-introduction/overview/core-concepts",
+        "supertab-introduction/overview/about-supertab",
         "supertab-introduction/overview/common-usage",
         "supertab-introduction/account-management/account-kyc"
       ]

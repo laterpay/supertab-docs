@@ -70,7 +70,7 @@
       "group": "Integrate",
       "pages": [
         "supertab-integrate/google",
-        "supertab-integrate/api"
+        "supertab-integrate/tab-js"
       ]
     }
   ],

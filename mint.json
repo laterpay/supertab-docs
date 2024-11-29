@@ -7,8 +7,8 @@
   },
   "favicon": "/favicon.webp",
   "colors": {
-    "primary": "#5B3580",
-    "light": "#5B3580",
+    "primary": "#5132F0",
+    "light": "#9D8AFF",
     "dark": "#5B3580",
     "anchors": {
       "from": "#5B3580",

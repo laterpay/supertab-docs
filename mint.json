@@ -48,13 +48,6 @@
       ]
     },
     {
-      "group": "Supertab Payments",
-      "pages": [
-        "supertab-payments/introduction",
-        "supertab-payments/build"
-      ]
-    },
-    {
       "group": "Supertab Experiences",
       "pages": [
         "supertab-experiences/introduction",

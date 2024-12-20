@@ -1,0 +1,47 @@
+---
+title: 'Authentication (Customer API)'
+sidebarTitle: 'Authentication'
+description: 'Generate bearer tokens for usage with the Customer API'
+---
+
+All requests to the Customer API require authentication with a bearer token unless stated otherwise.
+
+Supertab uses OAuth2 to issue JWT tokens which allow you take actions such as purchasing on behalf of your customer
+from within the browser.
+
+You should not implement OAuth2 yourself, instead use an [existing library](https://oauth.net/code/) or make use of the
+[browser-sdk](/) to obtain tokens.
+
+----
+
+### Clients
+
+Before making a request to the Customer API you must generate an OAuth client.
+
+This is done for you when you create a [site](/supertab-experiences/sites).
+Each site will have an associated live and [test](/supertab-experiences/test-mode) client.
+
+The current client is used by the Customer API to determine the [context](./clients) your integration is running in.
+
+### API Settings
+
+import SdkWarning from '/snippets/sdk-warning.mdx';
+
+<SdkWarning />
+
+| | |
+|--|--|
+| Base URL | `https://tapi.supertab.co/customer/` |
+| Supported Grants | `Authorization Code + PKCE`, `Refresh Token` |
+| Authentication URL | `https://auth.supertab.co/oauth2/auth` |
+| Token URL | `https://auth.supertab.co/oauth2/auth` |
+| Token Type | `bearer` |
+
+### Scopes
+
+The Customer API is scoped to allow issuing tokens with minimum permissions.
+
+The [api specification](/api-reference) details the required scopes for each operation.
+You must request a token with the scopes you require when authenticating the customer.
+
+The [browser-sdk](/) handles acquiring tokens with the correct scopes for you.

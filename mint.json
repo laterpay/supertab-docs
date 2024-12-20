@@ -34,7 +34,7 @@
   "anchors": [
     {
       "name": "API Reference",
-      "openapi": "https://tapi.supertab.co/docs/openapi.json",
+      "openapi": "/api-reference/openapi.yaml",
       "url": "api-reference",
       "icon": "square-terminal"
     }
@@ -61,7 +61,18 @@
       "group": "Integrate",
       "pages": [
         "supertab-integrate/google",
-        "supertab-integrate/tab-js"
+        "supertab-integrate/tab-js",
+        {
+          "group": "Customer API",
+          "pages": [
+            "supertab-integrate/customer-api/introduction",
+            "supertab-integrate/customer-api/authentication",
+            "supertab-integrate/customer-api/versioning",
+            "supertab-integrate/customer-api/clients",
+            "supertab-integrate/customer-api/purchasing",
+            "supertab-integrate/customer-api/payments"
+          ]
+        }
       ]
     }
   ],

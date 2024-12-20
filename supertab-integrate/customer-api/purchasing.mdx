@@ -1,0 +1,97 @@
+---
+title: 'Make Purchases'
+sidebarTitle: 'Purchasing'
+description: 'Purchase pre-defined offerings'
+---
+
+In order to purchase an offering you must first know its id and which currency to purchase the offering in.
+
+There details can be discovered by [retrieving the current client context and user details](./clients).
+
+<Warning>
+    We strongly recommend you interact with the Customer API using the [Supertab browser-sdk](/)
+    when building integrations with Supertab.
+
+    In general you should always use the browser-sdk to make purchases so that the customer can be properly
+    prompted to confirm their purchase intent.
+</Warning>
+
+---
+
+## Make a Purchase
+
+<CodeGroup>
+    ```javascript browser-sdk (js)
+    Example missing
+    ```
+</CodeGroup>
+
+### Request
+
+Purchases are placed on the customer's tab. If the customer does not have an active tab making a purchase will generate one.
+
+<ResponseField name="PurchaseRequest.offering_id" type="string">
+    The offering to purchase.
+</ResponseField>
+
+<ResponseField name="PurchaseRequest.currency_code" type="string">
+    ISO2417 currency code.
+
+    This currency must be supported by your client and offering, and available for the purchase by the customer.
+</ResponseField>
+
+<ResponseField name="PurchaseRequest.metadata" type="object">
+    Freeform metadata field.
+
+    You can attach arbitrary to a purchase, for example to include a user identifier from your system.
+
+    This metadata will be returned to you in purchases responses, or through the [Merchant API](/dead).
+</ResponseField>
+
+### Response
+
+<Note>
+    This part of the proposed API spec is under-developed
+</Note>
+
+
+<ResponseField name="Purchase.purchase_outcome" type="boolean">
+    Purchases that have been successfully placed on the customer's tab have are `completed`.
+    Access grants (if any) will process immediately.
+
+    If payment is required following this purchae (when the tab limit has been reached) the purchase is `pending`
+    and will transition to `completed` following payment.
+
+    Purchases may be `rejected` if Supertab they have e.g been requested in an unsupported currency.
+
+    <sub>Allowed values: `completed` `pending` `rejected`</sub>
+</ResponseField>
+
+<ResponseField name="Purchase.payment_required" type="boolean">
+    A purchase may require payment to `complete`.
+
+    You should forward the customer to the [payment flow.](./payments)
+</ResponseField>
+
+---
+
+## Making Purchases Without Invoking the Confirmation Flow
+
+It is possible to make a purchase on behalf of your customer without displaying the confirmation flow.
+
+<CodeGroup>
+    ```javascript browser-sdk (js)
+    Example missing
+    ```
+</CodeGroup>
+
+This may be desirable if you're integration expects to make several purchases in response to user actions,
+for example a chat bot which charges per message or bundle of messages.
+
+When making purchases without invoking the confirmation flow you must:
+
+- Have explicit user permission to do so (through a control in your UI or similar)
+- Give the user the option to disable this behaviour
+- Display a message informing the user you have made a purchase on their behalf automatically
+
+See [branding and deployment guidelines](/dead) for more information.

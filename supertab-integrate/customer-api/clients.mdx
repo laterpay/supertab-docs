@@ -1,0 +1,147 @@
+---
+title: 'Client Context and Available Offerings'
+sidebarTitle: 'Client Context & Offerings'
+description: 'Discover available offerings'
+---
+
+import SdkWarning from '/snippets/sdk-warning.mdx';
+
+Before being able to make a [purchase](./purchasing) you must first discover what offerings are available for sale
+and which currency you customer should make purchases in.
+
+<SdkWarning />
+
+## Customer Preferences
+
+<CodeGroup>
+    ```javascript browser-sdk (js)
+    Example missing
+    ```
+
+    ```curl curl (anonymous customer)
+    curl --request GET \
+        --url https://tapi.supertab.co/tabs/customers/anon \
+        --header 'Accept: application/json'
+    ```
+
+    ```curl curl (known customer)
+    curl --request GET \
+        --url https://tapi.supertab.co/tabs/customers/me \
+        --header 'Accept: application/json' \
+        --header 'Authorization: Bearer 123'
+    ```
+</CodeGroup>
+
+<ResponseField name="customer.preferences.suggested_currency" type="Currency">
+    Supertab suggests a currency for customers based on their location and purchase history.
+</ResponseField>
+
+<ResponseField name="customer.preferences.force_suggested_currency" type="boolean">
+    When `true` the customer must make purchases in the suggested currency. Purchases made in other currencies will fail.
+</ResponseField>
+
+<ResponseField name="customer.preferences.tab_limit" type="Price">
+    The limit for new tabs opened by this customer.
+</ResponseField>
+
+### For an anonymous (un-authenticated customer)
+
+If you have not yet required your customer to authenticate with Supertab you can retrieve suggest preferences
+for an anonymous customer. Supertab will suggest a currency and tab limit based on the customer's location,
+determined by their IP address.
+
+### For a known customer
+
+For returning customers, or those that have already created an account with Supertab as part of the purchasing flow
+Supertab will provide the currency and tab limit that applies to the customer.
+
+---
+
+## Available Offerings
+
+You API client can be used to discover what offerings are available for sale on the [site](/supertab-experiences/sites)
+the client is running on.
+
+Call [the `get-client-context` operation](/api-reference/clients/retrieve-client-context) to retrieve a list of available offerings.
+
+### Offerings
+
+<CodeGroup>
+    ```javascript browser-sdk (js)
+    Example missing
+    ```
+
+    ```curl curl
+    curl --request GET \
+    --url https://tapi.supertab.co/customer/clients/{client_id}
+    ```
+</CodeGroup>
+
+<ResponseField name="client.available_offerings" type="Offering[]">
+    When you create offerings in the business portal they are attached to one of your sites.
+
+    The client metadata provides a list of offerings available for sale from its associated site.
+
+    #### Basic Props
+
+    <Expandable title="properties summary" defaultOpen={true}>
+        <ResponseField name="description" type="string">
+            Customer facing name for the offering.
+        </ResponseField>
+    </Expandable>
+</ResponseField>
+
+### Pricing
+
+<ResponseField name="client.available_offerings[].prices" type="Price[]">
+    Prices for each currency this offering is for sale in.
+
+    Supertab localizes the price of your offerings based on your customer's location and existing
+    purchases made through Supertab.
+    <Expandable title="Price properties" defaultOpen={true}>
+        <ResponseField name="amont" type="integer">
+            Price amount expressed in currency base units
+        </ResponseField>
+        <ResponseField name="currency" type="string">
+            ISO4127 currency code
+        </ResponseField>
+        <ResponseField name="base_unit">
+            The relationship between the currency's minor and major units.
+
+            For most currencies including the USD this will be `100`.
+
+            For non-decimal currencies such as JPY this will be `1`.
+        </ResponseField>
+    </Expandable>
+</ResponseField>
+
+### Timepasses
+
+<ResponseField name="client.available_offerings[].time_pass_details.duration" type="string">
+    Offerings sold on a [timepass basis](/supertab-experiences/access-management) have their duration specified as
+    `{length}{unit}`.
+
+    Customers purchasing this offering will receive an access grant expiring at the *purchase completion time + the duration*.
+
+    Very short durations are possible should you wish to test your integrations with rapidly expiring access.
+
+    | Directive | Meaning |
+    | -- | -- |
+    | `y` | years |
+    | `M` | months |
+    | `w` | weeks |
+    | `d` | days |
+    | `h` | hours |
+    | `m` | minutes |
+    | `s` | seconds |
+
+    <sub>examples: `1M` – 1 month, `24h` – 24 hours</sub>
+</ResponseField>
+
+### Subscriptions
+
+<ResponseField name="client.available_offeringsp[].is_recurring" type="boolean">
+    Where your offerings are sold on a subscription basis this will be `true`.
+
+    Subscription offerings automatically renew at the end of the time pass duration.
+</ResponseField>

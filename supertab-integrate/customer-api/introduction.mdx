@@ -1,0 +1,43 @@
+---
+title: 'Supertab Customer API'
+sidebarTitle: 'Introduction'
+description: 'Build paygates, charge for access to SaaS products and utilise the power of micropayments in your customers browser'
+---
+
+import SdkWarning from '/snippets/sdk-warning.mdx';
+
+The Customer API can be used to develop integrations with Supertab for websites or products that run primarily in
+your customer's browser. It can be used to purchase pre-defined [offerings](/supertab-experiences/products-offerings-pricing)
+or [arbitrary micro purchases](/dead).
+
+## Browser SDK
+
+It is best to utilise the Customer API through the Supertab [browser-sdk](/dead).
+The underlying API is documented here as reference for what is happening "under the hood" when you utilise the browser-sdk.
+All examples include their browser-sdk equivalents.
+
+<SdkWarning />
+
+## Workflow
+
+<Steps>
+    <Step title="Discover client context">
+        Load information on the current [user and client context](./clients) to discover available offerings,
+        your customer's tab limit and currency preferences.
+    </Step>
+    <Step title="Display offerings to your customer">
+        Offer your customer a choice of ways to purchase access to your content, product or digital goods.
+    </Step>
+    <Step title="Make a purchase">
+        When your customer has made a choice, place the [purchase on their tab](./purchasing) in order to complete it.
+    </Step>
+    <Step title="Forward your customer to the payment flow">
+        When the customer has filled their tab, it's time to redirect them to the [payment flow](./payments).
+    </Step>
+    <Step title="Check status of customer purchases">
+        Use the [Merchant API](/dead) or subscribe to a [webhook](/dead) to get updates about your customer's purchases
+        and access status.
+    </Step>
+</Steps>
+
+

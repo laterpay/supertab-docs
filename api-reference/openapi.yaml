@@ -1,0 +1,738 @@
+openapi: 3.1.0
+x-stoplight:
+  id: bwf4bxcyqz8kx
+info:
+  title: Supertab Tab API
+  version: '1.0'
+  summary: 'API for interacting with the Tab, making purchases etc'
+  description: 'Consumed within the browser by customers the Tab API deals with purchasing, access etc, intended for deployment on merchant websites'
+servers:
+  - url: 'https://tapi.supertab.co/tabs/'
+paths:
+  '/clients/{client_id}':
+    get:
+      summary: Retrieve client metadata
+      tags:
+        - clients
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientMetadata'
+      operationId: retrieve-site
+      x-stoplight:
+        id: fd4jux4l0g6de
+      description: Retrieves metadata for your API client.
+      security: []
+    parameters:
+      - schema:
+          type: string
+        name: client_id
+        in: path
+        required: true
+        description: Your API client ID
+  /customers/anon:
+    get:
+      summary: Retrieve suggested preferences for an anonymous customer
+      tags:
+        - customers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+      operationId: retrieve-anonymous-customer
+      x-stoplight:
+        id: koom5bxnbuhta
+      security: []
+      description: |-
+        Retrieves suggested preferences when a customer has not yet logged in to Supertab.
+
+        Before displaying available offerings to a customer you must know which currency
+        they will purchase in and what limits apply to them. You may use this endpoint to get
+        a prediction of the customer preferences for un-authenticated customers
+    parameters: []
+  /customers/me:
+    get:
+      summary: Retrieve current customer
+      tags:
+        - customers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+      operationId: retrieve-customer
+      x-stoplight:
+        id: nhkgx45hy1cd6
+      description: Retrieves the authenticated customer.
+  /tabs/current:
+    get:
+      summary: Retrieve current tab
+      tags:
+        - tabs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tab'
+        '204':
+          description: 'No Content, the customer does not have an open tab.'
+      operationId: retrieve-tab
+      x-stoplight:
+        id: dgkbx3sc0qf2l
+      description: |
+        Retrieves the customer's current tab.
+
+        Tab's contain details of purchases the customer has made from you
+        and an obfuscated summary of purchases made from other merchants.
+  /tabs/purchase/offering:
+    parameters: []
+    post:
+      summary: Purchase an offering
+      tags:
+        - tabs
+      responses:
+        '202':
+          description: Accept. Purchase was successful. A payment may be required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseResult'
+        '409':
+          description: Conflict. The customer has attempted to make several purchases at the same time
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseResult'
+        '422':
+          description: Validation error. You may have attempted to purchase an offering in a currency not available to the customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PurchaseResult'
+      operationId: purchase-offering
+      x-stoplight:
+        id: zlaaqln1dzxyx
+      description: |-
+        Purchases a pre-defined offering by placing it on the customer's current tab.
+
+        If the customer does not have a tab one will be created for them.
+
+        Depending on the customer's existing relationship with Supertab 
+        they may be required to make purchases in a specific currency. 
+        Check the customer preferences for guidance before making a purchase
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - offering_id
+                - currency_code
+              properties:
+                offering_id:
+                  type: string
+                  x-stoplight:
+                    id: scpjeu46j0vbf
+                  example: offering.cf637646-71a4-430d-aaea-a66f1a48a83c
+                  description: The offering to purchase
+                currency_code:
+                  type: string
+                  x-stoplight:
+                    id: mm9l2ocihmygw
+                  example: USD
+                  description: |-
+                    Which currency to make the purchase in.
+
+                    The currency must be available in the selected offering 
+                    and match the tab currency when adding a purchase to an existing tab
+                metadata:
+                  type: object
+                  x-stoplight:
+                    id: zkabs81byqpip
+                  description: Freeform metadata to associate with this purchase
+  /tabs/payment:
+    post:
+      summary: Start payment for the current tab
+      tags:
+        - tabs
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  not_sure_about_this_one:
+                    type: string
+                    x-stoplight:
+                      id: n1k8avelilczx
+                  order_id:
+                    type: string
+                    x-stoplight:
+                      id: pdlisqywiiyi4
+                    example: order.cf637646-71a4-430d-aaea-a66f1a48a83c
+                  redirect_to:
+                    type: string
+                    x-stoplight:
+                      id: 6uueujd1dqx82
+                    format: uri
+      operationId: start-payment
+      x-stoplight:
+        id: et6bd3luym9tr
+      description: |-
+        Starts a payment for the customer's current tab.
+
+        An order is generated for the current tab and you should redirect the user 
+        to checkout with this order id.
+  '/access/check/{content_key}':
+    parameters:
+      - schema:
+          type: string
+          example: site.cf637646-71a4-430d-aaea-a66f1a48a83c
+        name: content_key
+        in: path
+        required: true
+        description: The content_key to check access for
+    get:
+      summary: Check access status
+      tags:
+        - access
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessStatus'
+      operationId: retrieve-access-status
+      x-stoplight:
+        id: lnlkkshna95lz
+      description: Retrieves the access status for the given content key.
+    post:
+      summary: Check multiple access statuses
+      tags:
+        - access
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessCheckResult'
+      operationId: retrieve-multiple-access-status
+      x-stoplight:
+        id: bxqa5o0vjvyp2
+      description: |-
+        Retrieves the access status for mutliple content keys.
+
+        Where a customer may have access at multiple levels it can be useful to check all of them
+        at once, for example a combination of whole site access and individual article access.
+
+        If the customer has access to *any* of the provided content keys Supertab considers their access as current.
+components:
+  schemas:
+    ClientMetadata:
+      title: ClientMetadata
+      x-stoplight:
+        id: svikznh2oeji5
+      type: object
+      description: Metadata describing a frontend API client.
+      required:
+        - id
+        - available_offerings
+      properties:
+        id:
+          type: string
+          x-stoplight:
+            id: o5teubziy68fc
+          example: live_client.cf637646-71a4-430d-aaea-a66f1a48a83c
+          readOnly: true
+        site:
+          $ref: '#/components/schemas/Site'
+          x-stoplight:
+            id: 1h2ki6z78ravj
+        available_offerings:
+          type: array
+          x-stoplight:
+            id: gmckix9t9dwxk
+          description: |-
+            Offerings available for sale using this client.
+            This is a list of all offerings attached to the site the client belongs to.
+          items:
+            $ref: '#/components/schemas/Offering'
+            x-stoplight:
+              id: tq9hrg3l6pin3
+          readOnly: true
+        available_currencies:
+          type: array
+          x-stoplight:
+            id: d66squ3a6j60h
+          description: Currencies which this client supports
+          items:
+            $ref: '#/components/schemas/Currency'
+            x-stoplight:
+              id: 3tw6nluyxtgte
+        test_mode:
+          type: boolean
+          x-stoplight:
+            id: udc9hgyoszul2
+          description: |
+            Is this a test client.
+
+            Purchases made through test clients are placed on test mode tabs.
+            Payments made from test clients use test card details and will not charge you.
+    Offering:
+      title: Offering
+      x-stoplight:
+        id: 4abx3dqtaskqk
+      type: object
+      description: |-
+        Offerings are what is available for customers to purchase. 
+
+        You can define your available offerings in the [Supertab Business Portal](https://business.supertab.co). 
+      properties:
+        id:
+          type: string
+          x-stoplight:
+            id: akjkb1ls9wcxx
+          example: offering.cf637646-71a4-430d-aaea-a66f1a48a83c
+          readOnly: true
+        description:
+          type: string
+          x-stoplight:
+            id: 1hy0c70pp0qip
+          description: Customer facing name for the offering.
+          example: 1 week access to theleek.com
+          readOnly: true
+        summary:
+          type: string
+          x-stoplight:
+            id: fd4bp0ww50xc5
+          description: The statement descriptor shown to the customer after payment.
+        time_pass_details:
+          $ref: '#/components/schemas/TimePassDetails'
+          x-stoplight:
+            id: 9zquoyosjcf05
+        is_recurring:
+          type: boolean
+          x-stoplight:
+            id: 6bzy7kk5igsnl
+          description: If this offering is sold on a recurring basis (as a subscription)
+        content_key:
+          type: string
+          x-stoplight:
+            id: 7od41oezlmt6c
+          description: 'The content key associated with this offering, if you have chosed to have Supertab manage customer access for you.'
+          example: site.cf637646-71a4-430d-aaea-a66f1a48a83c
+        prices:
+          type: array
+          x-stoplight:
+            id: b3ylf1xmdep3y
+          description: |-
+            Prices this offering is available for sale in. 
+
+            Note that depending on a customer's existing Supertab account 
+            they may have a limited choice as to which currency they make purchases in.
+          items:
+            $ref: '#/components/schemas/Price'
+            x-stoplight:
+              id: tyifezjznmrp7
+    TimePassDetails:
+      title: TimePassDetails
+      x-stoplight:
+        id: incr1nb7kzwyh
+      type: object
+      description: 'Specifies the duration of a timepass offering. Where you have chosen to have Supertab manage access to your content, customer''s purchasing such an offering will be granted access to the content associated with the offering for the length of time specified.'
+      examples:
+        - duration: 1w
+      properties:
+        duration:
+          type: string
+          x-stoplight:
+            id: 1jyofu0qbhinl
+          example: 1w
+          pattern: '^\d*[s|m|h|d|w|M|y]$'
+          minLength: 2
+          maxLength: 9
+          description: |-
+            Duration of the timepass, as `{length}{unit}`.
+
+            Possible units:
+
+            Directive | Meaning 
+            ---------|----------
+            `y` | years
+            `M` | months
+            `w` | weeks
+            `d` | days
+            `h` | hours
+            `m` | minutes
+            `s` | seconds
+          readOnly: true
+    Price:
+      title: Price
+      x-stoplight:
+        id: 1na9uaob2sgmn
+      type: object
+      description: An amount of money
+      properties:
+        amount:
+          type: integer
+          x-stoplight:
+            id: bejmxyojtlm2d
+          description: Price amount expressed in currency base units
+          example: 50
+        currency:
+          type: string
+          x-stoplight:
+            id: xizegmdjfbp3t
+          minLength: 3
+          maxLength: 3
+          example: USD
+          description: ISO4127 currency code
+        base_unit:
+          type: integer
+          x-stoplight:
+            id: 3xpwhu5fsl2vj
+          example: 100
+          description: |-
+            The relationship between the currency's minor and major unit. 
+
+            For most currencies including USD & EUR this will be `100`.
+            For currencies which do not use decimals (e.g JPY) this will `1`
+    Site:
+      title: Site
+      x-stoplight:
+        id: m47pvdgage9jl
+      type: object
+      properties:
+        id:
+          type: string
+          x-stoplight:
+            id: hlgy067y54iz3
+          example: site.cf637646-71a4-430d-aaea-a66f1a48a83c
+        name:
+          type: string
+          x-stoplight:
+            id: l15i6zk83ylah
+          example: The Leek
+          description: The name of the site
+      description: |-
+        A site is any website, SaaS product or any other place you deploy Supertab.
+
+        It is the top level object in your inventory and contains all offerings.
+    Currency:
+      title: Currency
+      x-stoplight:
+        id: g6l9moyipxbgh
+      type: object
+      description: Supertab is available in many currencies.
+      properties:
+        code:
+          type: string
+          x-stoplight:
+            id: ntlac9bhotv8j
+          example: USD
+          description: ISO2417 currency code
+        name:
+          type: string
+          x-stoplight:
+            id: jl4kihgi7ycu7
+          example: US Dollar
+          description: Full name
+        symbol:
+          type: string
+          x-stoplight:
+            id: q7nikfwc9v0zc
+          description: Unicode currency symbol
+          example: $
+        base_unit:
+          type: integer
+          x-stoplight:
+            id: awpdf9of4sqvf
+          example: 100
+          description: |-
+            The relationship between the currency's minor and major unit. 
+
+            For most currencies including USD & EUR this will be `100`.
+            For currencies which do not use decimals (e.g JPY) this will `1`
+    CustomerPreferences:
+      title: CustomerPreferences
+      x-stoplight:
+        id: 0ue7mvmlbav6x
+      type: object
+      description: Information on what currency to sell offerings in and what the tab limit for the customer is
+      properties:
+        suggested_currency:
+          $ref: '#/components/schemas/Currency'
+          x-stoplight:
+            id: q9rldjlwvtble
+          description: |-
+            Which currency to display to the customer. 
+
+            This is determined by IP address for customer's without an existing tab.
+            For customer's who have already made purchases through Supertab this is the
+            currency of their existing tab.
+
+            The suggested currency may change once a customer has been authenticated
+        force_suggested_currency:
+          type: boolean
+          x-stoplight:
+            id: lcnhk6ty57uy2
+          default: true
+          description: Can the customer use any currency or must they make purchases in the suggested currency.
+        tab_limit:
+          $ref: '#/components/schemas/Price'
+          x-stoplight:
+            id: 94hd8059db1b4
+          description: The expected limit for new tabs the customer opens
+    Customer:
+      title: Customer
+      x-stoplight:
+        id: pv3pls31nqtyb
+      type: object
+      properties:
+        id:
+          type: string
+          x-stoplight:
+            id: h9ol8gnyd4ahv
+          example: user.cf637646-71a4-430d-aaea-a66f1a48a83c
+        first_name:
+          type: string
+          x-stoplight:
+            id: bq1w7uuw33wze
+          example: Max
+          description: 'Customer''s first name, if known'
+        preferences:
+          $ref: '#/components/schemas/CustomerPreferences'
+          x-stoplight:
+            id: brm7kl8l4kmim
+        is_authenticated:
+          type: boolean
+          x-stoplight:
+            id: bu973gy55zjlz
+          description: Is this a logged in customer or preferences based on IP address
+    Tab:
+      title: Tab
+      x-stoplight:
+        id: z8hipdmsvpajb
+      type: object
+      description: |
+        The Tab is at the heart of Supertab. It aggregates purchases customers make and tracks when they are required to make payment.
+      properties:
+        id:
+          type: string
+          x-stoplight:
+            id: 11w71muw39hw1
+          example: tab.cf637646-71a4-430d-aaea-a66f1a48a83c
+        user_id:
+          type: string
+          x-stoplight:
+            id: rlsdap3bkhj1m
+          example: user.cf637646-71a4-430d-aaea-a66f1a48a83c
+          description: The owner of the tab
+        test_mode:
+          type: boolean
+          x-stoplight:
+            id: xc6qtb2oshk8m
+          description: |-
+            Is this a test mode tab.
+
+            Test mode tabs grant access as usual but will not result in actual charges to customers.
+            Test mode tabs are generated from test clients.
+        currency:
+          $ref: '#/components/schemas/Currency'
+          x-stoplight:
+            id: n3wbin4egsmx7
+          description: The currency of the tab. All purchases on this tab must be made in this currency.
+        total:
+          $ref: '#/components/schemas/Price'
+          x-stoplight:
+            id: es5iu90ncqws0
+          description: The current total value of purchases made on this tab
+        limit:
+          $ref: '#/components/schemas/Price'
+          x-stoplight:
+            id: nt7imh35mj8a7
+          description: The limit which when reached will require the customer to make payment.
+        purchases:
+          $ref: '#/components/schemas/Purchase'
+          x-stoplight:
+            id: bv6l2rjjavj7b
+          description: Details of what this customer has purchased from your merchant account
+    Purchase:
+      title: Purchase
+      x-stoplight:
+        id: snolsr3kykvvq
+      type: object
+      properties:
+        id:
+          type: string
+          x-stoplight:
+            id: r5th3ar4cfem1
+          example: purchase.cf637646-71a4-430d-aaea-a66f1a48a83c
+        purchase_date:
+          type: string
+          x-stoplight:
+            id: rrw2j8ih53088
+          format: date-time
+          description: The time the purchase completed.
+        price:
+          $ref: '#/components/schemas/Price'
+          x-stoplight:
+            id: k926zelsso4rz
+        status:
+          $ref: '#/components/schemas/PurchaseStatus'
+          x-stoplight:
+            id: d5p894y54qpag
+          description: |-
+            The status of the purchase.
+
+            Purchases may be `pending` or `completed`. 
+
+            Only `completed` purchases grant access, `pending` purchases 
+            are purchases which require payment before access should be granted
+        metadata:
+          type: object
+          x-stoplight:
+            id: 32p9iigrezbu1
+          description: |-
+            Freeform metadata associated with the purchase. 
+
+            This can be used for e.g associating the purchase with a user identifier in your system
+    PurchaseStatus:
+      title: PurchaseStatus
+      x-stoplight:
+        id: gcpp14sjrj8wf
+      enum:
+        - pending
+        - completed
+    PurchaseResult:
+      title: PurchaseResult
+      x-stoplight:
+        id: 0tskqq86ovyu4
+      type: object
+      properties:
+        purchase:
+          $ref: '#/components/schemas/Purchase'
+          x-stoplight:
+            id: tp24izdq3ot71
+        payment_required:
+          type: boolean
+          x-stoplight:
+            id: 66bhawkcn6526
+          description: |-
+            Is payment required to complete this purchase.
+
+            If `true` your client should forward the customer into the payment process.
+        purchase_outcome:
+          x-stoplight:
+            id: 1ppv4zxei2vgc
+          enum:
+            - completed
+            - pending
+            - rejected
+          description: |-
+            The outcome of the purchase.
+
+
+            Outcome | Meaning
+            ---------|----------
+            `completed` | The purchase has been added to the customer's tab and access will be granted
+            `pending` | The tab is full and the customer must make payment before receiving access
+            `rejected` | The purchase failed
+        rejection_reason:
+          type: string
+          x-stoplight:
+            id: tkys7nnxi9u52
+          description: Why the purchase was rejected
+    AccessStatus:
+      title: AccessStatus
+      x-stoplight:
+        id: 2d596biof1wub
+      type: object
+      description: A customer's access status to a given content_key
+      properties:
+        content_key:
+          type: string
+          x-stoplight:
+            id: m4sknrlyvtrbt
+          example: site.cf637646-71a4-430d-aaea-a66f1a48a83c
+          description: The content_key being checked
+        has_access:
+          type: boolean
+          x-stoplight:
+            id: reeu1ya0jgld5
+          description: If the customer has access to this content
+        expires:
+          type: string
+          x-stoplight:
+            id: g464blm4uuep0
+          format: date-time
+          description: When the customer's access will expire
+    AccessCheckResult:
+      title: AccessCheckResult
+      x-stoplight:
+        id: ibr1j3kj4vfvv
+      type: object
+      description: Supertab's access model grants customer acccess to content if any of the checked content keys have access.
+      properties:
+        content_keys:
+          type: array
+          x-stoplight:
+            id: dgfvla1xcdgqc
+          description: Content keys being checked
+          items:
+            x-stoplight:
+              id: 89o4kxirj0ml0
+            type: string
+            example: site.cf637646-71a4-430d-aaea-a66f1a48a83c
+        has_access:
+          type: boolean
+          x-stoplight:
+            id: 2rq53dvszkp88
+          description: If the customer has access to any of the content keys being checked
+        latest_expiry:
+          type: string
+          x-stoplight:
+            id: 342h3mwqms4zm
+          format: date-time
+          description: The latest expiry time found for the content keys being checked
+        access_statuses:
+          type: array
+          x-stoplight:
+            id: pjdxpywpiyddc
+          items:
+            $ref: '#/components/schemas/AccessStatus'
+            x-stoplight:
+              id: j52s827877a3q
+  securitySchemes:
+    pkce:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: ''
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes: {}
+      description: |-
+        The Tab API is intended for consumption from a web browser.
+        Use Authorization Code + PKCE to generate a user bearer token.
+security:
+  - pkce: []
+tags:
+  - name: access
+  - name: clients
+  - name: customers
+  - name: tabs

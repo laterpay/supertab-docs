@@ -40,10 +40,15 @@ import SdkWarning from '/snippets/sdk-warning.mdx';
 ### Redirect URIs
 
 In order to successfully authenticate using oAuth2 you must pass a known redirect URI to the Authentication URL.
+You can configure your site's redirect URIs from the [Business Portal](https://business.supertab.co).
 
-**Supertab currently only supports authenticating customers through the use of a pop up**, you must pass the
-redirect URI as `https://signon.supertab.co/oauth/auth-proxy?origin={your-site-url}` where `{your-site-url}` is the
-url you set when creating the site.
+In order to support enhanced UX you may also authenticate your customer in a pop up.
+
+To do so, open a popup to the authentication URL with your redirect uri set to
+`https://signon.supertab.co/oauth/auth-proxy?origin={your-site-url}` where `{your-site-url}` is the
+one the redirect URIs you set when creating the site.
+
+You must open the popup from the same domain as your redirect URI.
 
 This page will communicate back to your website via an opener message upon successful authentication.
 We recommend you use the Browser SDK to handle all authentication, which takes care of this for you.

@@ -34,8 +34,19 @@ import SdkWarning from '/snippets/sdk-warning.mdx';
 | Base URL | `https://tapi.supertab.co/customer/` |
 | Supported Grants | `Authorization Code + PKCE`, `Refresh Token` |
 | Authentication URL | `https://auth.supertab.co/oauth2/auth` |
-| Token URL | `https://auth.supertab.co/oauth2/auth` |
+| Token URL | `https://auth.supertab.co/oauth2/token` |
 | Token Type | `bearer` |
+
+### Redirect URIs
+
+In order to successfully authenticate using oAuth2 you must pass a known redirect URI to the Authentication URL.
+
+**Supertab currently only supports authenticating customers through the use of a pop up**, you must pass the
+redirect URI as `https://signon.supertab.co/oauth/auth-proxy?origin={your-site-url}` where `{your-site-url}` is the
+url you set when creating the site.
+
+This page will communicate back to your website via an opener message upon successful authentication.
+We recommend you use the Browser SDK to handle all authentication, which takes care of this for you.
 
 ### Scopes
 

@@ -3,6 +3,13 @@ title: 'Versioning'
 description: 'Make sure you are consuming the correct API version'
 ---
 
-The Customer API uses header based versioning. You must pass the `x-api-version` header with every request.
-A new API version is released monthly and each version is supported for 18 months.
+The Customer API uses header based versioning.
+
+### Version Header
+
+You should pass the `x-api-version` header with every request.
+When this header is not provided you will automatically consume the latest version of the API, which could lead to
+unexpected behaviour.
+
+New API versions are released regularly, each version is supported for 18 months.
 

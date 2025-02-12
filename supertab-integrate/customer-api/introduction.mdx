@@ -1,20 +1,20 @@
 ---
 title: 'Supertab Customer API'
 sidebarTitle: 'Introduction'
-description: 'Build paygates, charge for access to SaaS products and utilise the power of micropayments in your customers browser'
+description: 'Utilise the power of micropayments in your application'
 ---
 
 import SdkWarning from '/snippets/sdk-warning.mdx';
 
 The Customer API can be used to develop integrations with Supertab for websites or products that run primarily in
-your customer's browser. It can be used to purchase pre-defined [offerings](/supertab-experiences/products-offerings-pricing)
-or [arbitrary micro purchases](/dead).
+your customer's browser. It is used to purchase pre-defined [offerings](/supertab-experiences/products-offerings-pricing)
+or [arbitrary micro purchases](/dead), and powers Supertab Experiences.
 
-## Browser SDK
+## Customer SDK
 
-It is best to utilise the Customer API through the Supertab [browser-sdk](/dead).
-The underlying API is documented here as reference for what is happening "under the hood" when you utilise the browser-sdk.
-All examples include their browser-sdk equivalents.
+It is best to utilise the Customer API through the Supertab [Customer SDK](/dead).
+The underlying API is documented here as reference for what is happening "under the hood".
+All examples include their Customer SDK equivalents.
 
 <SdkWarning />
 
@@ -25,6 +25,9 @@ All examples include their browser-sdk equivalents.
         Load information on the current [user and client context](./clients) to discover available offerings,
         your customer's tab limit and currency preferences.
     </Step>
+    <Step title="Check for pre-existing entitlements">
+        Check if your customer already has access from a prior purchase or current subscription.
+    </Step>
     <Step title="Display offerings to your customer">
         Offer your customer a choice of ways to purchase access to your content, product or digital goods.
     </Step>
@@ -32,12 +35,31 @@ All examples include their browser-sdk equivalents.
         When your customer has made a choice, place the [purchase on their tab](./purchasing) in order to complete it.
     </Step>
     <Step title="Forward your customer to the payment flow">
-        When the customer has filled their tab, it's time to redirect them to the [payment flow](./payments).
+        Supertab requires payment once the customer fills their tab.
+
+        Purchase results will tell you when to redirect your customer into the [payment flow](./payment).
     </Step>
     <Step title="Check status of customer purchases">
         Use the [Merchant API](/dead) or subscribe to a [webhook](/dead) to get updates about your customer's purchases
         and access status.
     </Step>
 </Steps>
+
+## Next
+
+<CardGroup cols={2}>
+    <Card title="Authentication" icon="lock" href="./authentication">
+        Authenticate customers to take actions on their behalf
+    </Card>
+    <Card title="Versioning" icon="calendar-days" href="./versioning">
+        Call the correct version of the API
+    </Card>
+    <Card title="Config" icon="gear" href="./clients">
+        Discover available offerings and customer preferences
+    </Card>
+    <Card title="Purchasing" icon="dollar-sign" href="./purchasing">
+        Make purchases
+    </Card>
+</CardGroup>
 
 

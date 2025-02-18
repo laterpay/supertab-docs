@@ -10,7 +10,7 @@ Supertab uses OAuth2 to issue JWT tokens which allow you take actions such as pu
 from within the browser.
 
 You should not implement OAuth2 yourself, instead use an [existing library](https://oauth.net/code/) or make use of the
-[Customer SDK](/dead) to obtain tokens.
+[Supertab JS](/dead) to obtain tokens.
 
 To make authenticated calls pass the token acquired from the Token URL in the `Authorization` header.
 
@@ -81,7 +81,7 @@ one the redirect URIs you set when creating the site.
 You must open the popup from the same domain as your redirect URI.
 
 This page will communicate back to your website via an opener message upon successful authentication.
-We recommend you use the Customer SDK to handle all authentication, which takes care of this for you.
+We recommend you use Supertab JS to handle all authentication, which takes care of this for you.
 
 ### Scopes
 
@@ -90,4 +90,4 @@ The Customer API is scoped to allow issuing tokens with minimum permissions.
 The [api specification](/api-reference) details the required scopes for each operation.
 You must request a token with the scopes you require when authenticating the customer.
 
-The [Customer SDK](/dead) handles acquiring tokens with the correct scopes for you.
+[Supertab JS](/dead) handles acquiring tokens with the correct scopes for you.

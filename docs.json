@@ -1,0 +1,78 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Supertab docs",
+  "colors": {
+    "primary": "#5132F0",
+    "light": "#9D8AFF",
+    "dark": "#5132F0"
+  },
+  "favicon": "/favicon.webp",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Introduction",
+            "pages": [
+              "supertab-introduction/overview/about-supertab",
+              "supertab-introduction/account-management/account-kyc"
+            ]
+          },
+          {
+            "group": "Supertab Experiences",
+            "pages": [
+              "supertab-experiences/introduction",
+              "supertab-experiences/sites",
+              "supertab-experiences/products-offerings-pricing",
+              "supertab-experiences/experiences",
+              "supertab-experiences/test-mode"
+            ]
+          },
+          {
+            "group": "Integrate",
+            "pages": [
+              "supertab-integrate/google",
+              "supertab-integrate/tab-js"
+            ]
+          }
+        ]
+      },
+      {
+        "tab":  "Updates",
+        "groups": [
+          {
+            "group": "Updates",
+            "pages": [
+              "updates/product"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "https://support.supertab.co/hc/en-us/requests/new"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Business Portal",
+      "href": "https://business.supertab.co"
+    }
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/getsupertab",
+      "linkedin": "https://www.linkedin.com/company/supertab"
+    }
+  }
+}

@@ -32,21 +32,20 @@
           },
           {
             "group": "Integrate",
-            "pages": [
-              "supertab-integrate/google",
-              "supertab-integrate/tab-js"
-            ]
+            "pages": ["supertab-integrate/google", "supertab-integrate/tab-js"]
+          },
+          {
+            "group": "Supertab JS",
+            "pages": ["supertab-js/introduction"]
           }
         ]
       },
       {
-        "tab":  "Updates",
+        "tab": "Updates",
         "groups": [
           {
             "group": "Updates",
-            "pages": [
-              "updates/product"
-            ]
+            "pages": ["updates/product"]
           }
         ]
       }

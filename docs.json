@@ -36,7 +36,7 @@
           },
           {
             "group": "Supertab JS",
-            "pages": ["supertab-js/introduction"]
+            "pages": ["supertab-js/introduction", "supertab-js/installation"]
           }
         ]
       },

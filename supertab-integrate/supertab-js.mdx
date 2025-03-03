@@ -1,0 +1,60 @@
+---
+title: "Supertab JS"
+description: Easy integration via browser JS SDK
+---
+
+This guide documents all available methods of `Supertab` object in browser-side JavaScript package `@getsupertab/supertab-js`.
+
+## Installation
+
+### Pre-requisites
+
+The following is required to start working with Supertab JS:
+
+1. Supertab business account. <a href="https://business.supertab.co/register">Create one here</a>.
+2. Site created in the business portal. <a href="../supertab-experiences/sites">Go to the guide</a>.
+3. Client ID for the created site. You can find it in the list of sites on Sites page in the business portal.
+
+### Direct script include
+
+Add the following script tag to your HTML:
+
+```html
+<script src="https://js.supertab.co/v2/bundle.js"></script>
+```
+
+This exposes `Supertab` class to the `window` object. You can then instantiate the Supertab client:
+
+```javascript
+const SupertabClient = new window.Supertab({
+  clientId: "client.test",
+});
+```
+
+### npm package
+
+```bash
+npm install @getsupertab/supertab-browser
+```
+
+Then import and instantiate the Supertab client:
+
+```javascript
+import Supertab from "@getsupertab/supertab-js";
+
+const SupertabClient = new Supertab({
+  clientId: "client.test",
+});
+```
+
+## Quick Start
+
+Once Supertab client is instantiated, it provides various services that you can access through its properties:
+
+- `customer` - for interacting with customer data
+- `site` - for accessing site properties
+- `purchase` - for handling purchases
+- `entitlement` - for checking status of entitlement
+- `experience` – for starting experiences
+
+Each service exposes specific methods to help you integrate Supertab functionality into your application.

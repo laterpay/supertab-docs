@@ -32,11 +32,11 @@
           },
           {
             "group": "Integrate",
-            "pages": ["supertab-integrate/google", "supertab-integrate/tab-js"]
-          },
-          {
-            "group": "Supertab JS",
-            "pages": ["supertab-js/introduction", "supertab-js/installation"]
+            "pages": [
+              "supertab-integrate/google",
+              "supertab-integrate/tab-js",
+              "supertab-integrate/supertab-js"
+            ]
           }
         ]
       },

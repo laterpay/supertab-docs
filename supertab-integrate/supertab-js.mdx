@@ -59,6 +59,24 @@ Once Supertab client is instantiated, it provides various services that you can 
 
 Each service exposes specific methods to help you integrate Supertab functionality into your application.
 
+# Quick Start
+
+Launch paygate experience on current page.
+
+```javascript
+import Supertab from "@getsupertab/supertab-js";
+
+const SupertabClient = new Supertab({
+  clientId: "client.test",
+});
+
+const paygate = await SupertabClient.experience.startExperience({
+  experienceId: "experience.test",
+});
+
+paygate.show();
+```
+
 # Reference
 
 ## Customer
@@ -102,3 +120,7 @@ Methods to purchase the offering ID, purchase intent ID, and getting purchase de
 ## Experience
 
 ### `startExperience`
+
+```
+
+```

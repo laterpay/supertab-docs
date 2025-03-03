@@ -5,15 +5,15 @@ description: Easy integration via browser JS SDK
 
 This guide documents all available methods of `Supertab` object in browser-side JavaScript package `@getsupertab/supertab-js`.
 
-## Installation
-
-### Pre-requisites
+## Pre-requisites
 
 The following is required to start working with Supertab JS:
 
 1. Supertab business account. <a href="https://business.supertab.co/register">Create one here</a>.
 2. Site created in the business portal. <a href="../supertab-experiences/sites">Go to the guide</a>.
 3. Client ID for the created site. You can find it in the list of sites on Sites page in the business portal.
+
+## Installation
 
 ### Direct script include
 
@@ -47,7 +47,7 @@ const SupertabClient = new Supertab({
 });
 ```
 
-## Quick Start
+### Next steps
 
 Once Supertab client is instantiated, it provides various services that you can access through its properties:
 
@@ -58,3 +58,47 @@ Once Supertab client is instantiated, it provides various services that you can 
 - `experience` – for starting experiences
 
 Each service exposes specific methods to help you integrate Supertab functionality into your application.
+
+# Reference
+
+## Customer
+
+Allows retrieving current customer information – their authentication status, tab information, and purchases.
+
+### `retrieveCurrentCustomer`
+
+Retrieve current customer data.
+
+### `retrieveCustomerTab` ⚠️
+
+Retrieve user's tab details.
+
+### `retrieveCustomerPurchases` ⚠️
+
+Retrieve list of customer purchases. Returns an empty array if there are no purchases on user's tab.
+
+## Site
+
+Get site properties like site name, logo, offerings, or experiences.
+
+### `retrieveSite`
+
+Returns the object with site details – name, URL, site logo, content keys, offerings, and experiences.
+
+## Purchase
+
+Methods to purchase the offering ID, purchase intent ID, and getting purchase details by purchase ID.
+
+### `purchaseOffering`
+
+### `purchaseIntent` ⚠️
+
+### `retrievePurchase`
+
+## Entitlement
+
+### `checkEntitlementStatus`
+
+## Experience
+
+### `startExperience`

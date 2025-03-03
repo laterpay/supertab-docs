@@ -34,19 +34,18 @@
             "group": "Integrate",
             "pages": [
               "supertab-integrate/google",
-              "supertab-integrate/tab-js"
+              "supertab-integrate/tab-js",
+              "supertab-integrate/supertab-js"
             ]
           }
         ]
       },
       {
-        "tab":  "Updates",
+        "tab": "Updates",
         "groups": [
           {
             "group": "Updates",
-            "pages": [
-              "updates/product"
-            ]
+            "pages": ["updates/product"]
           }
         ]
       }

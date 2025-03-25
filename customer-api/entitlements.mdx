@@ -1,0 +1,30 @@
+---
+title: 'Check for Entitlements, including Prior Entitlements'
+sidebarTitle: 'Check for Entitlements'
+description: 'Serve content to returning customers'
+icon: 'check'
+---
+
+import SdkWarning from '/snippets/sdk-warning.mdx';
+
+<SdkWarning />
+
+<Steps>
+    <Step title="Authenticate your customer">
+        Begin an <a href="./authentication">oauth flow</a> to obtain a bearer token for your customer.
+
+        You must have a token for an authenticated customer before checking entitlement status.
+    </Step>
+    <Step title="Retrieve the current site">
+        Where you have chosen to have Supertab manage entitlements for you you must
+        <a href="./endpoints/retrieve-site">retrieve the current site</a> in order to determine which
+        `content_key` applies for entitlement checks.
+    </Step>
+    <Step title="Retrieve entitlement status">
+        With the `content_key` and a customer's bearer token you can check
+        <a href="./endpoints/retrieve-entitlement-status">entitlement status</a>.
+
+        The response details what entitlement (if any) the customer has for the provided `content_key`,
+        when that entitlement expires and if the entitlement will recur.
+    </Step>
+</Steps>

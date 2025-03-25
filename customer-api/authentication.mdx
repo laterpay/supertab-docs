@@ -1,0 +1,107 @@
+---
+title: 'Authentication (Customer API)'
+sidebarTitle: 'Authentication'
+description: 'Generate bearer tokens for usage with the Customer API'
+icon: lock
+---
+
+import SdkWarning from '/snippets/sdk-warning.mdx';
+
+<SdkWarning />
+
+
+All requests to the Customer API require authentication with a bearer token unless stated otherwise.
+
+Supertab uses OAuth2 to issue JWT tokens which allow you take actions such as purchasing on behalf of your customer
+from within the browser.
+
+You should not implement OAuth2 yourself, instead use an [existing library](https://oauth.net/code/) or make use of the
+[Supertab JS](/dead) to obtain tokens.
+
+To make authenticated calls pass the token acquired from the Token URL in the `Authorization` header.
+
+<CodeGroup>
+    ```javascript Supertab JS
+    supertab = new Supertab(new Config(clientId))
+
+    // Supertab JS launches the authentication flow in a pop up
+    // and stores the resulting token in local storage
+    supertab.authenticate()
+    ```
+
+    ```bash curl
+    curl --location 'https://capi.supertab.co/customers/me' \
+    --header 'Authorization: Bearer ••••••' \
+    --header 'X-Supertab-Client-ID: ••••••'
+    ```
+
+    ```javascript javascript
+    fetch('https://capi.supertab.co/customers/me', {
+        method: 'GET',
+        headers: {
+        'Authorization': 'Bearer ******',
+        'X-Supertab-Client-ID': '******',
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    ```
+</CodeGroup>
+
+----
+
+### Clients
+
+Before making a request to the Customer API you must generate an OAuth client.
+
+<Warning>
+    Make sure to use the client detail generated for your site when working with the Customer API.
+
+    The API Keys generated separately in the Business Portal are for use with the [Merchant API](/dead).
+</Warning>
+
+This is done for you automatically when you create a [site](/supertab-experiences/sites).
+Each site will have an associated live and [test](/supertab-experiences/test-mode) client.
+
+The current client is used by the Customer API to determine the [context](./clients) your integration is running in.
+
+You **must** pass an `x-supertab-client-id` header with every request containing your client id.
+
+### API Settings
+
+| | |
+|--|--|
+| Base URL | `https://tapi.supertab.co/customer/` |
+| Supported Grants | `Authorization Code + PKCE`, `Refresh Token` |
+| Authentication URL | `https://auth.supertab.co/oauth2/auth` |
+| Token URL | `https://auth.supertab.co/oauth2/token` |
+| Token Type | `bearer` |
+
+### Redirect URIs
+
+In order to successfully authenticate using oAuth2 you must pass a known redirect URI to the Authentication URL.
+You can configure your site's redirect URIs from the [Business Portal](https://business.supertab.co).
+
+In order to support enhanced UX you may also authenticate your customer in a pop up.
+
+To do so, open a popup to the authentication URL with your redirect uri set to
+`https://signon.supertab.co/oauth/auth-proxy?origin={your-site-url}` where `{your-site-url}` is the
+one the redirect URIs you set when creating the site.
+
+You must open the popup from the same domain as your redirect URI.
+
+This page will communicate back to your website via an opener message upon successful authentication.
+We recommend you use Supertab JS to handle all authentication, which takes care of this for you.
+
+### Scopes
+
+The Customer API is scoped to allow issuing tokens with minimum permissions.
+
+The [api specification](/api-reference) details the required scopes for each operation.
+You must request a token with the scopes you require when authenticating the customer.
+
+[Supertab JS](/dead) handles acquiring tokens with the correct scopes for you.

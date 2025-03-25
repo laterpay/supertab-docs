@@ -8,6 +8,11 @@
     "dark": "#5132F0"
   },
   "favicon": "/favicon.webp",
+  "api": {
+    "playground": {
+      "display": "none"
+    }
+  },
   "navigation": {
     "tabs": [
       {
@@ -35,23 +40,13 @@
             "pages": [
               "supertab-integrate/google",
               "supertab-integrate/tab-js",
-              {
-                "group": "Customer API",
-                "pages": [
-                  "supertab-integrate/customer-api/introduction",
-                  "supertab-integrate/customer-api/authentication",
-                  "supertab-integrate/customer-api/versioning",
-                  "supertab-integrate/customer-api/clients",
-                  "supertab-integrate/customer-api/purchasing",
-                  "supertab-integrate/customer-api/payments"
-                ]
-              }
+              "supertab-integrate/customer-api"
             ]
           }
         ]
       },
       {
-        "tab":  "Updates",
+        "tab": "Updates",
         "groups": [
           {
             "group": "Updates",
@@ -62,8 +57,39 @@
         ]
       },
       {
-        "tab": "API Reference",
-        "openapi": "./api-reference/openapi.yaml"
+        "tab": "Customer API",
+        "versions": [
+          {
+            "version": "2025-04-01",
+            "groups": [
+              {
+                "group": "Reference",
+                "pages": [
+                  "customer-api/authentication",
+                  "customer-api/versioning"
+                ]
+              },
+              {
+                "group": "Guides",
+                "pages": [
+                  "customer-api/making-a-purchase",
+                  "customer-api/entitlements"
+                ]
+              },
+              {
+                "group": "Endpoints",
+                "pages": [
+                  "customer-api/endpoints/retrieve-customer",
+                  "customer-api/endpoints/retrieve-site",
+                  "customer-api/endpoints/purchase-an-offering",
+                  "customer-api/endpoints/retrieve-a-purchase",
+                  "customer-api/endpoints/retrieve-entitlement-status"
+
+                ]
+              }
+            ]
+          }
+        ]
       }
     ]
   },

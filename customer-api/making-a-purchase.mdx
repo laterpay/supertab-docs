@@ -1,0 +1,45 @@
+---
+title: 'Making a Purchase'
+description: 'Purchase a pre-defined Offering using the Customer API'
+icon: 'circle-dollar-to-slot'
+---
+
+
+import SdkWarning from '/snippets/sdk-warning.mdx';
+
+<SdkWarning />
+
+
+<Steps>
+    <Step title="Authenticate your customer">
+        Begin an <a href="./authentication">oauth flow</a> to obtain a bearer token for your customer.
+
+        You must have a token for an authenticated customer before attempting to make a purchase.
+    </Step>
+    <Step title="Retrieve the current site">
+        Before being able to purchase an offering you must first know its ID and which currency your customer uses.
+        The <a href="./endpoints/retrieve-site">site</a> contains information on which offerings are available for sale,
+        and their prices in your customer's current currency.
+
+        If you have already retrieved the current site before authenticating your customer it is important
+        you re-fetch this information, as pricing details may have changed.
+    </Step>
+    <Step title="Purchase the offering">
+        <a href="./endpoints/purchase-an-offering">Purchase</a> the offering in the correct currency to place it on your customer's tab.
+
+        The response includes any resulting purchase and details of what action is required (if any) to complete the purchase.
+
+        Purchases may be created in a `pending` state when further action is required. This is usually a payment
+        from the customer.
+    </Step>
+    <Step title="Check purchase status">
+        If a purchase has been created in a `pending` state
+        you may poll for the <a href="./endpoints/retrieve-a-purchase">status of the purchase</a>.
+
+        This is useful when you expect the purchase to complete soon (e.g you have already opened a payment popup)
+        and need to perform some action after successful purchase immediately within the browser.
+
+        You can also check purchase status through the Merchant API (when checking from a backend),
+        by subscribing to a webhook, or by opener messages from checkout.supertab.co
+    </Step>
+</Steps>

@@ -10,7 +10,7 @@
   "favicon": "/favicon.webp",
   "api": {
     "playground": {
-      "display": "none"
+      "display": "simple"
     }
   },
   "navigation": {

@@ -1,7 +1,7 @@
 ---
-title: 'Client Context and Available Offerings'
-sidebarTitle: 'Client Context & Offerings'
-description: 'Discover which offerings are available for sale'
+title: 'Customers and Available Offerings'
+sidebarTitle: 'Customers & Offerings'
+description: 'Discover which offerings are available for sale & prepare for purchasing'
 ---
 
 import SdkWarning from '/snippets/sdk-warning.mdx';
@@ -11,49 +11,62 @@ and which currency you customer should make purchases in.
 
 <SdkWarning />
 
-## Customer Preferences
+## Customer
+
+`GET /customers/me`
+
+Retrieve the current customer and information about their current tab.
+
+Authentication on this endpoint is optional.
+When called with a bearer token you will receive explicit information about the current customer.
+When called without Supertab will suggest what the customer's tab is likely to look like if they open one now,
+based on their location and settings on your merchant account.
 
 <CodeGroup>
-    ```javascript browser-sdk (js)
-    Example missing
+    ```javascript Supertab JS
+    supertab = new Supertab(new Config(clientId))
+
+    supertab.getCustomer()
+
+    // You must refetch the current customer following an authentication
+    // if you are managing customer state yourself
+    supertab.authenticate()
+    supertab.getCustomer()
     ```
 
     ```curl curl (anonymous customer)
     curl --request GET \
         --url https://tapi.supertab.co/tabs/customers/anon \
         --header 'Accept: application/json'
+       --header 'X-Supertab-Client-ID: ••••••'
     ```
 
     ```curl curl (known customer)
     curl --request GET \
         --url https://tapi.supertab.co/tabs/customers/me \
         --header 'Accept: application/json' \
-        --header 'Authorization: Bearer 123'
+        --header 'Authorization: Bearer ••••••'
+        --header 'X-Supertab-Client-ID: ••••••'
     ```
 </CodeGroup>
 
-<ResponseField name="customer.preferences.suggested_currency" type="Currency">
-    Supertab suggests a currency for customers based on their location and purchase history.
+<ResponseField name="customer.authenticated" type="boolean">
+    Reflects how you called this endpoint, is the customer "real" or are you seeing predicted details
+    if the customer were to open an account right now.
 </ResponseField>
 
-<ResponseField name="customer.preferences.force_suggested_currency" type="boolean">
-    When `true` the customer must make purchases in the suggested currency. Purchases made in other currencies will fail.
+<ResponseField name="customer.tab" type="Tab">
+    The customer's current tab, on which new (non subscription) purchases will be placed.
 </ResponseField>
 
-<ResponseField name="customer.preferences.tab_limit" type="Price">
-    The limit for new tabs opened by this customer.
+<ResponseField name="customer.tab.currency" type="Currency">
+    The customer's preferred currency. If the customer has an open tab or subscription they must keep
+    making purchases in this currency.
 </ResponseField>
 
-### For an anonymous (un-authenticated customer)
-
-If you have not yet required your customer to authenticate with Supertab you can retrieve suggest preferences
-for an anonymous customer. Supertab will suggest a currency and tab limit based on the customer's location,
-determined by their IP address.
-
-### For a known customer
-
-For returning customers, or those that have already created an account with Supertab as part of the purchasing flow
-Supertab will provide the currency and tab limit that applies to the customer.
+<ResponseField name="customer.tab.limit" type="Price">
+    The customer's current tab limit, once this limit is exceeded a payment will be required.
+</ResponseField>
 
 ---
 

@@ -6,9 +6,9 @@ description: 'Utilise the power of micropayments in your application'
 
 import SdkWarning from '/snippets/sdk-warning.mdx';
 
-The Customer API can be used to develop integrations with Supertab for websites or products that run primarily in
-your customer's browser. It is used to purchase pre-defined [offerings](/supertab-experiences/products-offerings-pricing)
-or [arbitrary micro purchases](/dead), and powers Supertab Experiences.
+The Customer API powers [Supertab Experiences](/supertab-experiences/introduction) and can be used
+to develop integrations with Supertab for websites or products that run primarily in your
+customer's browser.
 
 ## Supertab JS
 
@@ -18,12 +18,23 @@ All examples include their Supertab JS equivalents.
 
 <SdkWarning />
 
+![Customer API / Supertab JS Relationship](./images/customerapi-js-relationship.png)
+
+## Features
+
+* Identify your customer and receive information on the purchases on their tab
+* Retrieve details of the inventory you've made available for sale
+* Check your customer's existing entitlements
+* Make purchases on your customer's behalf
+
 ## Workflow
 
 <Steps>
-    <Step title="Discover client context">
-        Load information on the current [user and client context](./clients) to discover available offerings,
+    <Step title="Prepare">
+        Load information on the current [user and available inventory](./clients) to discover available offerings,
         your customer's tab limit and currency preferences.
+
+        We automatically create [API clients](./authentication) for you for each of your sites.
     </Step>
     <Step title="Check for pre-existing entitlements">
         Check if your customer already has access from a prior purchase or current subscription.
@@ -32,16 +43,15 @@ All examples include their Supertab JS equivalents.
         Offer your customer a choice of ways to purchase access to your content, product or digital goods.
     </Step>
     <Step title="Make a purchase">
-        When your customer has made a choice, place the [purchase on their tab](./purchasing) in order to complete it.
+        When your customer has made a choice, place the [purchase on their tab](./purchasing) or begin a subscription.
     </Step>
     <Step title="Forward your customer to the payment flow">
         Supertab requires payment once the customer fills their tab.
-
         Purchase results will tell you when to redirect your customer into the [payment flow](./payment).
     </Step>
     <Step title="Check status of customer purchases">
-        Use the [Merchant API](/dead) or subscribe to a [webhook](/dead) to get updates about your customer's purchases
-        and access status.
+        Use the [Merchant API](/dead) or subscribe to a [webhook](/dead) to get secure updates
+        about your customer's purchases and entitlement status.
     </Step>
 </Steps>
 

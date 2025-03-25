@@ -15,16 +15,26 @@ You should not implement OAuth2 yourself, instead use an [existing library](http
 To make authenticated calls pass the token acquired from the Token URL in the `Authorization` header.
 
 <CodeGroup>
+    ```javascript Supertab JS
+    supertab = new Supertab(new Config(clientId))
+
+    // Supertab JS launches the authentication flow in a pop up
+    // and stores the resulting token in local storage
+    supertab.authenticate()
+    ```
+
     ```bash curl
-    curl --location 'https://tapi.supertab.co/customer/customers/me' \
-    --header 'Authorization: Bearer ••••••
+    curl --location 'https://capi.supertab.co/customers/me' \
+    --header 'Authorization: Bearer ••••••' \
+    --header 'X-Supertab-Client-ID: ••••••'
     ```
 
     ```javascript javascript
-    fetch('https://tapi.supertab.co/customer/customers/me', {
+    fetch('https://capi.supertab.co/customers/me', {
         method: 'GET',
         headers: {
         'Authorization': 'Bearer ******',
+        'X-Supertab-Client-ID': '******',
         }
     })
     .then(response => {
@@ -48,10 +58,12 @@ Before making a request to the Customer API you must generate an OAuth client.
     The API Keys generated separately in the Business Portal are for use with the [Merchant API](/dead).
 </Warning>
 
-This is done for you when you create a [site](/supertab-experiences/sites).
+This is done for you automatically when you create a [site](/supertab-experiences/sites).
 Each site will have an associated live and [test](/supertab-experiences/test-mode) client.
 
 The current client is used by the Customer API to determine the [context](./clients) your integration is running in.
+
+You **must** pass a `X-Supertab-Client-ID` header with every request containing your client id.
 
 ### API Settings
 

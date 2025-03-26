@@ -31,6 +31,12 @@ import SdkWarning from '/snippets/sdk-warning.mdx';
 
         Purchases may be created in a `pending` state when further action is required. This is usually a payment
         from the customer.
+
+        <Note>
+            Supertab does not prevent customers from making purchases with duplicative entitlements,
+            you should check for prior entitlement before making any purchase and be careful not to send
+            multiple purchase requests simultaneously
+        </Note>
     </Step>
     <Step title="Check purchase status">
         If a purchase has been created in a `pending` state

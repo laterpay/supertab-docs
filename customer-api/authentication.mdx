@@ -21,14 +21,6 @@ You should not implement OAuth2 yourself, instead use an [existing library](http
 To make authenticated calls pass the token acquired from the Token URL in the `Authorization` header.
 
 <CodeGroup>
-    ```javascript Supertab JS
-    supertab = new Supertab(new Config(clientId))
-
-    // Supertab JS launches the authentication flow in a pop up
-    // and stores the resulting token in local storage
-    supertab.authenticate()
-    ```
-
     ```bash curl
     curl --location 'https://capi.supertab.co/customers/me' \
     --header 'Authorization: Bearer ••••••' \

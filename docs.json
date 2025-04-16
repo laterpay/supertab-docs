@@ -108,8 +108,7 @@
                 "group": "Endpoints",
                 "pages": [
                   "merchant-api/endpoints/create-onetime-offering",
-                  "merchant-api/endpoints/retrieve-onetime-offering",
-                  "merchant-api/endpoints/retrieve-purchase"
+                  "merchant-api/endpoints/retrieve-onetime-offering"
                 ]
               }
             ]

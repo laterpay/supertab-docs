@@ -15,10 +15,12 @@ All requests to the Customer API require authentication with a bearer token unle
 Supertab uses OAuth2 to issue JWT tokens which allow you take actions such as purchasing on behalf of your customer
 from within the browser.
 
-You should not implement OAuth2 yourself, instead use an [existing library](https://oauth.net/code/) or make use of the
-[Supertab JS](/dead) to obtain tokens.
+You should not implement OAuth2 yourself, instead use an [existing library](https://oauth.net/code/), or (recommended) make use of
+[Supertab JS](/dead) to authenticate users and obtain tokens.
 
-To make authenticated calls pass the token acquired from the Token URL in the `Authorization` header.
+To make authenticated calls to the Customer API, pass the token acquired in the `Authorization` header.
+
+All calls to the Customer API must also include the `x-supertab-client-id` header with your client id. See [Clients](#clients) for more information.
 
 <CodeGroup>
     ```bash curl
@@ -50,18 +52,19 @@ To make authenticated calls pass the token acquired from the Token URL in the `A
 
 Before making a request to the Customer API you must generate an OAuth client.
 
+This is done for you automatically when you create a [site](/supertab-experiences/sites).
+Each site will have an associated live and [test](/supertab-experiences/test-mode) client.
+
+You **must** pass an `x-supertab-client-id` header with every request containing your client id.
+
+The client id is used by the Customer API to determine which site the request is for, and whether the request is in test or live mode.
+
 <Warning>
     Make sure to use the client detail generated for your site when working with the Customer API.
 
     The API Keys generated separately in the Business Portal are for use with the [Merchant API](/dead).
 </Warning>
 
-This is done for you automatically when you create a [site](/supertab-experiences/sites).
-Each site will have an associated live and [test](/supertab-experiences/test-mode) client.
-
-The current client is used by the Customer API to determine the [context](./clients) your integration is running in.
-
-You **must** pass an `x-supertab-client-id` header with every request containing your client id.
 
 ### API Settings
 
@@ -76,18 +79,14 @@ You **must** pass an `x-supertab-client-id` header with every request containing
 ### Redirect URIs
 
 In order to successfully authenticate using oAuth2 you must pass a known redirect URI to the Authentication URL.
-You can configure your site's redirect URIs from the [Business Portal](https://business.supertab.co).
+You can configure your site's redirect URI from the [Business Portal](https://business.supertab.co) - this is the Site URI that you provided when creating the site.
 
-In order to support enhanced UX you may also authenticate your customer in a pop up.
-
-To do so, open a popup to the authentication URL with your redirect uri set to
-`https://signon.supertab.co/oauth/auth-proxy?origin={your-site-url}` where `{your-site-url}` is the
-one the redirect URIs you set when creating the site.
+In order to support enhanced UX you may also authenticate your customer in a pop-up. To do so, open a popup to the authentication URL with your redirect uri set to
+`https://signon.supertab.co/oauth2/auth-proxy?origin={your-site-url}` where `{your-site-url}` is the Site URI you set when creating the site.
 
 You must open the popup from the same domain as your redirect URI.
 
-This page will communicate back to your website via an opener message upon successful authentication.
-We recommend you use Supertab JS to handle all authentication, which takes care of this for you.
+We recommend you use [Supertab JS](/dead) to handle all authentication.
 
 ### Scopes
 

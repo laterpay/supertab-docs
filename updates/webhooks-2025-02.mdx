@@ -1,0 +1,34 @@
+---
+title: "Validate Purchases with Server-Side Webhooks"
+description: "Merchants can now securely confirm completed purchases and trigger powerful post-purchase workflows—like granting access, sending emails, or updating analytics—in real time."
+---
+
+### What’s new
+
+We’ve introduced two key features to help merchants validate purchases securely:
+
+1. Webhooks that notify your server when a purchase is complete
+2. Enhanced client-side callbacks that include detailed purchase data
+
+### Why it matters
+
+For high-value services—like generative AI or premium content—client-side validation isn’t enough. This release enables secure, server-side confirmation of purchases before access is granted, reducing fraud and protecting merchant resources.
+
+### What you can do with it
+
+Server-side webhooks unlock a wide range of automation and security options:
+
+- **Secure Access Control** — Grant access to content or services only after a verified purchase.
+- **Personalized Onboarding** — Kick off welcome emails, setup flows, or user provisioning.
+- **Real-Time Analytics** — Sync purchase data with internal dashboards or CRMs.
+- **Customer Support Workflows** — Create support tickets or alerts when purchases happen.
+- **Loyalty & Rewards** — Automatically assign points or trigger reward logic based on purchases.
+
+### How it works
+
+![Webhooks Section in the Supertab Business Portal](/images/Webhooks.png)
+- Enable webhooks from the new **Webhooks** tab in the Business Portal. We use Svix to deliver events like purchase.added, including key purchase metadata.
+- Use the updated `onPurchaseComplete` callback in Tab.js to access purchase ID, user ID, and other validation data.
+- Webhooks also work in [**Test Mode**](https://docs.supertab.co/supertab-experiences/test-mode), so you can safely build and test your integration.
+
+This gives you end-to-end purchase security and the flexibility to build powerful merchant-side workflows. Want to see it in action? [Reach out for a demo or setup support](mailto:sales@supertab.co).

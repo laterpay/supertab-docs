@@ -5,7 +5,7 @@ description: "Invoking Purchase Button experience in Supertab JS"
 
 import ExperiencesConfigParameters from "/snippets/supertab-js/experiences-config-parameters.mdx";
 
-## `createPurchaseButton`
+## `startPurchaseButton`
 
 ```html
 <div id="supertab-button-container"></div>
@@ -14,7 +14,7 @@ import ExperiencesConfigParameters from "/snippets/supertab-js/experiences-confi
 ```javascript
 const supertabClient = new Supertab({ clientId: "test_client.abc" });
 
-const supertabButton = supertabClient.createPurchaseButton({
+const supertabButton = supertabClient.startPurchaseButton({
   containerElement: document.getElementById("supertab-button-container"),
   experienceId: "experience.abc",
   onPurchaseCompleted: () => {},

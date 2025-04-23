@@ -122,6 +122,30 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Merchant API",
+        "versions": [
+          {
+            "version": "2025-04-01",
+            "groups": [
+              {
+                "group": "Reference",
+                "pages": [
+                  "merchant-api/authentication",
+                  "merchant-api/versioning"
+                ]
+              },
+              {
+                "group": "Endpoints",
+                "pages": [
+                  "merchant-api/endpoints/create-onetime-offering",
+                  "merchant-api/endpoints/retrieve-onetime-offering"
+                ]
+              }
+            ]
+          }
+        ]
       }
     ]
   },

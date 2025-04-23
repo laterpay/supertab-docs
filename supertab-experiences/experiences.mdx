@@ -5,23 +5,27 @@ description: "Install the Supertab Basic Paygate or Purchase Button"
 
 ## Basic Paygate
 
-<Tip>The Basic Paygate experience is best when you want a simple integration where Supertab manages access for you</Tip>
+<Tip>
+  The Basic Paygate experience is best when you want a simple integration where Supertab manages access for you
+</Tip>
 
 Basic Paygates display your site's timepass and subscription offerings to customers. The experience will launch automatically on page load and block access to your content until the customer makes a purchase or logs in to use an existing entitlement.
 
 The Basic Paygate is simple, yet adaptable:
 
-* The layout will react to the number of Offerings you select
-
-* A second screen can be added for more customization
-
-* Upsells give you an option to encourage customers to choose other (e.g. longer) offerings. If we detect savings for the user, we will show a calculated discount.
-
-* To align with your brand, colors can be customized and the logo will be displayed at the top of the Paygate (if you added it to the Site)
+- The layout will react to the number of Offerings you select
+- A second screen can be added for more customization
+- Upsells give you an option to encourage customers to choose other (e.g. longer) offerings. If we detect savings for the user, we will show a calculated discount.
+- To align with your brand, colors can be customized and the logo will be displayed at the top of the Paygate (if you added it to the Site)
+- Parts of the Paygate text can be edited in all languages we support.
 
 ### **Paygate Installation**
 
-**Prerequisite:** you need to create your <a href="./sites">sites</a> and <a href="./products-offerings-pricing">offerings</a> before setting up a Paygate.
+**Prerequisite:** you need to create your sites
+
+ and offerings
+
+ before setting up a Paygate.
 
 We automatically create the first Basic Paygate for each new site using default time passes.
 
@@ -31,95 +35,81 @@ We automatically create the first Basic Paygate for each new site using default 
 
     If you intend to use the automatically generated Paygate, click the **Edit** button next to it.
   </Step>
-
   <Step title="Paygate Setup">
-    From the Site dropdown, choose the Site where the Paygate should appear. Select **Basic Paygate** as the Experience type.&#x20;
-
-
+    From the Site dropdown, choose the Site where the Paygate should appear. Select **Basic Paygate** as the Experience type. 
 
     Paygate Redirect URL determines where we will redirect customers if they see the Paygate and close it. We automatically set it to your site URL but it can redirect anywhere (e.g. to a dedicated page).
 
-
-
     **Save** to continue.
   </Step>
-
   <Step title="Choose Offerings">
-    In the **Offerings** section, you can choose 1 to 3 Offerings for the main screen. If you enable the **"More options" screen**, you will get three more Offering slots.&#x20;
+    In the **Offerings** section, you can choose 1 to 3 Offerings for the main screen. If you enable the **"More options" screen**, you will get three more Offering slots. 
 
+    Use the Offering dropdowns to select what to sell and determine the order of Offerings. The preview is interactive and will show changes as you go. 
 
+    You cannot use the same Offering on a screen twice. 
 
-    Use the Offering dropdowns to select what to sell and determine the order of Offerings. The preview is interactive and will show changes as you go.&#x20;
-
-    You cannot use the same Offering on a screen twice.&#x20;
-
-
-
-    For each Offering, you can choose an upsell. We will calculate the difference between prices and if we detect a discount, it will be displayed on the Paygate. Upsells are only displayed when customer clicks on the associated Offering.&#x20;
+    For each Offering, you can choose an upsell. We will calculate the difference between prices and if we detect a discount, it will be displayed on the Paygate. Upsells are only displayed when customer clicks on the associated Offering. 
 
     If we detect no discount, the Paygate will adapt to not show the savings badge.
 
     There are no restrictions for upsells other than the Offering and the associated upsell cannot be the same (e.g. all your time passes can upsell to the same subscription)
 
-
-
     If you choose two or three Offerings on one screen, you will have an option to select which one of them should be highlighted by default to grab the attention of customers.
-
-
   </Step>
-
-  <Step title="Adjust styling">
+  <Step title="Customize colors and text">
     Use **Button text color** to edit the **Put it on my Tab** and **More access options** button text.
-
-
 
     **Button color** controls the background of the **Put it on my Tab** button, highlighted Offering box, and the upsell box when active.
 
-
-
     **Highlighted text color** controls the color of text on highlighted Offerings and the savings badge on upsells to ensure proper contrast.
+
+    Parts of Paygate text (such as title) can be edited in all languages we support. They will not be translated automatically. If you choose not to provide a translation, we will use default values. 
   </Step>
-
   <Step title="Install the code snippet">
-    Copy the provided code snippet and deploy it on pages you wish to monetize. Make sure to switch the snippet from [Test Mode](https://docs.supertab.co/supertab-experiences/test-mode) to Live Mode if you wish to process real transactions.&#x20;
+    Copy the provided code snippet and deploy it on pages you wish to monetize. Make sure to switch the snippet from [Test Mode](https://docs.supertab.co/supertab-experiences/test-mode) to Live Mode if you wish to process real transactions. 
 
+    The experience will automatically launch when the page loads. Supertab manages customer access
 
+     for you.
 
-    The experience will automatically launch when the page loads. Supertab manages customer <a href="./access-management">access</a> for you.
-
-
-
-    The Paygate will automatically update when you edit it, there is no need to update the snippet.&#x20;
+    The Paygate will automatically update when you edit it, there is no need to update the snippet. 
   </Step>
 </Steps>
 
 ## Purchase Button
 
-<Tip>The Purchase Button experience is best when you need more control over how and when your customer is offered the option
-to make a purchase</Tip>Purchase Buttons display a Supertab purchase button and send a message back to your website when a customer makes a purchase.
+<Tip>
+  The Purchase Button experience is best when you need more control over how and when your customer is offered the option
+  to make a purchase
+</Tip>
+
+Purchase Buttons display a Supertab purchase button and send a message back to your website when a customer makes a purchase.
 
 ### Button Installation
 
-**Prerequisite:** you need to create your <a href="./sites">sites</a> and <a href="./products-offerings-pricing">offerings</a> before setting up a Paygate.
+**Prerequisite:** you need to create your sites
+
+ and offerings
+
+ before setting up a Paygate.
 
 <Steps>
   <Step title="Create an Experience">
     Head to **Experiences** section of the Business Portal and click the **Create Experience** button to go to the Experience Editor.
   </Step>
-
   <Step title="Button setup">
-    From the Site dropdown, choose the Site on which you will use the Button. Select **Purchase Button** as the Experience type.&#x20;
+    From the Site dropdown, choose the Site on which you will use the Button. Select **Purchase Button** as the Experience type. 
   </Step>
-
   <Step title="Select an Offering">
-    Select an Offering which will be sold via the button. Remember that Supertab will not manage access in this scenario.&#x20;
+    Select an Offering which will be sold via the button. Remember that Supertab will not manage access in this scenario. 
   </Step>
-
   <Step title="Install the code snippet">
-    Copy the provided code snippet and deploy it wherever you want the button to appear. Make sure to switch the snippet from [Test Mode](https://docs.supertab.co/supertab-experiences/test-mode) to Live Mode if you wish to process real transactions.&#x20;
+    Copy the provided code snippet and deploy it wherever you want the button to appear. Make sure to switch the snippet from [Test Mode](https://docs.supertab.co/supertab-experiences/test-mode) to Live Mode if you wish to process real transactions. 
   </Step>
-
   <Step title="(optional) Review tab.js documentation">
-    For advanced usage review the <a href="/supertab-integrate/tab-js">tab.js</a> documentation
+    For advanced usage review the tab.js
+
+     documentation
   </Step>
 </Steps>

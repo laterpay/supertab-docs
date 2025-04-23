@@ -1,0 +1,41 @@
+---
+title: "Purchase Button"
+description: "Invoking Purchase Button experience in Supertab JS"
+---
+
+import ExperiencesConfigParameters from "/snippets/supertab-js/experiences-config-parameters.mdx";
+
+## `createPurchaseButton`
+
+```html
+<div id="supertab-button-container"></div>
+```
+
+```javascript
+const supertabClient = new Supertab({ clientId: "test_client.abc" });
+
+const supertabButton = supertabClient.createPurchaseButton({
+  containerElement: document.getElementById("supertab-button-container"),
+  experienceId: "experience.abc",
+  onPurchaseCompleted: () => {},
+  onPurchaseCanceled: () => {},
+  onPriorEntitlement: () => {},
+  onError: () => {},
+});
+```
+
+### Parameters
+
+<ParamField path="containerElement" type="Element" required>
+  Container element to render purchase button in. Elements are appended to the
+  container, so original contents are not replaced.
+</ParamField>
+
+<ExperiencesConfigParameters />
+
+### Return value
+
+<ResponseField name="destroy" type="function">
+  Destroy Supertab button instance. This removes all nodes related to Supertab
+  button from DOM.
+</ResponseField>

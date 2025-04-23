@@ -1,0 +1,126 @@
+---
+title: "Supertab.auth"
+description: "Methods reference for `Supertab.auth`"
+---
+
+`Supertab.auth` is an entry point for authenticating a user. It abstracts the authentication flow and auth state management, allowing your application to easily implement login functionality and make authenticated requests to the Customer API.
+
+Once a user is authenticated, the necessary authorization headers are passed to each Customer API request dispatched via <a href="/supertab-js/reference/api">Supertab.api</a>.
+
+<Info>
+  `Supertab.auth` handles the event of token expiration and refreshes the token
+  before attempting to make an authenticated call to the Customer API. There is no need to re-authenticate a user manually.
+</Info>
+
+## Properties
+
+### `session`
+
+This property returns the user's session data. `null` if the user is not authenticated. See [AuthData](#authdata) for the type definition.
+
+#### Example
+
+```typescript
+const session = await supertabClient.auth.session;
+```
+
+### `status`
+
+This property returns the authentication status of the user. See [AuthStatus](#authstatus) for the type definition.
+
+#### Example
+```typescript
+const status = await supertabClient.auth.status;
+```
+
+## Methods
+
+### `start`
+
+This method initiates the authentication process when necessary and returns the user's session data.
+
+Based on the presence of session data:
+
+- If session already exists, it returns auth data from the browser storage.
+- If session has expired, it refreshes the token.
+- If session is missing, it opens Supertab SSO in a popup window allowing users to sign up for an account or log in to the existing account.
+
+#### Parameters
+
+<ParamField path="silently" type="boolean" default="false">
+  When set to `true`, the client does not open the Supertab SSO popup and
+  instead attempts to refresh the session in the background. This will make the
+  method return `null` for unknown users with no prior session.
+</ParamField>
+
+<ParamField path="screenHint" type="string" default="register">
+  Specifies which screen to display in the Supertab SSO popup. Valid options are
+  `register` and `login`.
+</ParamField>
+
+#### Returns
+
+A promise which resolves with the user's session data object. See [AuthData](#authdata) for the type definition.
+
+<ResponseField name="accessToken" type="string">
+  The access token used for making authenticated requests to the Customer API.
+</ResponseField>
+
+<ResponseField name="refreshToken" type="string">
+  The token used to obtain a new access token when the current one expires.
+</ResponseField>
+
+<ResponseField name="expiresAt" type="Date">
+  The date and time when the access token will expire.
+</ResponseField>
+
+<ResponseField name="tokenType" type="string" default="Bearer">
+  The type of authentication token, typically "Bearer".
+</ResponseField>
+
+#### Examples
+
+```typescript Authenticate user
+// Will open the Supertab SSO popup if there is
+// no session data.
+await supertabClient.auth.start();
+```
+
+```typescript Authenticate user silently
+// Attempt to get session data or refresh session if
+// expired. It will not open the Supertab SSO popup and
+// will return `null` if the user is unknown.
+await supertabClient.auth.start({ silently: true });
+```
+
+```typescript Authenticate user with screen hint
+// Send user to the login screen in Supertab SSO.
+await supertabClient.auth.start({ screenHint: "login" });
+```
+
+### `reset`
+
+This method resets the authentication state by clearing the browser storage.
+
+## Types
+
+### `AuthData`
+
+```typescript
+type AuthData = {
+  accessToken: string;
+  refreshToken: string;
+  expiresAt: Date;
+  tokenType: string;
+}
+```
+
+### `AuthStatus`
+
+```typescript
+enum AuthStatus {
+  MISSING: "missing",
+  EXPIRED: "expired",
+  VALID: "valid",
+}
+```

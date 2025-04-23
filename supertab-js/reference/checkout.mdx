@@ -1,0 +1,46 @@
+---
+title: "Supertab.checkout"
+description: "Methods reference for `Supertab.checkout`"
+---
+
+`Supertab.checkout` client handles the checkout flow for purchases requiring payment.
+
+
+## Methods
+
+### `start`
+
+This method starts the checkout process. Whenever the purchase requires payment (i.e. the tab reaches the limit or the purchased offering is of a "pay now" type), use this method to start the checkout flow and allow user to pay for the tab.
+
+The payment is completed in a a popup with Supertab checkout app. Supertab JS uses [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) for signaling payment status back to the parent window.
+
+<Info>
+  Since this method opens a popup, it should be called in response to a user action, e.g. a button click.
+</Info>
+
+#### Parameters
+
+<ParamField path="checkoutUrl" type="string" required>
+  The URL of the checkout page found in `actionRequiredDetails` object of the [`Supertab.api.purchase`](/supertab-js/reference/api#purchase) response.
+</ParamField>
+
+
+#### Returns
+
+Boolean. `true` if the checkout was completed successfully, `false` otherwise (e.g. when the user closes the popup or cancels the payment).
+
+#### Example
+
+```typescript Make a purchase and get the checkout URL
+const purchaseResponse = await supertabClient.api.purchase({
+    offeringId: "test.offering-id"
+});
+
+const checkoutUrl = purchaseResponse.actionRequiredDetails.next;
+```
+
+```javascript Start the checkout process
+<button onClick={
+    () => supertabClient.checkout.start(checkoutUrl)
+}>Pay</button>
+```

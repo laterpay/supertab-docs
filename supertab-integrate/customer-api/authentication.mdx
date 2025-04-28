@@ -24,13 +24,13 @@ To make authenticated calls pass the token acquired from the Token URL in the `A
     ```
 
     ```bash curl
-    curl --location 'https://capi.supertab.co/customers/me' \
+    curl --location 'https://tapi.supertab.co/capi/customers/me' \
     --header 'Authorization: Bearer ••••••' \
     --header 'X-Supertab-Client-ID: ••••••'
     ```
 
     ```javascript javascript
-    fetch('https://capi.supertab.co/customers/me', {
+    fetch('https://tapi.supertab.co/capi/customers/me', {
         method: 'GET',
         headers: {
         'Authorization': 'Bearer ******',

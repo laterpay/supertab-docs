@@ -24,13 +24,13 @@ All calls to the Customer API must also include the `x-supertab-client-id` heade
 
 <CodeGroup>
     ```bash curl
-    curl --location 'https://capi.supertab.co/customers/me' \
+    curl --location 'https://tapi.supertab.co/capi/customers/me' \
     --header 'Authorization: Bearer ••••••' \
     --header 'X-Supertab-Client-ID: ••••••'
     ```
 
     ```javascript javascript
-    fetch('https://capi.supertab.co/customers/me', {
+    fetch('https://tapi.supertab.co/capi/customers/me', {
         method: 'GET',
         headers: {
         'Authorization': 'Bearer ******',
@@ -70,7 +70,7 @@ The client id is used by the Customer API to determine which site the request is
 
 | | |
 |--|--|
-| Base URL | `https://capi.supertab.co/` |
+| Base URL | `https://tapi.supertab.co/capi/` |
 | Supported Grants | `Authorization Code + PKCE`, `Refresh Token` |
 | Authentication URL | `https://auth.supertab.co/oauth2/auth` |
 | Token URL | `https://auth.supertab.co/oauth2/token` |

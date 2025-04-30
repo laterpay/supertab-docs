@@ -40,7 +40,7 @@
             "pages": [
               "supertab-integrate/google",
               "supertab-integrate/tab-js",
-              "supertab-integrate/customer-api"
+              "supertab-integrate/custom-integrations"
             ]
           }
         ]
@@ -62,6 +62,12 @@
           {
             "version": "2025-04-01",
             "groups": [
+              {
+                "group": "Introduction",
+                "pages": [
+                  "customer-api/overview"
+                ]
+              },
               {
                 "group": "Reference",
                 "pages": [

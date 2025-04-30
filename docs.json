@@ -88,6 +88,8 @@
                   "customer-api/endpoints/retrieve-customer",
                   "customer-api/endpoints/retrieve-site",
                   "customer-api/endpoints/purchase-an-offering",
+                  "customer-api/endpoints/retrieve-a-one-time-offering",
+                  "customer-api/endpoints/purchase-a-one-time-offering",
                   "customer-api/endpoints/retrieve-a-purchase",
                   "customer-api/endpoints/retrieve-entitlement-status"
 
@@ -103,6 +105,12 @@
           {
             "version": "2025-04-01",
             "groups": [
+              {
+                "group": "Introduction",
+                "pages": [
+                  "merchant-api/overview"
+                ]
+              },
               {
                 "group": "Reference",
                 "pages": [

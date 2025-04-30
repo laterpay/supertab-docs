@@ -9,18 +9,17 @@ import SdkWarning from '/snippets/sdk-warning.mdx';
 
 <SdkWarning />
 
+All requests to the Customer API require authentication with a bearer token passed in the `Authorization` header unless stated otherwise.
 
-All requests to the Customer API require authentication with a bearer token unless stated otherwise.
+Additionally, all calls to the Customer API must also include the `X-Supertab-Client-Id` header with your client id. See [Clients](#clients) for more information.
 
-Supertab uses OAuth2 to issue JWT tokens which allow you take actions such as purchasing on behalf of your customer
-from within the browser.
+Supertab uses OAuth2 to issue JWT tokens. After your customer authenticates, you will be able to take actions, such as purchasing, on their behalf.
 
 You should not implement OAuth2 yourself, instead use an [existing library](https://oauth.net/code/), or (recommended) make use of
-[Supertab.js](/supertab-js) to authenticate users and obtain tokens.
+[Supertab.js](/supertab-js/reference/auth) to authenticate users and obtain tokens.
 
-To make authenticated calls to the Customer API, pass the token acquired in the `Authorization` header.
+Example authenticated request to the Customer API:
 
-All calls to the Customer API must also include the `x-supertab-client-id` header with your client id. See [Clients](#clients) for more information.
 
 <CodeGroup>
     ```bash curl
@@ -55,14 +54,14 @@ Before making a request to the Customer API you must generate an OAuth client.
 This is done for you automatically when you create a [site](/supertab-experiences/sites).
 Each site will have an associated live and [test](/supertab-experiences/test-mode) client.
 
-You **must** pass an `x-supertab-client-id` header with every request containing your client id.
+You **must** pass an `X-Supertab-Client-Id` header with every request containing your client id.
 
 The client id is used by the Customer API to determine which site the request is for, and whether the request is in test or live mode.
 
 <Warning>
     Make sure to use the client detail generated for your site when working with the Customer API.
 
-    The API Keys generated separately in the Business Portal are for use with the [Merchant API](/dead).
+    The API Keys generated separately in the API Keys section of the Business Portal are for use with the [Merchant API](/merchant-api).
 </Warning>
 
 

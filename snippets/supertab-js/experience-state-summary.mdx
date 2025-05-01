@@ -1,0 +1,210 @@
+<ResponseField name="priorEntitlement" type="PriorEntitlement | null">
+  Data about prior entitlement of the current user. `null` if user has no prior entitlement.
+
+  <Expandable title="Prior entitlement object">
+    <ResponseFieldsEntitlement />
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="authStatus" type="string">
+  Current authentication status of the user. Possible values: `missing`, `expired`, `valid`.
+</ResponseField>
+
+<ResponseField name="purchase" type="Purchase | null">
+  Purchase object if launching the flow resulted in a purchase. `null` otherwise.
+
+  <Expandable title="Purchase object">
+    <ResponseField name="id" type="string">
+      ID of the purchase.
+
+      Example: `"purchase.cf637646-71a4-430d-aaea-a66f1a48a83c"`
+    </ResponseField>
+
+    <ResponseField name="offeringId" type="string">
+      ID of the purchased offering.
+
+      Example: `"offering.4df706b5-297a-49c5-a4cd-2a10eca12ff9"`
+    </ResponseField>
+
+    <ResponseField name="purchasedAt" type="string">
+      Date and time of the purchase.
+
+      Example: `"2025-04-30T12:00:00Z"`
+    </ResponseField>
+
+    <ResponseField name="completedAt" type="string">
+      Date and time of the purchase completion, i.e. when payment was successful if purchase required payment.
+
+      Example: `"2025-04-30T12:00:00Z"`
+    </ResponseField>
+
+    <ResponseField name="description" type="string">
+      A summary of the purchase, usually including the site name and the type of a given entitlement.
+
+      Example: `"The Leek - 24 Hours Time Pass"`
+    </ResponseField>
+
+    <ResponseField name="price" type="Price">
+      Price object of the purchase.
+
+      <Expandable title="Price object">
+        <ResponseField name="amount" type="number">
+          Amount in currency base units.
+
+          Example: `5000`
+        </ResponseField>
+
+        <ResponseField name="currency" type="Currency">
+          <ResponseFieldsCurrency />
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+
+    <ResponseField name="status" type="string">
+      Status of the purchase. Possible values: `completed`, `pending`, `abandoned`.
+    </ResponseField>
+
+    <ResponseField name="metadata" type="object">
+      Freeform metadata associated with the purchase.
+    </ResponseField>
+
+    <ResponseField name="entitlementStatus" type="object">
+      The customer's access (if any) as a result of this purchase.
+
+      <Expandable title="Entitlement status object">
+        <ResponseFieldsEntitlement />
+      </Expandable>
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="purchasedOffering" type="Offering | null">
+  Offering object if user has purchased an offering. `null` otherwise.
+
+  <Expandable title="Offering object">
+    <ResponseField name="id" type="string">
+      ID of the offering.
+
+      Example: `"offering.4df706b5-297a-49c5-a4cd-2a10eca12ff9"`
+    </ResponseField>
+
+    <ResponseField name="description" type="string">
+      Description of the offering.
+
+      Example: `"24 Hours Time Pass to The Leek"`
+    </ResponseField>
+
+    <ResponseField name="entitlementDetails" type="object">
+      Specifies the nature and duration of purchased entitlement.
+
+      Where you have chosen to have Supertab manage entitlements for you, customer's purchasing such an offering will be granted entitlement to the content associated with the offering for the length of time specified.
+
+      <Expandable title="Entitlement details object">
+        <ResponseField name="duration" type="string">
+          The duration of the entitlement as `{length}{unit}`.
+
+          Examples:
+
+          ```
+          {
+            // 1 year
+            "duration": "1y",
+            // 2 months
+            "duration": "2M",
+            // 3 weeks
+            "duration": "3w",
+            // 4 days
+            "duration": "4d",
+            // 5 hours
+            "duration": "5h",
+            // 6 minutes
+            "duration": "6m",
+            // 7 seconds
+            "duration": "7s"
+          }
+          ```
+        </ResponseField>
+        <ResponseField name="isRecurring" type="boolean">
+          Whether the entitlement is sold on a recurring basis (subscription).
+        </ResponseField>
+
+        <ResponseField name="contentKey" type="string">
+          The content key being purchased, if you have chosen to have Supertab manage customer entitlement for you.
+
+          Example: `"site.cf637646-71a4-430d-aaea-a66f1a48a83c"`
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="price" type="Price">
+      Price object of the offering.
+
+      <ResponseFieldsPrice />
+    </ResponseField>
+
+
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="tab" type="Tab">
+  The Tab is at the heart of Supertab. It aggregates purchases customers make and tracks when they are required to make payment.
+
+  While the Tab powers much of our underlying behaviour you will not often directly interact with it.
+
+  This object contains information about the tab total, the limit of a tab, its currency, and previous purchases.
+
+  <Expandable title="Tab object">
+    <ResponseField name="testMode" type="boolean">
+      Whether the tab is in test mode.
+    </ResponseField>
+
+    <ResponseField name="currency" type="object">
+      The currency of the tab.
+
+      <ResponseFieldsCurrency />
+    </ResponseField>
+
+    <ResponseField name="total" type="object">
+      The total amount of the tab.
+
+      <Expandable title="Total object">
+        <ResponseField name="amount" type="number">
+          Amount in currency base units.
+
+          Example: `50`
+        </ResponseField>
+
+        <ResponseField name="currency" type="object">
+          <ResponseFieldsCurrency />
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="limit" type="object">
+      The limit of the tab. When reached, the payment will be required.
+
+      <Expandable title="Limit object">
+        <ResponseField name="amount" type="number">
+          Amount in currency base units.
+
+          Example: `50`
+        </ResponseField>
+
+        <ResponseField name="currency" type="object">
+          <ResponseFieldsCurrency />
+        </ResponseField>
+      </Expandable>
+    </ResponseField>
+
+    <ResponseField name="purchases" type="array">
+      Details of all purchases made by the customer through your merchant account. Purchases made with other merchant accounts are shown as a single purchase, which accumulates all totals into one and has a `null` value instead of a purchase ID.
+
+      Each purchase in the array has the same structure as the previously described [Purchase object](#param-purchase).
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="paymentResult" type="boolean">
+  If a purchase required payment, this will be `true` if payment was successful. `false` otherwise.
+</ResponseField>

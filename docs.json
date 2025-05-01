@@ -89,13 +89,13 @@
         ]
       },
       {
-        "tab": "Supertab JS",
+        "tab": "Supertab.js",
         "versions": [
           {
             "version": "3.0.0",
             "groups": [
               {
-                "group": "Supertab JS",
+                "group": "Supertab.js",
                 "pages": [
                   "supertab-js/introduction",
                   "supertab-js/installation"
@@ -110,7 +110,7 @@
                 ]
               },
               {
-                "group": "Supertab JS SDK",
+                "group": "Supertab.js SDK",
                 "pages": [
                   "supertab-js/reference/overview",
                   "supertab-js/reference/auth",

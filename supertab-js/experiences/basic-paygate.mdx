@@ -4,24 +4,27 @@ description: "Invoking Basic Paygate experience in Supertab JS"
 ---
 
 import ExperiencesConfigParameters from "/snippets/supertab-js/experiences-config-parameters.mdx";
+import ResponseFieldsCurrency from "/snippets/supertab-js/response-fields-currency.mdx";
+import ResponseFieldsEntitlement from "/snippets/supertab-js/response-fields-entitlement.mdx";
+import ExperienceStateSummary from "/snippets/supertab-js/experience-state-summary.mdx";
 
-## `startPaygate`
+## `createPaygate`
 
 ```javascript
 const supertabClient = new Supertab({ clientId: "test_client.abc" });
 
-const supertabPaygate = supertabClient.startPaygate({
-  experienceId: "experience.abc",
-  onPurchaseCompleted: () => {},
-  onPurchaseCanceled: () => {},
-  onPriorEntitlement: () => {},
-  onError: () => {},
+const supertabPaygate = await supertabClient.createPaygate({
+  experienceId: "experience.abc"
 });
 ```
 
 ### Parameters
 
-<ExperiencesConfigParameters />
+`createPaygate` accepts the object with following properties:
+
+<ParamField path="experienceId" type="string" required>
+  ID of the paygate experience created in Business Portal.
+</ParamField>
 
 ### Return value
 
@@ -33,6 +36,8 @@ A promise which resolves with an object with following properties:
 
 <ResponseField name="toggle" type="function">
   Toggle visibility of paygate UI.
+
+  Returns a promise which resolves with the paygate summary. See [Paygate summary](#paygate-summary) for more details.
   <Info>
     If current user has prior entitlement to the content, the paygate will not
     show.
@@ -40,7 +45,9 @@ A promise which resolves with an object with following properties:
 </ResponseField>
 
 <ResponseField name="show" type="function">
-  Show UI of the paygate.{" "}
+  Show paygate UI.
+
+  Returns a promise which resolves with the paygate summary. See [Paygate summary](#paygate-summary) for more details.
   <Info>
     If current user has prior entitlement to the content, the paygate will not
     show.
@@ -48,15 +55,28 @@ A promise which resolves with an object with following properties:
 </ResponseField>
 
 <ResponseField name="hide" type="function">
-  Hide UI of the paygate.
+  Hide paygate UI.
+
+  Returns a promise which resolves with the paygate summary. See [Paygate summary](#paygate-summary) for more details.
 </ResponseField>
 
 <ResponseField name="logIn" type="function">
-  Start the login flow. Opens Supertab SSO popup window if user is unknown.
-  Otherwise will log user in silently if auth data are found in the browser
-  storage.
+  Starts the login flow. Opens Supertab SSO popup window if user is unknown.
+  Otherwise will log user in silently if auth data are found but has expired.
+
+  Returns a promise which resolves with the paygate summary. See [Paygate summary](#paygate-summary) for more details.
+</ResponseField>
+
+<ResponseField name="initialState" type="object">
+  Initial state of the paygate. See [Paygate summary](#paygate-summary) for more details.
 </ResponseField>
 
 <ResponseField name="destroy" type="function">
   Destroy paygate instance. This removes all nodes related to paygate from DOM.
 </ResponseField>
+
+## Paygate summary
+
+All functions launching user interaction with the paygate UI return a promise which resolves with the paygate summary. The paygate summary is an object with the following properties:
+
+<ExperienceStateSummary />

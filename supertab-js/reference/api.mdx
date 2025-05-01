@@ -13,21 +13,25 @@ This interface is particularly useful for custom integrations that require direc
 
 <Info>Each method returns a promise which resolves with the response from the Customer API endpoint with object keys transformed from snake_case to camelCase.</Info>
 
-For the list of errors that can be thrown, see <a href="#errors">Errors</a> section.
+See <a href="./errors">Errors</a> for a list of common exceptions.
 
 ### `retrieveCustomer`
 
-This method retrieves the current customer object.
+Retrieves the current customer.
 
 <Info>
-**Auth:** optional
+    **Auth:** optional
 
-If called without auth, the response will return limits in a currency based on the user's geographical location. Call this method again <a href="/supertab-js/reference/auth">after auth</a> to get limits in the user's tab currency.
+    When called without an existing session, the response will return limits in a currency based on the user's geographical location.
+    Call this method again <a href="/supertab-js/reference/auth">after auth</a> to get limits in the user's tab currency.
+
+    You must re-fetch this information after a new auth session is started.
 </Info>
 
 #### Returns
 
-Customer object. See <a href="/customer-api/endpoints/retrieve-customer">Retrieve current customer</a> endpoint in [Customer API docs](/customer-api) for detailed list of returned properties. Supertab JS SDK returns the response object keys in camelCase.
+Customer object. See <a href="/customer-api/endpoints/retrieve-customer">Retrieve current customer</a>.
+Supertab.js returns the response object keys in camelCase.
 
 
 #### Example
@@ -40,17 +44,21 @@ await supertabClient.retrieveCustomer();
 
 ### `retrieveSite`
 
-This method retrieves the site object associated with the client ID used to [initialize Supertab JS](/supertab-js/installation).
+Retrieves the site object associated with the client ID used to [initialize Supertab.js](/supertab-js/installation).
 
 <Info>
-**Auth:** optional
+    **Auth:** optional
 
-If called without auth, the response will return prices in a currency based on the user's geographical location. Call this method again <a href="/supertab-js/reference/auth">after auth</a> to get prices in the user's tab currency.
+    If called without auth, the response will return prices in a currency based on the user's geographical location.
+    Call this method again <a href="/supertab-js/reference/auth">after auth</a> to get prices in the user's tab currency.
+
+    You must re-fetch this information after a new auth session is started in order to show correct pricing.
 </Info>
 
 #### Returns
 
-Site object. See <a href="/customer-api/endpoints/retrieve-site">Retrieve site</a> endpoint in [Customer API docs](/customer-api) for detailed list of returned properties. Supertab JS SDK returns the response object keys in camelCase.
+Site object. See <a href="/customer-api/endpoints/retrieve-site">Retrieve site</a>.
+Supertab.js returns the response object keys in camelCase.
 
 #### Example
 
@@ -74,7 +82,8 @@ This method checks the entitlement details for a given content key.
 
 #### Returns
 
-An object with the entitlement details. See <a href="/customer-api/endpoints/retrieve-entitlement-status">Retrieve entitlement status</a> endpoint in [Customer API docs](/customer-api) for detailed list of returned properties. Supertab JS SDK returns the response object keys in camelCase.
+An object with the entitlement details. See <a href="/customer-api/endpoints/retrieve-entitlement-status">Retrieve entitlement status</a>.
+Supertab.js returns the response object keys in camelCase.
 
 #### Examples
 
@@ -100,7 +109,7 @@ const entitlement = await Promise.all(
 
 ### `purchase`
 
-This method purchases an offering or a one-time offering.
+Purchases an offering or a one-time offering.
 
 <Warning>**Auth:** required</Warning>
 
@@ -127,7 +136,8 @@ This method purchases an offering or a one-time offering.
 
 #### Returns
 
-Purchase object. See <a href="/customer-api/endpoints/purchase-an-offering">Purchase an offering</a> endpoint in [Customer API docs](/customer-api) for detailed list of returned properties. Supertab JS SDK returns the response object keys in camelCase.
+Purchase object. See <a href="/customer-api/endpoints/purchase-an-offering">Purchase an offering</a> endpoint in [Customer API docs](/customer-api) for detailed list of returned properties.
+Supertab.js returns the response object keys in camelCase.
 
 #### Example
 
@@ -154,7 +164,8 @@ This method retrieves a purchase object for a given purchase ID.
 
 #### Returns
 
-Purchase object. See <a href="/customer-api/endpoints/retrieve-a-purchase">Retrieve a purchase</a> endpoint in [Customer API docs](/customer-api) for detailed list of returned properties. Supertab JS SDK returns the response object keys in camelCase.
+Purchase object. See <a href="/customer-api/endpoints/retrieve-a-purchase">Retrieve a purchase</a>.
+Supertab.js returns the response object keys in camelCase.
 
 #### Example
 

@@ -16,7 +16,7 @@ Once a user is authenticated, the necessary authorization headers are passed to 
 
 ### `session`
 
-This property returns the user's session data. `null` if the user is not authenticated. See [AuthData](#authdata) for the type definition.
+The user's session data. `null` if the user is not authenticated. See [AuthData](#authdata) for the type definition.
 
 #### Example
 
@@ -26,7 +26,7 @@ const session = await supertabClient.auth.session;
 
 ### `status`
 
-This property returns the authentication status of the user. See [AuthStatus](#authstatus) for the type definition.
+The authentication status of the user. See [AuthStatus](#authstatus) for the type definition.
 
 #### Example
 ```typescript
@@ -37,13 +37,13 @@ const status = await supertabClient.auth.status;
 
 ### `start`
 
-This method initiates the authentication process when necessary and returns the user's session data.
+Initializes the authentication process when necessary and returns the user's session data.
 
 Based on the presence of session data:
 
-- If session already exists, it returns auth data from the browser storage.
-- If session has expired, it refreshes the token.
-- If session is missing, it opens Supertab SSO in a popup window allowing users to sign up for an account or log in to the existing account.
+- If session already exists, returns auth data from the browser storage.
+- If session has expired, refreshes the token.
+- If session is missing, opens Supertab SSO in a popup window allowing users to sign up for an account or log in to an existing account.
 
 #### Parameters
 
@@ -86,7 +86,7 @@ A promise which resolves with the user's session data object. See [AuthData](#au
 await supertabClient.auth.start();
 ```
 
-```typescript Authenticate user silently
+```typescript Refresh token silently
 // Attempt to get session data or refresh session if
 // expired. It will not open the Supertab SSO popup and
 // will return `null` if the user is unknown.
@@ -100,7 +100,7 @@ await supertabClient.auth.start({ screenHint: "login" });
 
 ### `reset`
 
-This method resets the authentication state by clearing the browser storage.
+Resets the authentication state by clearing the browser storage.
 
 ## Types
 

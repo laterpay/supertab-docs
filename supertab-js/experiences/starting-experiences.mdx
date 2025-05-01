@@ -1,15 +1,124 @@
 ---
 title: "Starting experiences"
-description: "Using Supertab JS to start experiences"
+description: "Launch an experience using Supertab.js"
 ---
 
-Supertab JS provides a low-code way to start experiences on your pages. See [Set up Experiences](/supertab-experiences/experiences) guide for more details on how to create and configure experiences.
+import ExperiencesConfigParameters from "/snippets/supertab-js/experiences-config-parameters.mdx";
 
-While adding an experience to your site is as simple as copy-pasting a code snippet from the Business Portal, each experience comes with a set of callback functions for handling various experience outcomes. These callbacks allow you to execute custom code in response to specific events such as purchase status, entitlements statuses, or error conditions.
+Supertab.js provides a low-code way to start experiences on your pages.
+See [the guide on setting up experiences](/supertab-experiences/experiences)
+for more details on how to create and configure experiences.
 
-All experiences share the same on-page API, making the initialization config for all types of experiences almost identical.
+When you need more control over what happens with experiences you can use Supertab.js to recieve callbacks
+for specific events, entitlement statuses, or error conditions.
 
 ## Pre-requisites
 
 - You have <a href="/supertab-experiences/experiences">created an experience</a> in the business portal.
-- Supertab JS is <a href="/supertab-js/installation">installed on your page</a>.
+- Supertab.js is <a href="/supertab-js/installation">installed on your page</a>.
+
+## Initialization
+
+<CodeGroup>
+    ```javascript Installed via npm
+    const supertabClient = new Supertab({ clientId: "test_client.X" });
+    ```
+
+    ```javascript Installed via CDN
+    const supertabClient = new window.Supertab({ clientId: "test_client.X" });
+    ```
+</CodeGroup>
+
+## Paygate
+
+Invoking the Paygate on page load or in response to user action.
+
+```javascript
+const supertabClient = new Supertab({ clientId: "test_client.abc" });
+
+const supertabPaygate = supertabClient.startPaygate({
+  experienceId: "experience.abc",
+  onPurchaseCompleted: () => {},
+  onPurchaseCanceled: () => {},
+  onPriorEntitlement: () => {},
+  onError: () => {},
+});
+```
+
+
+### Parameters
+
+<ExperiencesConfigParameters />
+
+### Return value
+
+A promise which resolves with an object with following properties:
+
+<ResponseField name="isShowing" type="boolean">
+    Whether paygate UI is currently visible.
+</ResponseField>
+
+<ResponseField name="toggle" type="function">
+    Toggle visibility of paygate UI.
+    <Info>
+        If current user has prior entitlement to the content, the paygate will not
+        show.
+    </Info>
+</ResponseField>
+
+<ResponseField name="show" type="function">
+    Show UI of the paygate.{" "}
+    <Info>
+        If current user has prior entitlement to the content, the paygate will not
+        show.
+    </Info>
+</ResponseField>
+
+<ResponseField name="hide" type="function">
+    Hide UI of the paygate.
+</ResponseField>
+
+<ResponseField name="logIn" type="function">
+    Start the login flow. Opens Supertab SSO popup window if user is unknown.
+    Otherwise will log user in silently if auth data are found in the browser
+    storage.
+</ResponseField>
+
+<ResponseField name="destroy" type="function">
+    Destroy paygate instance. This removes all nodes related to paygate from DOM.
+</ResponseField>
+
+## Purchase Button
+
+Fill a container element with the Purchase Button
+
+```html
+<div id="supertab-button-container"></div>
+```
+
+```javascript
+const supertabButton = supertabClient.startPurchaseButton({
+  containerElement: document.getElementById("supertab-button-container"),
+  experienceId: "experience.abc",
+  onPurchaseCompleted: () => {},
+  onPurchaseCanceled: () => {},
+  onPriorEntitlement: () => {},
+  onError: () => {},
+});
+```
+
+### Parameters
+
+<ParamField path="containerElement" type="Element" required>
+    Container element to render purchase button in. Elements are appended to the
+    container, so original contents are not replaced.
+</ParamField>
+
+<ExperiencesConfigParameters />
+
+### Return value
+
+<ResponseField name="destroy" type="function">
+    Destroy Supertab button instance. This removes all nodes related to Supertab
+    button from DOM.
+</ResponseField>

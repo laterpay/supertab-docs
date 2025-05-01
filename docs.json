@@ -55,6 +55,34 @@
         ]
       },
       {
+        "tab": "Supertab.js",
+        "versions": [
+          {
+            "version": "3.0.0",
+            "groups": [
+              {
+                "group": "Supertab.js",
+                "pages": [
+                  "supertab-js/introduction",
+                  "supertab-js/installation",
+                  "supertab-js/experiences/starting-experiences"
+                ]
+              },
+              {
+                "group": "API Reference",
+                "pages": [
+                  "supertab-js/reference/overview",
+                  "supertab-js/reference/auth",
+                  "supertab-js/reference/api",
+                  "supertab-js/reference/checkout",
+                  "supertab-js/reference/errors"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
         "tab": "Customer API",
         "versions": [
           {
@@ -82,41 +110,6 @@
                   "customer-api/endpoints/purchase-an-offering",
                   "customer-api/endpoints/retrieve-a-purchase",
                   "customer-api/endpoints/retrieve-entitlement-status"
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "Supertab JS",
-        "versions": [
-          {
-            "version": "3.0.0",
-            "groups": [
-              {
-                "group": "Supertab JS",
-                "pages": [
-                  "supertab-js/introduction",
-                  "supertab-js/installation"
-                ]
-              },
-              {
-                "group": "Experiences",
-                "pages": [
-                  "supertab-js/experiences/starting-experiences",
-                  "supertab-js/experiences/basic-paygate",
-                  "supertab-js/experiences/purchase-button"
-                ]
-              },
-              {
-                "group": "Supertab JS SDK",
-                "pages": [
-                  "supertab-js/reference/overview",
-                  "supertab-js/reference/auth",
-                  "supertab-js/reference/api",
-                  "supertab-js/reference/checkout",
-                  "supertab-js/reference/errors"
                 ]
               }
             ]

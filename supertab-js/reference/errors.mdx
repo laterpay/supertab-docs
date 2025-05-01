@@ -1,9 +1,10 @@
 ---
 title: "Errors"
-description: "Reference for errors thrown by Supertab JS SDK"
+description: "Common Exceptions"
 ---
 
-Supertab JS SDK throws different types of error objects depending on the nature and origin of the error. This page documents all error types, their structure, and details specific to each error type.
+Supertab.js throws different types of error objects depending on the nature and origin of the error.
+This page documents all error types, their structure, and details specific to each error type.
 
 ## Error object structure
 
@@ -18,9 +19,7 @@ interface Error {
 ```
 
 
-## Error types
-
-### Validation errors
+## Validation errors
 
 #### RequestValidationError
 
@@ -40,7 +39,7 @@ Thrown when the response from the Customer API is invalid, i.e. the response bod
 
 ---
 
-### Request errors
+## Request errors
 
 #### RequestError
 
@@ -60,9 +59,9 @@ Server errors thrown when Customer API responds with an error code.
 
 ---
 
-### Client errors
+## Client errors
 
-Following are error types thrown by the individual [SDK clients](/supertab-js/reference/sdk-reference).
+Following are error types thrown by the individual [SDK clients](/supertab-js/reference/overview).
 
 #### AuthError
 

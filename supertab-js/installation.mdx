@@ -1,0 +1,40 @@
+---
+title: "Installation"
+description: "Including Supertab.js on your page"
+---
+
+Before [launching an experience](/supertab-js/experiences/starting-experiences)
+you must first install and initialize Supertab.js
+
+You must have a Supertab `clientId` to use Supertab.js.
+You can find the `clientId` associated with each of your sites in the [business portal](/supertab-experiences/sites).
+
+## with npm
+
+```bash Install
+npm install @getsupertab/supertab-js@3.0.0
+```
+
+Then import `Supertab` class and instantiate it:
+
+```javascript Initialize
+import { Supertab } from "@getsupertab/supertab-js";
+
+const supertabClient = new Supertab({ clientId: "test_client.X" });
+```
+
+## with CDN
+
+The compiled bundle exposes `Supertab` class to `window` object.
+
+```javascript Include & Initialize
+<script src="https://js.supertab.co/v3/supertab.js"></script>
+<script>
+  const supertabClient = new window.Supertab({ clientId: "test_client.X" });
+</script>
+```
+
+### Versioning
+
+The CDN URL is versioned, including `v3` will automatically upgrade you to new *minor* versions.
+Breaking changes are included in new *major* versions.

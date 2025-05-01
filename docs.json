@@ -50,8 +50,34 @@
         "groups": [
           {
             "group": "Updates",
-            "pages": [
-              "updates/product"
+            "pages": ["updates/product"]
+          }
+        ]
+      },
+      {
+        "tab": "Supertab.js",
+        "versions": [
+          {
+            "version": "3.0.0",
+            "groups": [
+              {
+                "group": "Supertab.js",
+                "pages": [
+                  "supertab-js/introduction",
+                  "supertab-js/installation",
+                  "supertab-js/experiences/starting-experiences"
+                ]
+              },
+              {
+                "group": "API Reference",
+                "pages": [
+                  "supertab-js/reference/overview",
+                  "supertab-js/reference/auth",
+                  "supertab-js/reference/api",
+                  "supertab-js/reference/checkout",
+                  "supertab-js/reference/errors"
+                ]
+              }
             ]
           }
         ]
@@ -84,7 +110,6 @@
                   "customer-api/endpoints/purchase-an-offering",
                   "customer-api/endpoints/retrieve-a-purchase",
                   "customer-api/endpoints/retrieve-entitlement-status"
-
                 ]
               }
             ]

@@ -1,0 +1,85 @@
+---
+title: "Errors"
+description: "Common Exceptions"
+---
+
+Supertab.js throws different types of error objects depending on the nature and origin of the error.
+This page documents all error types, their structure, and details specific to each error type.
+
+## Error object structure
+
+All error objects have the following structure:
+
+```typescript
+interface Error {
+  message: string;
+  code: string;
+  error: TError; // Original error object
+}
+```
+
+
+## Validation errors
+
+#### RequestValidationError
+
+Thrown when the request is invalid, e.g. missing required parameters. This error is thrown by the SDK before the request is sent to the server.
+
+#### ResponseValidationError
+
+Thrown when the response from the Customer API is invalid, i.e. the response body does not match the expected schema.
+
+#### Validation error codes
+
+- `missing_parameter`
+- `invalid_parameter`
+- `unrecognized_parameter`
+- `missing_header`
+- `invalid_header`
+
+---
+
+## Request errors
+
+#### RequestError
+
+Server errors thrown when Customer API responds with an error code.
+
+#### Request error codes
+
+- `unauthorized` (401)
+- `forbidden` (403)
+- `not_found` (404)
+- `conflict` (409)
+- `validation_error` (422)
+- `server_error` (5xx)
+- `bad_request` (400)
+- `request_error` (catch-all)
+- `unexpected` (catch-all)
+
+---
+
+## Client errors
+
+Following are error types thrown by the individual [SDK clients](/supertab-js/reference/overview).
+
+#### AuthError
+
+Thrown by [Supertab.auth](/supertab-js/reference/auth) when the error is related to authentication.
+
+**Auth error codes**
+
+- `auth_error`
+
+#### CheckoutError
+
+Thrown by [Supertab.checkout](/supertab-js/reference/checkout) when the error is related to the checkout process.
+
+**Checkout error codes**
+
+- `checkout_error`
+- `validation_error`
+
+#### ClientError
+
+Thrown when the error happens client side, i.e. when the error is not related to the server or the clients themselves. Consider this a catch-all client error type.

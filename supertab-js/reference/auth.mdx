@@ -28,6 +28,10 @@ const session = await supertabClient.auth.session;
 
 The authentication status of the user. See [AuthStatus](#authstatus) for the type definition.
 
+* `missing` - The user is not authenticated.
+* `expired` - The user's session has expired and needs to be refreshed before making an authenticated request to the Customer API. See [start](#start) method for more details on how to refresh the session.
+* `valid` - The user is authenticated.
+
 #### Example
 ```typescript
 const status = await supertabClient.auth.status;
@@ -49,8 +53,9 @@ Based on the presence of session data:
 
 <ParamField path="silently" type="boolean" default="false">
   When set to `true`, the client does not open the Supertab SSO popup and
-  instead attempts to refresh the session in the background. This will make the
-  method return `null` for unknown users with no prior session.
+  instead attempts to refresh the session in the background.
+  Refreshing the session is only possible if there as an existing expired session in browser storage
+    Returns `null` for unknown users with no prior session.
 </ParamField>
 
 <ParamField path="screenHint" type="string" default="register">

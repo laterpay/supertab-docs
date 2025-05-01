@@ -1,5 +1,6 @@
 # supertab-docs
-Supertab docs
+
+As seen on [docs.supertab.co](https://docs.supertab.co)
 
 ## Running locally
 

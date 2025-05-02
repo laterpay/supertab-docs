@@ -7,9 +7,17 @@ icon: lock
 
 ### Clients
 
-TBD
+Before making a request to the Merchant API, you must generate your OAuth2 Client ID and Client Secret in the Business Portal.
 
-You **must** pass an `x-supertab-client-id` header with every request containing your client id.
+1. Log in to the [Business Portal](https://business.supertab.co).
+2. Click on the **API Keys** tab in the left sidebar.
+3. Click on the **Create API Key** button.
+4. Enter a name for your API key and click **Save**.
+5. Copy the **Client Secret** value from the **Your Secret** modal and store it securely. You will not be able to view this value again.
+6. Copy the **Client Secret** value and store it securely. You will not be able to view this value again. Click to close the modal containing the secret.
+7. Copy the **Client ID** value from the list of API Keys corresponding to the key you just created. You will need this value to authenticate your requests.
+
+You **must** pass an `x-supertab-client-id` header containing your client id with every request.
 
 
 ### API Settings

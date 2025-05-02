@@ -1,7 +1,7 @@
 <ResponseField name="priorEntitlement" type="PriorEntitlement | null">
-  Data about prior entitlement of the current user. `null` if user has no prior entitlement.
+  Any prior entitlement of the current user. `null` if user has no prior entitlement.
 
-  <Expandable title="Prior entitlement object">
+  <Expandable title="prior entitlement">
     <ResponseFieldsEntitlement />
   </Expandable>
 </ResponseField>
@@ -13,7 +13,7 @@
 <ResponseField name="purchase" type="Purchase | null">
   Purchase object if launching the flow resulted in a purchase. `null` otherwise.
 
-  <Expandable title="Purchase object">
+  <Expandable title="purchase object">
     <ResponseField name="id" type="string">
       ID of the purchase.
 
@@ -82,7 +82,7 @@
 <ResponseField name="purchasedOffering" type="Offering | null">
   Offering object if user has purchased an offering. `null` otherwise.
 
-  <Expandable title="Offering object">
+  <Expandable title="offering object">
     <ResponseField name="id" type="string">
       ID of the offering.
 
@@ -148,11 +148,7 @@
 </ResponseField>
 
 <ResponseField name="tab" type="Tab">
-  The Tab is at the heart of Supertab. It aggregates purchases customers make and tracks when they are required to make payment.
-
-  While the Tab powers much of our underlying behaviour you will not often directly interact with it.
-
-  This object contains information about the tab total, the limit of a tab, its currency, and previous purchases.
+  The users tab
 
   <Expandable title="Tab object">
     <ResponseField name="testMode" type="boolean">

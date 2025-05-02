@@ -4,6 +4,9 @@ description: "Launch an experience using Supertab.js"
 ---
 
 import ExperiencesConfigParameters from "/snippets/supertab-js/experiences-config-parameters.mdx";
+import ExperienceStateSummary from "/snippets/supertab-js/experience-state-summary.mdx";
+import ResponseFieldsEntitlement from "/snippets/supertab-js/response-fields-entitlement.mdx";
+import ResponseFieldsCurrency from "/snippets/supertab-js/response-fields-currency.mdx";
 
 Supertab.js provides a low-code way to start experiences on your pages.
 See [the guide on setting up experiences](/supertab-experiences/experiences)
@@ -29,26 +32,28 @@ for specific events, entitlement statuses, or error conditions.
     ```
 </CodeGroup>
 
-## Paygate
+## Paygate: `supertab.createPaygate`
 
-Invoking the Paygate on page load or in response to user action.
+Invoke the Paygate on page load or in response to user action.
 
 ```javascript
 const supertabClient = new Supertab({ clientId: "test_client.abc" });
 
-const supertabPaygate = supertabClient.startPaygate({
+const supertabPaygate = await supertabClient.startPaygate({
   experienceId: "experience.abc",
-  onPurchaseCompleted: () => {},
-  onPurchaseCanceled: () => {},
-  onPriorEntitlement: () => {},
-  onError: () => {},
 });
+
+supertabPaygate.show()
 ```
 
 
 ### Parameters
 
-<ExperiencesConfigParameters />
+`createPaygate` accepts an object with the following properties:
+
+<ParamField path="experienceId" type="string" required>
+    ID of the paygate experience created in Business Portal.
+</ParamField>
 
 ### Return value
 
@@ -59,36 +64,67 @@ A promise which resolves with an object with following properties:
 </ResponseField>
 
 <ResponseField name="toggle" type="function">
-    Toggle visibility of paygate UI.
+    Toggle visibility of the paygate UI.
+
+    Returns a promise which resolves with the paygate summary.
     <Info>
-        If current user has prior entitlement to the content, the paygate will not
+        If current user has a prior entitlement to the content, the paygate will not
         show.
     </Info>
+
+    <Expandable title="StateSummary">
+        <ExperienceStateSummary />
+    </Expandable>
 </ResponseField>
 
 <ResponseField name="show" type="function">
-    Show UI of the paygate.{" "}
+    Show the paygate UI.
+
+    Returns a promise which resolves with the paygate summary.
     <Info>
         If current user has prior entitlement to the content, the paygate will not
         show.
     </Info>
+
+    <Expandable title="StateSummary">
+        <ExperienceStateSummary />
+    </Expandable>
 </ResponseField>
 
 <ResponseField name="hide" type="function">
-    Hide UI of the paygate.
+    Hide the paygate UI.
+
+    Returns a promise which resolves with the paygate summary.
+
+    <Expandable title="StateSummary">
+        <ExperienceStateSummary />
+    </Expandable>
 </ResponseField>
 
 <ResponseField name="logIn" type="function">
-    Start the login flow. Opens Supertab SSO popup window if user is unknown.
-    Otherwise will log user in silently if auth data are found in the browser
-    storage.
+    Starts the login flow. Opens Supertab SSO popup window if user is unknown.
+    Otherwise will log user in silently if auth data are found but has expired.
+
+    Returns a promise which resolves with the paygate summary.
+
+    <Expandable title="StateSummary">
+        <ExperienceStateSummary />
+    </Expandable>
+</ResponseField>
+
+<ResponseField name="initialState" type="object">
+    Initial state of the paygate.
+
+    <Expandable title="StateSummary">
+        <ExperienceStateSummary />
+    </Expandable>
 </ResponseField>
 
 <ResponseField name="destroy" type="function">
     Destroy paygate instance. This removes all nodes related to paygate from DOM.
 </ResponseField>
 
-## Purchase Button
+## Purchase Button `supertab.startPurchaseButton`
 
 Fill a container element with the Purchase Button
 
@@ -100,10 +136,6 @@ Fill a container element with the Purchase Button
 const supertabButton = supertabClient.startPurchaseButton({
   containerElement: document.getElementById("supertab-button-container"),
   experienceId: "experience.abc",
-  onPurchaseCompleted: () => {},
-  onPurchaseCanceled: () => {},
-  onPriorEntitlement: () => {},
-  onError: () => {},
 });
 ```
 
@@ -114,11 +146,59 @@ const supertabButton = supertabClient.startPurchaseButton({
     container, so original contents are not replaced.
 </ParamField>
 
-<ExperiencesConfigParameters />
+<ParamField path="experienceId" type="string" required>
+    ID of the purchase button experience created in Business Portal.
+</ParamField>
 
-### Return value
+<ParamField path="onDone" type="function">
+    Callback function called when user leaves the purchase flow either as a result of successful purchase or cancellation.
+
+    Returns a promise which resolves with the purchase button summary. See [Purchase button summary](#purchase-button-summary) for more details.
+</ParamField>
+
+### Return Value
+
+A promise which resolves with an object with following properties:
 
 <ResponseField name="destroy" type="function">
     Destroy Supertab button instance. This removes all nodes related to Supertab
     button from DOM.
 </ResponseField>
+
+<ResponseField name="initialState" type="object">
+    Initial state of the purchase button. See [Purchase button summary](#purchase-button-summary) for more details.
+</ResponseField>
+
+## Purchase button summary
+
+Both the returned `initialState` object and the object passed as an argument to the `onDone` callback contain the following properties:
+
+<ExperienceStateSummary />
+
+## Example
+
+```javascript Example
+const supertabButton = await supertabClient.startPurchaseButton({
+  containerElement: document.getElementById("supertab-button-container"),
+  experienceId: "experience.abc",
+  onDone: ({ priorEntitlement, purchase }) => {
+    if (priorEntitlement) {
+      // User has prior entitlement to the content.
+      return;
+    }
+
+    if (purchase) {
+      if (purchase.status === "completed") {
+        // Purchase was completed successfully.
+      } else {
+        // Purchase was not completed. User may have
+        // canceled the payment dialog if purchase
+        // required payment.
+      }
+    } else {
+      // User has canceled the flow and did not
+      // attempt to purchase the offering.
+    }
+  }
+  ```
+

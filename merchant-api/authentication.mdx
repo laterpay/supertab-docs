@@ -1,21 +1,116 @@
 ---
-title: 'Authentication (Merchant API)'
+title: 'Authentication'
 sidebarTitle: 'Authentication'
 description: 'Generate auth tokens for usage with the Merchant API'
 icon: lock
 ---
 
-<Note>
-    The Merchant API and its documentation are currently in development and will be fully available later in Q2 2025.
-</Note>
-
-
 ### Clients
 
-TBD
+Before making a request to the Merchant API, you must generate your OAuth2 Client ID and Client Secret in the Business Portal.
 
-You **must** pass an `x-supertab-client-id` header with every request containing your client id.
+1. Log in to the [Business Portal](https://business.supertab.co).
+2. Click on the **API Keys** tab in the left sidebar.
+3. Click on the **Create API Key** button.
+4. Enter a name for your API key and click **Save**.
+5. Copy the **Client Secret** value from the **Your Secret** modal and store it securely. You will not be able to view this value again.
+6. Copy the **Client Secret** value and store it securely. You will not be able to view this value again. Click to close the modal containing the secret.
+7. Copy the **Client ID** value from the list of API Keys corresponding to the key you just created. You will need this value to authenticate your requests.
 
+You **must** pass an `x-supertab-client-id` header containing your client id with every request.
+
+### Obtaining a Token
+
+The Merchant API uses OAuth2 Client Credentials Grant to authenticate requests.
+
+To obtain a token, you must send a POST request to the token URL with your client id and secret,  using the `client_secret_basic` method.
+
+<CodeGroup>
+```bash curl
+CLIENT_ID="YOUR_CLIENT_ID"
+CLIENT_SECRET="YOUR_CLIENT_SECRET"
+AUTH_URL="https://auth.supertab.co/oauth2/token"
+
+# Encode the credentials in base64
+BASIC_AUTH=$(echo -n "$CLIENT_ID:$CLIENT_SECRET" | base64)
+
+curl -X POST "$AUTH_URL" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -H "Authorization: Basic $BASIC_AUTH" \
+  -d "grant_type=client_credentials" \
+  -d "scope=mapi:read mapi:write"
+```
+
+```javascript javascript
+const clientId = 'YOUR_CLIENT_ID';
+const clientSecret = 'YOUR_CLIENT_SECRET';
+const basicAuth = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
+
+async function getToken() {
+  const res = await fetch('https://auth.supertab.co/oauth2/token', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Basic ${basicAuth}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      grant_type: 'client_credentials',
+      scope: 'mapi:read mapi:write',
+    }),
+  });
+
+  const data = await res.json();
+  console.log(data);
+}
+
+getToken();
+```
+
+```python python
+import requests
+from requests.auth import HTTPBasicAuth
+
+response = requests.post(
+    'https://auth.supertab.co/oauth2/token',
+    data={
+        'grant_type': 'client_credentials',
+        'scope': 'mapi:read mapi:write'
+    },
+    auth=HTTPBasicAuth('YOUR_CLIENT_ID', 'YOUR_CLIENT_SECRET'),
+    headers={'Content-Type': 'application/x-www-form-urlencoded'}
+)
+
+print(response.json())
+```
+
+```php php
+<?php
+require 'vendor/autoload.php';
+
+use GuzzleHttp\Client;
+use GuzzleHttp\RequestOptions;
+
+$clientId = 'YOUR_CLIENT_ID';
+$clientSecret = 'YOUR_CLIENT_SECRET';
+
+$client = new Client();
+$response = $client->post('https://auth.supertab.co/oauth2/token', [
+    RequestOptions::HEADERS => [
+        'Authorization' => 'Basic ' . base64_encode("$clientId:$clientSecret"),
+        'Content-Type' => 'application/x-www-form-urlencoded',
+    ],
+    RequestOptions::FORM_PARAMS => [
+        'grant_type' => 'client_credentials',
+        'scope' => 'mapi:read mapi:write',
+    ],
+]);
+
+$body = $response->getBody();
+echo $body;
+```
+</CodeGroup>
+
+These tokens expire, so you should be prepared to handle token expiration and refresh when necessary.
 
 ### API Settings
 
@@ -23,7 +118,6 @@ You **must** pass an `x-supertab-client-id` header with every request containing
 |--|--|
 | Base URL | `https://tapi.supertab.co/mapi/` |
 | Supported Grants | `Client Credentials` |
-| Authentication URL | `https://auth.supertab.co/oauth2/auth` |
 | Token URL | `https://auth.supertab.co/oauth2/token` |
 | Token Type | `bearer` |
 
@@ -35,4 +129,4 @@ The Merchant API is scoped to allow issuing tokens with minimum permissions.
 The [api specification](/merchant-api/endpoints) details the required scopes for each operation.
 You must request a token with the scopes you require when authenticating the customer.
 
-[Supertab JS](/dead) handles acquiring tokens with the correct scopes for you.
+The following scopes are available: `mapi:read` and `mapi:write`.

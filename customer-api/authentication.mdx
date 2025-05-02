@@ -80,11 +80,6 @@ The client id is used by the Customer API to determine which site the request is
 In order to successfully authenticate using oAuth2 you must pass a known redirect URI to the Authentication URL.
 You can configure your site's redirect URI from the [Business Portal](https://business.supertab.co) - this is the Site URI that you provided when creating the site.
 
-In order to support enhanced UX you may also authenticate your customer in a pop-up. To do so, open a popup to the authentication URL with your redirect uri set to
-`https://signon.supertab.co/oauth2/auth-proxy?origin={your-site-url}` where `{your-site-url}` is the Site URI you set when creating the site.
-
-You must open the popup from the same domain as your redirect URI.
-
 We recommend you use [Supertab.js](/supertab-js) to handle all authentication.
 
 ### Scopes
@@ -92,6 +87,6 @@ We recommend you use [Supertab.js](/supertab-js) to handle all authentication.
 The Customer API is scoped to allow issuing tokens with minimum permissions.
 
 The [api specification](/customer-api/endpoints) details the required scopes for each operation.
-You must request a token with the scopes you require when authenticating the customer.
+You must request a token with the scopes you require when authenticating the customer. The current available scopes are for the Customer API are: `capi:read` and `capi:write`.
 
-[Supertab.js](/supertab-js) handles acquiring tokens with the correct scopes for you.
+[Supertab.js](/supertab-js/reference/auth) handles acquiring tokens with the correct scopes for you.

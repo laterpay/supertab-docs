@@ -39,7 +39,7 @@ Invoke the Paygate on page load or in response to user action.
 ```javascript
 const supertabClient = new Supertab({ clientId: "test_client.abc" });
 
-const supertabPaygate = await supertabClient.startPaygate({
+const supertabPaygate = await supertabClient.createPaygate({
   experienceId: "experience.abc",
 });
 
@@ -124,7 +124,7 @@ A promise which resolves with an object with following properties:
     Destroy paygate instance. This removes all nodes related to paygate from DOM.
 </ResponseField>
 
-## Purchase Button `supertab.startPurchaseButton`
+## Purchase Button `supertab.createPurchaseButton`
 
 Fill a container element with the Purchase Button
 
@@ -133,7 +133,7 @@ Fill a container element with the Purchase Button
 ```
 
 ```javascript
-const supertabButton = supertabClient.startPurchaseButton({
+const supertabButton = supertabClient.createPurchaseButton({
   containerElement: document.getElementById("supertab-button-container"),
   experienceId: "experience.abc",
 });
@@ -178,7 +178,7 @@ Both the returned `initialState` object and the object passed as an argument to 
 ## Example
 
 ```javascript Example
-const supertabButton = await supertabClient.startPurchaseButton({
+const supertabButton = await supertabClient.createPurchaseButton({
   containerElement: document.getElementById("supertab-button-container"),
   experienceId: "experience.abc",
   onDone: ({ priorEntitlement, purchase }) => {

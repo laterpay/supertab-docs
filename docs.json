@@ -23,7 +23,7 @@
             "pages": [
               "supertab-introduction/overview/about-supertab",
               "supertab-introduction/account-management/account-kyc",
-              "supertab-introduction/account-management/supported-countries-languages"
+              "supertab-introduction/internationalization"
             ]
           },
           {

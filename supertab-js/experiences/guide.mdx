@@ -42,7 +42,7 @@ You can launch it any time: on page load, after a user action or in response to 
 // First create the paygate, replace `experience.your_experience` with your experience ID
 // Supertab.js will fetch the configuration for the paygate for you.
 // No paygate is shown at this point, you must call .show()
-const supertabPaygate = await supertabClient.startPaygate({
+const supertabPaygate = await supertabClient.createPaygate({
     experienceId: "experience.your_experience"
 });
 
@@ -50,7 +50,7 @@ const supertabPaygate = await supertabClient.startPaygate({
 await supertabPaygate.show()
 ```
 
-#### Options for `startPaygate`
+#### Options for `createPaygate`
 
 Offerings available for sale, messaging text and styling are controlled from the Business Portal
 
@@ -62,15 +62,15 @@ Offerings available for sale, messaging text and styling are controlled from the
 
 #### Returns
 
-`startPaygate` returns an object containing the initial state of the Paygate
+`createPaygate` returns an object containing the initial state of the Paygate
 and methods for showing it to users.
 
-| Field          | Type                              | Description                                                                                                                                     |
-|:---------------|:----------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------|
-| `initialState` | `PaygateStateSummary`          | The state of the paygate immediately after config is loaded, can be used to check if the user is logged in or has a priort entitlement already. |
-| `logIn`      | `() => Promise<PaygateStateSummary>` | Launch an auth flow immediately, if necessary. The returned promise resolves when the login flow is completed.                                  |
-| `show`       | `() => Promise<PaygateStateSummary>` | Display the paygate to the user, the returned promise resolves when the paygate closes.                                                         |
-| `destroy`    | `() => void`                            | Clean up and remove all Supertab elements from the DOM.                                                                                         |
+| Field          | Type                                    | Description                                                                                                                                     |
+|:---------------|:----------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------|
+| `initialState` | `ExperienceStateSummary`                | The state of the paygate immediately after config is loaded, can be used to check if the user is logged in or has a priort entitlement already. |
+| `logIn`        | `() => Promise<ExperienceStateSummary>` | Launch an auth flow immediately, if necessary. The returned promise resolves when the login flow is completed.                                  |
+| `show`         | `() => Promise<ExperienceStateSummary>` | Display the paygate to the user, the returned promise resolves when the paygate closes.                                                         |
+| `destroy`      | `() => void`                            | Clean up and remove all Supertab elements from the DOM.                                                                                         |
 
 ### Paygate Lifecycle
 
@@ -103,7 +103,7 @@ You can handle these promises through the user of `async` / `await` for through 
 <CodeGroup>
     ```javascript async / await
     async function showPaygate() {
-        const paygate = await supertabClient.startPaygate({ experienceId: "experience.your_experience" });
+        const paygate = await supertabClient.createPaygate({ experienceId: "experience.your_experience" });
 
         const state = await paygate.show();
 
@@ -113,7 +113,7 @@ You can handle these promises through the user of `async` / `await` for through 
 
     ```javascript callback
     function showPaygate(callback) {
-        supertabClient.startPaygate({
+        supertabClient.createPaygate({
             experienceId: "experience.abc",
         }).then((paygate) => {
             paygate.show()
@@ -133,7 +133,7 @@ You may wish to check for any prior entitlement your user has purchased without 
 This is achieved by inspecting the initial state of the paygate immediately after creating it.
 
 ```javascript Prior Entitlements
-const supertabPaygate = await supertabClient.startPaygate({
+const supertabPaygate = await supertabClient.createPaygate({
     experienceId: "experience.your_experience"
 });
 
@@ -170,7 +170,7 @@ upon detecting a prior entitlement if it already has an authenticated user.
 For most cases it's appropriate to immediately show the Paygate:
 
 ```javascript Showing the Paygate
-const supertabPaygate = await supertabClient.startPaygate({
+const supertabPaygate = await supertabClient.createPaygate({
     experienceId: "experience.your_experience"
 });
 
@@ -184,7 +184,7 @@ Once the promise returned from `show()` resolves you can inspect the updated sta
 what choices you user made.
 
 ```typescript Experience state
-type PaygateStateSummary = {
+type ExperienceStateSummary = {
     purchaseCompleted: boolean;
     priorEntitlement: PriorEntitlementSummary | null;
     authStatus: AuthStatus;

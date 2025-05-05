@@ -1,0 +1,38 @@
+---
+title: 'Consuming Webhooks'
+sidebarTitle: 'Consuming Webhooks'
+description: 'React to events in your Supertab account with webhooks'
+icon: globe
+---
+
+### Introduction
+Webhooks are a way for Supertab to send real-time notifications to your application when certain events occur in your account. This allows you to react to changes in your account without having to poll the API for updates.
+
+A webhook is an HTTP callback that is triggered by a specific event. When the event occurs, Supertab sends a POST request to the URL you specify with a payload containing information about the event. You can validate that the webhook payload is genuinely from Supertab, and then process it in your application.
+
+Supertab uses a service called Svix to manage our webhook infrastructure.
+
+### Example Use Cases
+
+- **CRM Updates:** When a customer purchases access to the content on your website, a `purchase.completed` webhook event is triggered. You can use this event to update your CRM with the customer's purchase information.
+- **Custom Access Management:** You can implement your own custom mechanism for gating content or services within your application using the [One-Time Offering](/merchant-api/endpoints/create-onetime-offering) feature. You can create One-Time Offerings to represent e.g. access or credits by passing custom metadata. When a customer purchases the One-Time Offering, you can use the `onetime_offering.purchasing_completed` webhook event to check the metadata and securely grant them access.
+
+### Consuming Webhook Events
+
+1. **Set Up Your Webhook Endpoint:** Create an endpoint in your application that can handle POST requests. This endpoint should be publicly accessible and able to process the incoming webhook payload.
+2. **Register Your Webhook** Navigate to _Webhooks_ in the Business Portal and click _Add Endpoint_. Enter your enpoint URL and select the events you wish to subscribe to.
+3. **Receive and Validate Webhook Events:** When an event occurs, Supertab will send a POST request to your webhook endpoint with the event payload. You should validate the request to ensure it is genuinely from Supertab. There is detailed documentation on how to do this on the [Svix website](https://docs.svix.com/receiving/verifying-payloads/why). The signing key is available in the Business Portal under the specific endpoint you created in the _Webhooks_ section.
+
+### Event Versioning
+
+Webhook events are versioned to ensure that you can handle changes in the payload structure without breaking your application. Each event type has a version number associated with it, which is appended to the event type name and visible in the list of events when you register your webhook endpoint.
+
+A new version of an event will be released if there is a breaking change in the payload. For example, if a field is removed or changed, then a new version will be released. If a new field is added, then the event will remain the same version.
+
+If an event does not have a version associated with it, it is considered to be the oldest version of the event.
+
+The current latest version is `2025-04-01`.
+
+### Event Catalog
+The event catalog is available to view [here](https://www.svix.com/event-types/eu/org_2m1kyxXSEnLSeEprUkWs7ksPdgf/), and under the _Event Catalog_ tab of the _Webhooks_ section of the Business Portal.
+

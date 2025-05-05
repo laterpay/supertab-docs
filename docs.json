@@ -150,6 +150,12 @@
                   "merchant-api/endpoints/create-onetime-offering",
                   "merchant-api/endpoints/retrieve-onetime-offering"
                 ]
+              },
+              {
+                "group": "Webhooks",
+                "pages": [
+                  "merchant-api/webhooks/consuming-webhooks"
+                ]
               }
             ]
           }

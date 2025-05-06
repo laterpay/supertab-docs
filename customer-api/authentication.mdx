@@ -89,6 +89,10 @@ We recommend you use [Supertab.js](/supertab-js) to handle all authentication.
 The Customer API is scoped to allow issuing tokens with minimum permissions.
 
 The [api specification](/customer-api/endpoints) details the required scopes for each operation.
-You must request a token with the scopes you require when authenticating the customer. The current available scopes are for the Customer API are: `capi:read` and `capi:write`.
+You must request a token with the scopes you require when authenticating the customer.
+The current available scopes are for the Customer API are:
+
+- `capi:read`: Make purchases and take other actions that modify a customer account.
+- `capi:write`: Check for entitlements and take other actions the retrieve a customer's details.
 
 [Supertab.js](/supertab-js/reference/auth) handles acquiring tokens with the correct scopes for you.

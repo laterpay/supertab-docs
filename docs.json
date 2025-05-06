@@ -84,77 +84,84 @@
         ]
       },
       {
-        "tab": "Customer API",
-        "versions": [
+        "tab": "API Reference",
+        "dropdowns": [
           {
-            "version": "2025-04-01",
-            "groups": [
+            "dropdown": "Customer API",
+            "icon": "browsers",
+            "versions": [
               {
-                "group": "Introduction",
-                "pages": [
-                  "customer-api/overview"
-                ]
-              },
-              {
-                "group": "Reference",
-                "pages": [
-                  "customer-api/authentication",
-                  "customer-api/versioning"
-                ]
-              },
-              {
-                "group": "Guides",
-                "pages": [
-                  "customer-api/making-a-purchase",
-                  "customer-api/entitlements"
-                ]
-              },
-              {
-                "group": "Endpoints",
-                "pages": [
-                  "customer-api/endpoints/retrieve-customer",
-                  "customer-api/endpoints/retrieve-site",
-                  "customer-api/endpoints/purchase-an-offering",
-                  "customer-api/endpoints/retrieve-a-one-time-offering",
-                  "customer-api/endpoints/purchase-a-one-time-offering",
-                  "customer-api/endpoints/retrieve-a-purchase",
-                  "customer-api/endpoints/retrieve-entitlement-status"
+                "version": "2025-04-01",
+                "groups": [
+                  {
+                    "group": "Introduction",
+                    "pages": [
+                      "customer-api/overview"
+                    ]
+                  },
+                  {
+                    "group": "Reference",
+                    "pages": [
+                      "customer-api/authentication",
+                      "customer-api/versioning"
+                    ]
+                  },
+                  {
+                    "group": "Guides",
+                    "pages": [
+                      "customer-api/making-a-purchase",
+                      "customer-api/entitlements"
+                    ]
+                  },
+                  {
+                    "group": "Endpoints",
+                    "pages": [
+                      "customer-api/endpoints/retrieve-customer",
+                      "customer-api/endpoints/retrieve-site",
+                      "customer-api/endpoints/purchase-an-offering",
+                      "customer-api/endpoints/retrieve-a-one-time-offering",
+                      "customer-api/endpoints/purchase-a-one-time-offering",
+                      "customer-api/endpoints/retrieve-a-purchase",
+                      "customer-api/endpoints/retrieve-entitlement-status"
+                    ]
+                  }
                 ]
               }
             ]
-          }
-        ]
-      },
-      {
-        "tab": "Merchant API",
-        "versions": [
+          },
           {
-            "version": "2025-04-01",
-            "groups": [
+            "dropdown": "Merchant API",
+            "icon": "server",
+            "versions": [
               {
-                "group": "Introduction",
-                "pages": [
-                  "merchant-api/overview"
-                ]
-              },
-              {
-                "group": "Reference",
-                "pages": [
-                  "merchant-api/authentication",
-                  "merchant-api/versioning"
-                ]
-              },
-              {
-                "group": "Endpoints",
-                "pages": [
-                  "merchant-api/endpoints/create-onetime-offering",
-                  "merchant-api/endpoints/retrieve-onetime-offering"
-                ]
-              },
-              {
-                "group": "Webhooks",
-                "pages": [
-                  "merchant-api/webhooks/consuming-webhooks"
+                "version": "2025-04-01",
+                "groups": [
+                  {
+                    "group": "Introduction",
+                    "pages": [
+                      "merchant-api/overview"
+                    ]
+                  },
+                  {
+                    "group": "Reference",
+                    "pages": [
+                      "merchant-api/authentication",
+                      "merchant-api/versioning"
+                    ]
+                  },
+                  {
+                    "group": "Endpoints",
+                    "pages": [
+                      "merchant-api/endpoints/create-onetime-offering",
+                      "merchant-api/endpoints/retrieve-onetime-offering"
+                    ]
+                  },
+                  {
+                    "group": "Webhooks",
+                    "pages": [
+                      "merchant-api/webhooks/consuming-webhooks"
+                    ]
+                  }
                 ]
               }
             ]

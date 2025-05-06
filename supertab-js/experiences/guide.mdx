@@ -98,7 +98,7 @@ show -- Resolve --> update[New State]
 Supertab Experiences follows an async programming paradigm.
 Each interaction with the paygate object will return a promise which resolves once the user has finished interacting with the Paygate.
 
-You can handle these promises through the user of `async` / `await` for through callbacks (`.then()`).
+You can handle these promises through the use of `async` / `await` or through promise chaining with `.then()`.
 
 <CodeGroup>
     ```javascript async / await
@@ -111,8 +111,8 @@ You can handle these promises through the user of `async` / `await` for through 
     }
     ```
 
-    ```javascript callback
-    function showPaygate(callback) {
+    ```javascript Promise chaining with .then()
+    function showPaygate() {
         supertabClient.createPaygate({
             experienceId: "experience.abc",
         }).then((paygate) => {
@@ -156,7 +156,7 @@ if (authStatus !== "valid") {
 priorEntitlement = state.priorEntitlement
 
 // We can now find out if the user has a prior entitlement
-hasPriorEntitlement = priorEntitlement.hasEntitlement
+hasPriorEntitlement = priorEntitlement[0].hasEntitlement
 return hasPriorEntitlement
 ```
 
@@ -185,18 +185,19 @@ what choices you user made.
 
 ```typescript Experience state
 type ExperienceStateSummary = {
-    purchaseCompleted: boolean;
-    priorEntitlement: PriorEntitlementSummary | null;
+    purchase: Purchase | null;
+    priorEntitlement: EntitlementStatus[] | null;
     authStatus: AuthStatus;
-    purchasedOffering?: OfferingSummary | null;
-    paidTab?: TabSummary | null
+    purchasedOffering: Offering | null;
+    tab: Tab | null
+    paymentCompleted: boolean;
 }
 ```
 
 ### Checking for purchases
 
 The experience state will tell you if your user made a purchase from the paygate.
-If a purchase was made `purchasedOffering` will be present and `purchaseCompleted` will be `true`.
+If a purchase was made `purchase` will be present. If a user made a payment to complete their purchase, `paymentResult` will be `true`.
 
 | `OfferingSummary` | Type | Description |
 |:---|:---|:---|
@@ -209,19 +210,19 @@ If a purchase was made `purchasedOffering` will be present and `purchaseComplete
 
 // Show the Paygate and wait for the promise to resolve.
 // The promise resolves once the paygate has exited and is no longer showing to the user.
-state = await supertabPaygate.show();
+const state = await supertabPaygate.show();
 
-if (!state.purchasedOffering) {
+if (!state.purchase) {
     // No purchase was made
     return
 }
 
-if (state.purchasedOffering.status === 'completed') {
+if (state.purchase.status === 'completed') {
     // A purchase has been made successfully!
     console.log("Customer made a purchase!", state.purchasedOffering.offeringId)
 }
 
-if (state.purchasedOffering.paymentResult) {
+if (state.paymentResult) {
     // The user made a payment in order to complete their purchase
     console.log("Customer made a payment!")
 }

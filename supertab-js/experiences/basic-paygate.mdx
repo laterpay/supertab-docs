@@ -30,20 +30,6 @@ const supertabPaygate = await supertabClient.createPaygate({
 
 A promise which resolves with an object with following properties:
 
-<ResponseField name="isShowing" type="boolean">
-  Whether paygate UI is currently visible.
-</ResponseField>
-
-<ResponseField name="toggle" type="function">
-  Toggle visibility of paygate UI.
-
-  Returns a promise which resolves with the paygate summary. See [Paygate summary](#paygate-summary) for more details.
-  <Info>
-    If current user has prior entitlement to the content, the paygate will not
-    show.
-  </Info>
-</ResponseField>
-
 <ResponseField name="show" type="function">
   Show paygate UI.
 
@@ -52,12 +38,6 @@ A promise which resolves with an object with following properties:
     If current user has prior entitlement to the content, the paygate will not
     show.
   </Info>
-</ResponseField>
-
-<ResponseField name="hide" type="function">
-  Hide paygate UI.
-
-  Returns a promise which resolves with the paygate summary. See [Paygate summary](#paygate-summary) for more details.
 </ResponseField>
 
 <ResponseField name="logIn" type="function">

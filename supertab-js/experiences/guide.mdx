@@ -3,6 +3,8 @@ title: "Paygate Experiences"
 description: "Launch a Paygate and handle user choices"
 ---
 
+import ExperienceStateSummaryTypes from "/snippets/supertab-js/experience-state-summary-types.mdx";
+
 Supertab.js makes it simple to embed powerful monetization flows into your site.
 This guide will walk you through launching experiences and what information you
 receive about choices your customers make when interacting with a Supertab experience.
@@ -183,15 +185,7 @@ state = await supertabPaygate.show();
 Once the promise returned from `show()` resolves you can inspect the updated state of the Paygate to determine
 what choices you user made.
 
-```typescript Experience state
-type ExperienceStateSummary = {
-    purchaseCompleted: boolean;
-    priorEntitlement: PriorEntitlementSummary | null;
-    authStatus: AuthStatus;
-    purchasedOffering?: OfferingSummary | null;
-    paidTab?: TabSummary | null
-}
-```
+<ExperienceStateSummaryTypes />
 
 ### Checking for purchases
 

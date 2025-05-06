@@ -5,6 +5,7 @@ description: "Launch an experience using Supertab.js"
 
 import ExperiencesConfigParameters from "/snippets/supertab-js/experiences-config-parameters.mdx";
 import ExperienceStateSummary from "/snippets/supertab-js/experience-state-summary.mdx";
+import ExperienceStateSummaryTypes from "/snippets/supertab-js/experience-state-summary-types.mdx";
 import ResponseFieldsEntitlement from "/snippets/supertab-js/response-fields-entitlement.mdx";
 import ResponseFieldsCurrency from "/snippets/supertab-js/response-fields-currency.mdx";
 
@@ -72,8 +73,12 @@ A promise which resolves with an object with following properties:
         show.
     </Info>
 
-    <Expandable title="StateSummary">
+    <Expandable title="ExperienceStateSummary">
         <ExperienceStateSummary />
+    </Expandable>
+
+    <Expandable title="ExperienceStateSummary type">
+        <ExperienceStateSummaryTypes />
     </Expandable>
 </ResponseField>
 
@@ -86,8 +91,12 @@ A promise which resolves with an object with following properties:
         show.
     </Info>
 
-    <Expandable title="StateSummary">
+    <Expandable title="ExperienceStateSummary">
         <ExperienceStateSummary />
+    </Expandable>
+
+    <Expandable title="ExperienceStateSummary type">
+        <ExperienceStateSummaryTypes />
     </Expandable>
 </ResponseField>
 
@@ -96,8 +105,12 @@ A promise which resolves with an object with following properties:
 
     Returns a promise which resolves with the paygate summary.
 
-    <Expandable title="StateSummary">
+    <Expandable title="ExperienceStateSummary">
         <ExperienceStateSummary />
+    </Expandable>
+
+    <Expandable title="ExperienceStateSummary type">
+        <ExperienceStateSummaryTypes />
     </Expandable>
 </ResponseField>
 
@@ -107,16 +120,24 @@ A promise which resolves with an object with following properties:
 
     Returns a promise which resolves with the paygate summary.
 
-    <Expandable title="StateSummary">
+    <Expandable title="ExperienceStateSummary">
         <ExperienceStateSummary />
+    </Expandable>
+
+    <Expandable title="ExperienceStateSummary type">
+        <ExperienceStateSummaryTypes />
     </Expandable>
 </ResponseField>
 
-<ResponseField name="initialState" type="object">
+<ResponseField name="initialState" type="ExperienceStateSummary">
     Initial state of the paygate.
 
-    <Expandable title="StateSummary">
+    <Expandable title="ExperienceStateSummary">
         <ExperienceStateSummary />
+    </Expandable>
+
+    <Expandable title="ExperienceStateSummary type">
+        <ExperienceStateSummaryTypes />
     </Expandable>
 </ResponseField>
 
@@ -165,7 +186,7 @@ A promise which resolves with an object with following properties:
     button from DOM.
 </ResponseField>
 
-<ResponseField name="initialState" type="object">
+<ResponseField name="initialState" type="ExperienceStateSummary">
     Initial state of the purchase button. See [Purchase button summary](#purchase-button-summary) for more details.
 </ResponseField>
 
@@ -173,7 +194,13 @@ A promise which resolves with an object with following properties:
 
 Both the returned `initialState` object and the object passed as an argument to the `onDone` callback contain the following properties:
 
-<ExperienceStateSummary />
+<Expandable title="ExperienceStateSummary">
+    <ExperienceStateSummary />
+</Expandable>
+
+<Expandable title="ExperienceStateSummary type">
+    <ExperienceStateSummaryTypes />
+</Expandable>
 
 ## Example
 
@@ -200,107 +227,4 @@ const supertabButton = await supertabClient.createPurchaseButton({
       // attempt to purchase the offering.
     }
   }
-  ```
-
-## Types
-
-### `EntitlementStatus`
-
-```typescript
-type EntitlementStatus = {
-    contentKey: string;
-    hasEntitlement: boolean;
-    expires: string;
-    recursAt: Date | null;
-};
-```
-
-### `AuthStatus`
-
-```typescript
-enum AuthStatus {
-    MISSING = "missing",
-    EXPIRED = "expired",
-    VALID = "valid"
-}
-```
-
-### `Purchase`
-
-```typescript
-type Purchase = {
-    id: string;
-    offeringId?: string;
-    purchasedAt: string | null;
-    completedAt: string | null;
-    description: string;
-    price: Price;
-    status: PurchaseStatus;
-    metadata: unknown;
-    entitlementStatus: EntitlementStatus | null;
-}
-```
-
-### `PurchaseStatus`
-
-```typescript
-enum PurchaseStatus {
-    PENDING = "pending",
-    COMPLETED = "completed",
-    ABANDONED = "abandoned"
-}
-```
-
-### `Price`
-
-```typescript
-type Price = {
-    amount: number;
-    currency: Currency;
-}
-```
-
-### `Currency`
-
-```typescript
-type Currency = {
-    code: string;
-    symbol: string;
-    name: string;
-    baseUnit: number;
-}
-```
-
-### `Offering`
-
-```typescript
-type Offering = {
-    id: string;
-    description: string;
-    entitlementDetails: EntitlementDetails;
-    price: Price;
-    isPayNow: boolean;
-}
-```
-
-### `EntitlementDetails`
-
-```typescript
-type EntitlementDetails = {
-    contentKey: string;
-    duration: string;
-    isRecurring: boolean;
-}
-```
-
-### `Tab`
-
-```typescript
-type Tab = {
-    testMode: boolean;
-    currency: Currency;
-    total: Price;
-    limit: Price;
-    purchases: Array<Purchase>;
-}
 ```

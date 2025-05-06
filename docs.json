@@ -84,10 +84,11 @@
         ]
       },
       {
-        "tab": "APIs",
+        "tab": "API Reference",
         "dropdowns": [
           {
             "dropdown": "Customer API",
+            "icon": "browsers",
             "versions": [
               {
                 "version": "2025-04-01",
@@ -130,6 +131,7 @@
           },
           {
             "dropdown": "Merchant API",
+            "icon": "server",
             "versions": [
               {
                 "version": "2025-04-01",

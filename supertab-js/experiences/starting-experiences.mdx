@@ -202,3 +202,105 @@ const supertabButton = await supertabClient.createPurchaseButton({
   }
   ```
 
+## Types
+
+### `EntitlementStatus`
+
+```typescript
+type EntitlementStatus = {
+    contentKey: string;
+    hasEntitlement: boolean;
+    expires: string;
+    recursAt: Date | null;
+};
+```
+
+### `AuthStatus`
+
+```typescript
+enum AuthStatus {
+    MISSING = "missing",
+    EXPIRED = "expired",
+    VALID = "valid"
+}
+```
+
+### `Purchase`
+
+```typescript
+type Purchase = {
+    id: string;
+    offeringId?: string;
+    purchasedAt: string | null;
+    completedAt: string | null;
+    description: string;
+    price: Price;
+    status: PurchaseStatus;
+    metadata: unknown;
+    entitlementStatus: EntitlementStatus | null;
+}
+```
+
+### `PurchaseStatus`
+
+```typescript
+enum PurchaseStatus {
+    PENDING = "pending",
+    COMPLETED = "completed",
+    ABANDONED = "abandoned"
+}
+```
+
+### `Price`
+
+```typescript
+type Price = {
+    amount: number;
+    currency: Currency;
+}
+```
+
+### `Currency`
+
+```typescript
+type Currency = {
+    code: string;
+    symbol: string;
+    name: string;
+    baseUnit: number;
+}
+```
+
+### `Offering`
+
+```typescript
+type Offering = {
+    id: string;
+    description: string;
+    entitlementDetails: EntitlementDetails;
+    price: Price;
+    isPayNow: boolean;
+}
+```
+
+### `EntitlementDetails`
+
+```typescript
+type EntitlementDetails = {
+    contentKey: string;
+    duration: string;
+    isRecurring: boolean;
+}
+```
+
+### `Tab`
+
+```typescript
+type Tab = {
+    testMode: boolean;
+    currency: Currency;
+    total: Price;
+    limit: Price;
+    purchases: Array<Purchase>;
+}
+```

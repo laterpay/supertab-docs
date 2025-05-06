@@ -1,4 +1,4 @@
-<ResponseField name="priorEntitlement" type="PriorEntitlement | null">
+<ResponseField name="priorEntitlement" type="EntitlementStatus | null">
   Any prior entitlement of the current user. `null` if user has no prior entitlement.
 
   <Expandable title="prior entitlement">
@@ -6,7 +6,7 @@
   </Expandable>
 </ResponseField>
 
-<ResponseField name="authStatus" type="string">
+<ResponseField name="authStatus" type="AuthStatus">
   Current authentication status of the user. Possible values: `missing`, `expired`, `valid`.
 </ResponseField>
 
@@ -26,13 +26,13 @@
       Example: `"offering.4df706b5-297a-49c5-a4cd-2a10eca12ff9"`
     </ResponseField>
 
-    <ResponseField name="purchasedAt" type="string">
+    <ResponseField name="purchasedAt" type="string | null">
       Date and time of the purchase.
 
       Example: `"2025-04-30T12:00:00Z"`
     </ResponseField>
 
-    <ResponseField name="completedAt" type="string">
+    <ResponseField name="completedAt" type="string | null">
       Date and time of the purchase completion, i.e. when payment was successful if purchase required payment.
 
       Example: `"2025-04-30T12:00:00Z"`
@@ -61,7 +61,7 @@
     </ResponseField>
 
 
-    <ResponseField name="status" type="string">
+    <ResponseField name="status" type="PurchaseStatus">
       Status of the purchase. Possible values: `completed`, `pending`, `abandoned`.
     </ResponseField>
 
@@ -69,7 +69,7 @@
       Freeform metadata associated with the purchase.
     </ResponseField>
 
-    <ResponseField name="entitlementStatus" type="object">
+    <ResponseField name="entitlementStatus" type="EntitlementStatus | null">
       The customer's access (if any) as a result of this purchase.
 
       <Expandable title="Entitlement status object">
@@ -95,7 +95,7 @@
       Example: `"24 Hours Time Pass to The Leek"`
     </ResponseField>
 
-    <ResponseField name="entitlementDetails" type="object">
+    <ResponseField name="entitlementDetails" type="EntitlementDetails">
       Specifies the nature and duration of purchased entitlement.
 
       Where you have chosen to have Supertab manage entitlements for you, customer's purchasing such an offering will be granted entitlement to the content associated with the offering for the length of time specified.
@@ -155,13 +155,13 @@
       Whether the tab is in test mode.
     </ResponseField>
 
-    <ResponseField name="currency" type="object">
+    <ResponseField name="currency" type="Currency">
       The currency of the tab.
 
       <ResponseFieldsCurrency />
     </ResponseField>
 
-    <ResponseField name="total" type="object">
+    <ResponseField name="total" type="Price">
       The total amount of the tab.
 
       <Expandable title="Total object">
@@ -171,13 +171,13 @@
           Example: `50`
         </ResponseField>
 
-        <ResponseField name="currency" type="object">
+        <ResponseField name="currency" type="Currency">
           <ResponseFieldsCurrency />
         </ResponseField>
       </Expandable>
     </ResponseField>
 
-    <ResponseField name="limit" type="object">
+    <ResponseField name="limit" type="Price">
       The limit of the tab. When reached, the payment will be required.
 
       <Expandable title="Limit object">
@@ -187,13 +187,13 @@
           Example: `50`
         </ResponseField>
 
-        <ResponseField name="currency" type="object">
+        <ResponseField name="currency" type="Currency">
           <ResponseFieldsCurrency />
         </ResponseField>
       </Expandable>
     </ResponseField>
 
-    <ResponseField name="purchases" type="array">
+    <ResponseField name="purchases" type="Array<Purchase>">
       Details of all purchases made by the customer through your merchant account. Purchases made with other merchant accounts are shown as a single purchase, which accumulates all totals into one and has a `null` value instead of a purchase ID.
 
       Each purchase in the array has the same structure as the previously described [Purchase object](#param-purchase).

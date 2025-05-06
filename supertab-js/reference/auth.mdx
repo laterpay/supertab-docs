@@ -26,11 +26,21 @@ const session = await supertabClient.auth.session;
 
 ### `status`
 
-The authentication status of the user. See [AuthStatus](#authstatus) for the type definition.
+The authentication status of the user.
 
 * `missing` - The user is not authenticated.
 * `expired` - The user's session has expired and needs to be refreshed before making an authenticated request to the Customer API. See [start](#start) method for more details on how to refresh the session.
 * `valid` - The user is authenticated.
+
+#### Type
+
+```typescript
+enum AuthStatus {
+  MISSING: "missing",
+  EXPIRED: "expired",
+  VALID: "valid",
+}
+```
 
 #### Example
 ```typescript
@@ -65,23 +75,25 @@ Based on the presence of session data:
 
 #### Returns
 
-A promise which resolves with the user's session data object. See [AuthData](#authdata) for the type definition.
+A promise which resolves with the user's session data object.
 
-<ResponseField name="accessToken" type="string">
-  The access token used for making authenticated requests to the Customer API.
-</ResponseField>
+| Field          | Type                                    | Description                                                                                                                                     |
+|:---------------|:----------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------|
+| `accessToken` | `string`                | The access token used for making authenticated requests to the Customer API. |
+| `refreshToken` | `string`                | The token used to obtain a new access token when the current one expires. |
+| `expiresAt` | `Date`                | The date and time when the access token will expire. |
+| `tokenType` | `string`                | The type of authentication token, typically "Bearer". |
 
-<ResponseField name="refreshToken" type="string">
-  The token used to obtain a new access token when the current one expires.
-</ResponseField>
+#### Type
 
-<ResponseField name="expiresAt" type="Date">
-  The date and time when the access token will expire.
-</ResponseField>
-
-<ResponseField name="tokenType" type="string" default="Bearer">
-  The type of authentication token, typically "Bearer".
-</ResponseField>
+```typescript
+type AuthData = {
+  accessToken: string;
+  refreshToken: string;
+  expiresAt: Date;
+  tokenType: string;
+}
+```
 
 #### Examples
 
@@ -106,26 +118,3 @@ await supertabClient.auth.start({ screenHint: "login" });
 ### `reset`
 
 Resets the authentication state by clearing the browser storage.
-
-## Types
-
-### `AuthData`
-
-```typescript
-type AuthData = {
-  accessToken: string;
-  refreshToken: string;
-  expiresAt: Date;
-  tokenType: string;
-}
-```
-
-### `AuthStatus`
-
-```typescript
-enum AuthStatus {
-  MISSING: "missing",
-  EXPIRED: "expired",
-  VALID: "valid",
-}
-```

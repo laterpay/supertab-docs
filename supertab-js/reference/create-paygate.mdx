@@ -1,0 +1,50 @@
+---
+title: "Supertab.createPaygate"
+description: "API reference for `Supertab.createPaygate`"
+---
+
+import ExperienceStateSummaryTypes from "/snippets/supertab-js/experience-state-summary-types.mdx";
+
+## Parameters
+
+| Key            | Type     | Required | Description                                                 |
+|:---------------|:---------|:---------|:------------------------------------------------------------|
+| `experienceId` | `string` | Yes      | ID of the Paygate experience created in the Business Portal |
+
+## Returns
+
+A promise that resolves to the initial state of the Paygate and methods for showing it to users. Type of the response is [`PaygateExperienceResult`](#paygateexperienceresult).
+
+| Field          | Type                                    | Description                                                                                                                                     |
+|:---------------|:----------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------|
+| `initialState` | `ExperienceStateSummary`                | The state of the paygate immediately after config is loaded, can be used to check if the user is logged in or has a priort entitlement already. |
+| `logIn`        | `() => Promise<ExperienceStateSummary>` | Launch an auth flow immediately, if necessary. The returned promise resolves when the login flow is completed.                                  |
+| `show`         | `() => Promise<ExperienceStateSummary>` | Display the paygate to the user, the returned promise resolves when the paygate closes.                                                         |
+| `destroy`      | `() => void`                            | Clean up and remove all Supertab elements from the DOM.
+
+## Example
+
+```javascript
+const supertabClient = new Supertab({clientId: "client.your_client"});
+
+const supertabPaygate = await supertabClient.createPaygate({
+    experienceId: "experience.your_experience"
+});
+```
+
+## Types
+
+### `ExperienceStateSummary`
+
+<ExperienceStateSummaryTypes />
+
+### `PaygateExperienceResult`
+
+```typescript PaygateExperienceResult type definition
+interface PaygateExperienceResult {
+    show: () => Promise<ExperienceStateSummary>;
+    logIn: () => Promise<ExperienceStateSummary>;
+    destroy: () => void;
+    initialState: ExperienceStateSummary;
+}
+```

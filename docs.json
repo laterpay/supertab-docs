@@ -70,14 +70,13 @@
               },
               {
                 "group": "Experiences",
-                "pages": [
-                  "supertab-js/experiences/paygate"
-                ]
+                "pages": ["supertab-js/experiences/paygate"]
               },
               {
                 "group": "API Reference",
                 "pages": [
                   "supertab-js/reference/overview",
+                  "supertab-js/reference/create-paygate",
                   "supertab-js/reference/auth",
                   "supertab-js/reference/api",
                   "supertab-js/reference/checkout",
@@ -100,9 +99,7 @@
                 "groups": [
                   {
                     "group": "Introduction",
-                    "pages": [
-                      "customer-api/overview"
-                    ]
+                    "pages": ["customer-api/overview"]
                   },
                   {
                     "group": "Reference",
@@ -143,9 +140,7 @@
                 "groups": [
                   {
                     "group": "Introduction",
-                    "pages": [
-                      "merchant-api/overview"
-                    ]
+                    "pages": ["merchant-api/overview"]
                   },
                   {
                     "group": "Reference",
@@ -163,9 +158,7 @@
                   },
                   {
                     "group": "Webhooks",
-                    "pages": [
-                      "merchant-api/webhooks/consuming-webhooks"
-                    ]
+                    "pages": ["merchant-api/webhooks/consuming-webhooks"]
                   }
                 ]
               }

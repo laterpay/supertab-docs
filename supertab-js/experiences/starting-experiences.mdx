@@ -60,28 +60,6 @@ supertabPaygate.show()
 
 A promise which resolves with an object with following properties:
 
-<ResponseField name="isShowing" type="boolean">
-    Whether paygate UI is currently visible.
-</ResponseField>
-
-<ResponseField name="toggle" type="function">
-    Toggle visibility of the paygate UI.
-
-    Returns a promise which resolves with the paygate summary.
-    <Info>
-        If current user has a prior entitlement to the content, the paygate will not
-        show.
-    </Info>
-
-    <Expandable title="ExperienceStateSummary">
-        <ExperienceStateSummary />
-    </Expandable>
-
-    <Expandable title="ExperienceStateSummary type">
-        <ExperienceStateSummaryTypes />
-    </Expandable>
-</ResponseField>
-
 <ResponseField name="show" type="function">
     Show the paygate UI.
 
@@ -91,12 +69,8 @@ A promise which resolves with an object with following properties:
         show.
     </Info>
 
-    <Expandable title="ExperienceStateSummary">
+    <Expandable title="StateSummary">
         <ExperienceStateSummary />
-    </Expandable>
-
-    <Expandable title="ExperienceStateSummary type">
-        <ExperienceStateSummaryTypes />
     </Expandable>
 </ResponseField>
 
@@ -105,12 +79,8 @@ A promise which resolves with an object with following properties:
 
     Returns a promise which resolves with the paygate summary.
 
-    <Expandable title="ExperienceStateSummary">
+    <Expandable title="StateSummary">
         <ExperienceStateSummary />
-    </Expandable>
-
-    <Expandable title="ExperienceStateSummary type">
-        <ExperienceStateSummaryTypes />
     </Expandable>
 </ResponseField>
 

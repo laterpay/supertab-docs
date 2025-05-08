@@ -1,0 +1,231 @@
+---
+title: "Paygate Experiences"
+description: "Launch a Paygate and handle user choices"
+---
+
+Supertab.js makes it simple to embed powerful monetization flows into your site.
+This guide will walk you through launching experiences and what information you
+receive about choices your customers make when interacting with a Supertab experience.
+
+#### Before You Begin
+
+Make sure that you have:
+
+- [Created an experience](/supertab-experiences/experiences) in the Business Portal
+- [Installed Supertab.js](/supertab-js/installation) via npm or CDN.
+
+## Initialize the Supertab.js Client
+
+First, create a new `Supertab` instance using your client ID.
+
+<CodeGroup>
+    ```javascript Installed via npm
+    const supertabClient = new Supertab({clientId: "client.your_client"});
+    ```
+
+    ```javascript Installed via CDN
+    const supertabClient = new window.Supertab({clientId: "client.your_client"});
+    ```
+</CodeGroup>
+
+Replace `client.your_client` with the live or test client ID associated with site you created
+when setting up your experiences. Supertab.js uses this client ID to make sure its running
+in the correct place.
+
+## Display a Paygate
+
+The Paygate is a customizable experience that handles login, entitlement checks and purchase flows for you.
+You can launch it any time: on page load, after a user action or in response to app logic.
+
+```javascript Quickstart
+
+// First create the paygate
+// Replace `experience.your_experience` with your experience ID
+// Supertab.js will fetch the configuration of the paygate for you.
+// No paygate is shown at this point, you must call .show()
+const supertabPaygate = await supertabClient.createPaygate({
+    experienceId: "experience.your_experience"
+});
+
+// Display the paygate to your user
+// The paygate closes after a succesful purchase or on user abandonment
+await supertabPaygate.show()
+```
+
+#### Options for `createPaygate`
+
+Offerings available for sale, messaging text and styling are controlled from the Business Portal
+
+
+| Key            | Type     | Required | Description                                                 |
+|:---------------|:---------|:---------|:------------------------------------------------------------|
+| `experienceId` | `string` | Yes      | ID of the Paygate experience created in the Business Portal |
+
+
+#### PaygateExperienceResult
+
+`createPaygate` returns a `PaygateExperienceResult` object containing the initial state of the Paygate
+and methods for showing it to users.
+
+| Field          | Type                                    | Description                                                                                                                                     |
+|:---------------|:----------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------|
+| `initialState` | `ExperienceStateSummary`                | The state of the paygate immediately after config is loaded, can be used to check if the user is logged in or has a priort entitlement already. |
+| `logIn`        | `() => Promise<ExperienceStateSummary>` | Launch an auth flow immediately, if necessary. The returned promise resolves when the login flow is completed.                                  |
+| `show`         | `() => Promise<ExperienceStateSummary>` | Display the paygate to the user, the returned promise resolves when the paygate closes.                                                         |
+| `destroy`      | `() => void`                            | Clean up and remove all Supertab elements from the DOM.                                                                                         |
+
+## Paygate Lifecycle
+
+The state of the Paygate is generally returned to you as a promise which resolves when the Paygate exits.
+The Paygate may exit as a result of a successful purchase or as a result of user abandonment.
+
+```mermaid
+flowchart LR
+
+create[createPaygate] --> show[show]
+show -- Successful Purchase --> exit[ExperienceStateSummary]
+show -- Prior Entitlement --> exit
+show -- Abandonment --> exit
+```
+
+Supertab Experiences uses an async programming paradigm.
+Each interaction returns a promise which resolves once the user has finished interacting with the Paygate.
+
+You can handle these promises through the use of `async` / `await` or through promise chaining with `.then()`.
+
+<CodeGroup>
+    ```javascript async / await
+    async function showPaygate() {
+        const paygate = await supertabClient.createPaygate({ experienceId: "experience.your_experience" });
+
+        const state = await paygate.show();
+
+        // You can now work with the state
+    }
+    ```
+
+    ```javascript Promise chaining with .then()
+    function showPaygate() {
+        supertabClient.createPaygate({
+            experienceId: "experience.abc",
+        }).then((paygate) => {
+            paygate.show()
+                .then((state) => {
+                    // You can now work with the state
+                })
+        });
+    }
+    ```
+</CodeGroup>
+
+Examples on this page use `async` / `await`.
+
+## Checking for Purchases
+
+The experience state will tell you if your user made a purchase from the paygate.
+
+| `ExperienceStateSummary` | Type     | Description                                                                                                                                                                                                               |
+|:-------------------------|:---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `purchase`               | `Purchase \| null` | The purchase made by the user.                                                                                                                                                                          |
+| `paymentResult`          | `boolean` | `true` if the user made a payment to complete their purchase.                                                                                                                                                             |
+
+You can find detail about any purchase the user made by inspecting the `purchase` field.
+
+| `Purchase`    | Type     | Description                                                                                                                                                                                                                                                                                                   |
+|:--------------|:---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `id`          | `string` | ID of the purchase. You can use this with the Merchant API for backend checks the purchase is valid.                                                                                                                                                                                                          |
+| `offeringId`  | `string` | ID of the offering which was purchased.                                                                                                                                                                                                                                                                       |
+| `description` | `string` | Description of the offering which was purchased                                                                                                                                                                                                                                                               |
+| `status`      | `string` | Possible values: `completed`, `pending`.<br /><br />A purchase may be created as `pending` when the user is required to make payment. If handling entitlements yourself, only grant access when a purchase is `completed`. <br /><br />The paygate will automatically launch the payment flow when necessary. |
+
+```javascript Check for a purchase
+
+// Show the Paygate and wait for the promise to resolve.
+// The promise resolves once the paygate has exited and is no longer showing to the user.
+const state = await supertabPaygate.show();
+
+if (!state.purchase) {
+    // No purchase was made
+    return
+}
+
+if (state.purchase.status === 'completed') {
+    // A purchase has been made successfully!
+    console.log("Customer made a purchase!", state.purchasedOffering.offeringId)
+}
+
+if (state.paymentResult) {
+    // The user made a payment in order to complete their purchase
+    console.log("Customer made a payment!")
+}
+```
+
+### Check For Prior Entitlement (Optional)
+
+You may wish to check for any prior entitlement your user has purchased without immediately showing the paygate.
+This is achieved by inspecting the initial state of the paygate immediately after creating it.
+
+| `ExperienceStateSummary` | Type                 | Description                                             |
+|:-------------------------|:---------------------|:--------------------------------------------------------|
+| `priorEntitlement`       | `EntitlementStatus[] \| null` | Array of any prior entitlements the user has purchased. |
+
+`EntitlementStatus` contains information on which `contentKey`s the user has an entitlement for
+and when their entitlement expires.
+
+| `EntitlementStatus` | Type      | Description                                                        |
+|:--------------------|:----------|:-------------------------------------------------------------------|
+| `contentKey`        | `string`  | ID of the content key which the user has an entitlement for.       |
+| `expires`           | `string`  | Date when the user's entitlement expires. e.g `2025-01-01 00:00:00` |
+| `hasEntitlement`    | `boolean` | `true` if the user has an entitlement for the content key.         |
+
+```javascript Prior Entitlements
+const supertabPaygate = await supertabClient.createPaygate({
+    experienceId: "experience.your_experience"
+});
+
+const state = supertabPaygate.initialState;
+const entitlements = state.priorEntitlement;
+
+// contentKey we wish to check entitlement for
+const checkFor = "site.your_site_id";
+
+for (const entitlement of entitlements) {
+    if (entitlement.contentKey === checkFor && entitlement.hasEntitlement) {
+        // The user has an entitlement
+        return true
+    }
+}
+
+// The user does not have an entitlement
+return false;
+```
+
+You may also check for entitlements after the paygate has exited by inspecting the `priorEntitlement` field of
+the resolves `ExperienceStateSummary` object.
+
+### Force LogIn (Optional)
+
+It is only possible to check for prior entitlements without starting the paygate experience when the user is
+already logged in.
+
+You can force an immediate login by calling `logIn` on the paygate itself.
+
+```javascript Force Login
+const supertabPaygate = await supertabClient.createPaygate({
+    experienceId: "experience.your_experience"
+});
+
+// Supertab SSO will open in a popup and return to you the new paygate state
+// WARNING: You should only open a popup in response to user action to avoid the browser blocking the popup.
+const state = await supertabPaygate.logIn()
+```
+
+Because `.logIn()` immediately opens a popup it should only be called in response to a user action.
+
+## Wrapping Up
+
+We've covered:
+
+- How to create and show a paygate
+- The lifecycle of the paygate and its async programming model
+- How to work with the state of the paygate to check for purchases and entitlements

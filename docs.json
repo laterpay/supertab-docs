@@ -59,14 +59,19 @@
         "tab": "Supertab.js",
         "versions": [
           {
-            "version": "3.0.0",
+            "version": "v3",
             "groups": [
               {
                 "group": "Supertab.js",
                 "pages": [
                   "supertab-js/introduction",
-                  "supertab-js/installation",
-                  "supertab-js/experiences/starting-experiences"
+                  "supertab-js/installation"
+                ]
+              },
+              {
+                "group": "Experiences",
+                "pages": [
+                  "supertab-js/experiences/paygate"
                 ]
               },
               {

@@ -5,6 +5,7 @@ description: "Launch an experience using Supertab.js"
 
 import ExperiencesConfigParameters from "/snippets/supertab-js/experiences-config-parameters.mdx";
 import ExperienceStateSummary from "/snippets/supertab-js/experience-state-summary.mdx";
+import ExperienceStateSummaryTypes from "/snippets/supertab-js/experience-state-summary-types.mdx";
 import ResponseFieldsEntitlement from "/snippets/supertab-js/response-fields-entitlement.mdx";
 import ResponseFieldsCurrency from "/snippets/supertab-js/response-fields-currency.mdx";
 
@@ -73,9 +74,8 @@ A promise which resolves with an object with following properties:
     </Expandable>
 </ResponseField>
 
-<ResponseField name="logIn" type="function">
-    Starts the login flow. Opens Supertab SSO popup window if user is unknown.
-    Otherwise will log user in silently if auth data are found but has expired.
+<ResponseField name="hide" type="function">
+    Hide the paygate UI.
 
     Returns a promise which resolves with the paygate summary.
 
@@ -84,10 +84,21 @@ A promise which resolves with an object with following properties:
     </Expandable>
 </ResponseField>
 
-<ResponseField name="initialState" type="object">
+<ResponseField name="logIn" type="function">
+    Starts the login flow. Opens Supertab SSO popup window if user is unknown.
+    Otherwise will log user in silently if auth data are found but has expired.
+
+    Returns a promise which resolves with the paygate summary.
+
+    <Expandable title="ExperienceStateSummary">
+        <ExperienceStateSummary />
+    </Expandable>
+</ResponseField>
+
+<ResponseField name="initialState" type="ExperienceStateSummary">
     Initial state of the paygate.
 
-    <Expandable title="StateSummary">
+    <Expandable title="ExperienceStateSummary">
         <ExperienceStateSummary />
     </Expandable>
 </ResponseField>
@@ -137,7 +148,7 @@ A promise which resolves with an object with following properties:
     button from DOM.
 </ResponseField>
 
-<ResponseField name="initialState" type="object">
+<ResponseField name="initialState" type="ExperienceStateSummary">
     Initial state of the purchase button. See [Purchase button summary](#purchase-button-summary) for more details.
 </ResponseField>
 
@@ -145,7 +156,9 @@ A promise which resolves with an object with following properties:
 
 Both the returned `initialState` object and the object passed as an argument to the `onDone` callback contain the following properties:
 
-<ExperienceStateSummary />
+<Expandable title="ExperienceStateSummary">
+    <ExperienceStateSummary />
+</Expandable>
 
 ## Example
 
@@ -172,5 +185,4 @@ const supertabButton = await supertabClient.createPurchaseButton({
       // attempt to purchase the offering.
     }
   }
-  ```
-
+```

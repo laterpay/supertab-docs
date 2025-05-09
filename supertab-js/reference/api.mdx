@@ -34,6 +34,71 @@ Customer object. See <a href="/customer-api/endpoints/retrieve-customer">Retriev
 Supertab.js returns the response object keys in camelCase.
 
 
+#### Type
+
+```typescript retrieveCustomer return type [expandable]
+{
+    authenticated: boolean;
+    tab: {
+        currency: {
+            symbol: string;
+            code: string;
+            name: string;
+            baseUnit: number;
+        };
+        testMode: boolean;
+        total: {
+            currency: {
+                symbol: string;
+                code: string;
+                name: string;
+                baseUnit: number;
+            };
+            amount: number;
+        };
+        limit: {
+            currency: {
+                symbol: string;
+                code: string;
+                name: string;
+                baseUnit: number;
+            };
+            amount: number;
+        };
+        purchases: {
+            status: "completed" | "pending" | "abandoned";
+            id: string;
+            offeringId: string;
+            purchasedAt: string;
+            completedAt: string | (string | null)[] | null;
+            description: string;
+            price: {
+                currency: {
+                    symbol: string;
+                    code: string;
+                    name: string;
+                    baseUnit: number;
+                };
+                amount: number;
+            };
+            entitlementStatus: null[] | {
+                contentKey: string;
+                hasEntitlement: boolean;
+                expires: string | (string | null)[] | null;
+                recursAt: string | (string | null)[] | null;
+            } | {
+                contentKey: string;
+                hasEntitlement: boolean;
+                expires: string | (string | null)[] | null;
+                recursAt: string | (string | null)[] | null;
+            }[] | null;
+            metadata?: unknown;
+        }[];
+    };
+}
+```
+
+
 #### Example
 
 ```typescript
@@ -60,6 +125,56 @@ Retrieves the site object associated with the client ID used to [initialize Supe
 Site object. See <a href="/customer-api/endpoints/retrieve-site">Retrieve site</a>.
 Supertab.js returns the response object keys in camelCase.
 
+#### Type
+
+```typescript retrieveSite return type [expandable]
+{
+    name: string;
+    offerings: {
+        id: string;
+        description: string;
+        price: {
+            currency: {
+                symbol: string;
+                code: string;
+                name: string;
+                baseUnit: number;
+            };
+            amount: number;
+        };
+        entitlementDetails: {
+            contentKey: string;
+            duration: string;
+            isRecurring: boolean;
+        } | null[] | {
+            contentKey: string;
+            duration: string;
+            isRecurring: boolean;
+        }[] | null;
+        isPayNow: boolean;
+    }[];
+    testMode: boolean;
+    url: string;
+    logoUrl: string | (string | null)[] | null;
+    contentKeys: string[];
+    experiences: {
+        type: "basic_paygate" | "basic_supertab_button" | "rich_paygate" | "rich_supertab_button";
+        name: string;
+        id: string;
+        offerings: string[];
+        configuration: {
+            onClose: string | (string | null)[] | null;
+            upsells: {
+                mainOffering: string;
+                upsellOffering: string;
+                discount: number;
+            }[];
+            uiConfig?: unknown;
+        };
+    }[];
+}
+```
+
 #### Example
 
 ```typescript
@@ -84,6 +199,17 @@ This method checks the entitlement details for a given content key.
 
 An object with the entitlement details. See <a href="/customer-api/endpoints/retrieve-entitlement-status">Retrieve entitlement status</a>.
 Supertab.js returns the response object keys in camelCase.
+
+#### Type
+
+```typescript checkEntitlement return type [expandable]
+{
+    contentKey: string;
+    hasEntitlement: boolean;
+    expires: string | (string | null)[] | null;
+    recursAt: string | (string | null)[] | null;
+}
+```
 
 #### Examples
 
@@ -139,6 +265,49 @@ Purchases an offering or a one-time offering.
 Purchase object. See <a href="/customer-api/endpoints/purchase-an-offering">Purchase an offering</a> endpoint in [Customer API docs](/customer-api) for detailed list of returned properties.
 Supertab.js returns the response object keys in camelCase.
 
+#### Type
+
+```typescript purchase return type [expandable]
+{
+    purchase: {
+        status: "completed" | "pending" | "abandoned";
+        id: string;
+        offeringId: string;
+        purchasedAt: string;
+        completedAt: string | (string | null)[] | null;
+        description: string;
+        price: {
+            currency: {
+                symbol: string;
+                code: string;
+                name: string;
+                baseUnit: number;
+            };
+            amount: number;
+        };
+        entitlementStatus: null[] | {
+            contentKey: string;
+            hasEntitlement: boolean;
+            expires: string | (string | null)[] | null;
+            recursAt: string | (string | null)[] | null;
+        } | {
+            contentKey: string;
+            hasEntitlement: boolean;
+            expires: string | (string | null)[] | null;
+            recursAt: string | (string | null)[] | null;
+        }[] | null;
+        metadata?: unknown;
+    };
+    actionRequired: boolean;
+    actionRequiredDetails: {
+        next: string;
+        reason: string;
+    } | null;
+    rejectionReason?: string;
+    purchaseOutcome?: string;
+}
+```
+
 #### Example
 
 ```typescript
@@ -166,6 +335,40 @@ This method retrieves a purchase object for a given purchase ID.
 
 Purchase object. See <a href="/customer-api/endpoints/retrieve-a-purchase">Retrieve a purchase</a>.
 Supertab.js returns the response object keys in camelCase.
+
+#### Type
+
+```typescript retrievePurchase return type [expandable]
+{
+    status: "completed" | "pending" | "abandoned";
+    id: string;
+    offeringId: string;
+    purchasedAt: string;
+    completedAt: string | (string | null)[] | null;
+    description: string;
+    price: {
+        currency: {
+            symbol: string;
+            code: string;
+            name: string;
+            baseUnit: number;
+        };
+        amount: number;
+    };
+    entitlementStatus: null[] | {
+        contentKey: string;
+        hasEntitlement: boolean;
+        expires: string | (string | null)[] | null;
+        recursAt: string | (string | null)[] | null;
+    } | {
+        contentKey: string;
+        hasEntitlement: boolean;
+        expires: string | (string | null)[] | null;
+        recursAt: string | (string | null)[] | null;
+    }[] | null;
+    metadata?: unknown;
+}
+```
 
 #### Example
 

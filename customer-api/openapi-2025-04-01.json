@@ -15,13 +15,6 @@
                 "tags": [
                     "Customer"
                 ],
-                "security": [
-                  {
-                    "oauth": [
-                      "capi:read"
-                    ]
-                  }
-                ],
                 "summary": "Retrieve the current customer.",
                 "description": "Retrieve the current customer.\n\nIf the user is authenticated, retrieves the customer's current tab.\n\nFor unauthenticated requests, retrieves a predicted currency and tab limit based on the user's location.",
                 "operationId": "retrieve-customer",
@@ -71,19 +64,6 @@
                             }
                         }
                     },
-                    "401": {
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "error": {
-                                        "message": "Invalid authentication credentials",
-                                        "code": "invalid_credentials"
-                                    }
-                                }
-                            }
-                        },
-                        "description": "Unauthorized"
-                    },
                     "403": {
                         "content": {
                             "application/json": {
@@ -96,6 +76,19 @@
                             }
                         },
                         "description": "Forbidden"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": {
+                                        "message": "Invalid authentication credentials",
+                                        "code": "invalid_credentials"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Unauthorized"
                     },
                     "422": {
                         "description": "Validation Error",
@@ -178,19 +171,6 @@
                             }
                         }
                     },
-                    "401": {
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "error": {
-                                        "message": "Invalid authentication credentials",
-                                        "code": "invalid_credentials"
-                                    }
-                                }
-                            }
-                        },
-                        "description": "Unauthorized"
-                    },
                     "403": {
                         "content": {
                             "application/json": {
@@ -203,6 +183,19 @@
                             }
                         },
                         "description": "Forbidden"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": {
+                                        "message": "Invalid authentication credentials",
+                                        "code": "invalid_credentials"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Unauthorized"
                     },
                     "422": {
                         "description": "Validation Error",
@@ -286,32 +279,6 @@
                             }
                         }
                     },
-                    "401": {
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "error": {
-                                        "message": "Invalid authentication credentials",
-                                        "code": "invalid_credentials"
-                                    }
-                                }
-                            }
-                        },
-                        "description": "Unauthorized"
-                    },
-                    "403": {
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "error": {
-                                        "message": "The Bearer token does not match the x-supertab-client-id header | Missing or invalid x-supertab-client-id | Invalid subject type {request_subject_type} found, {expected_token_type} expected | Forbidden",
-                                        "code": "client_id_mismatch | missing_or_invalid_x_supertab_client_id | invalid_subject_type | forbidden"
-                                    }
-                                }
-                            }
-                        },
-                        "description": "Forbidden"
-                    },
                     "404": {
                         "content": {
                             "application/json": {
@@ -337,6 +304,32 @@
                             }
                         },
                         "description": "Conflict"
+                    },
+                    "403": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": {
+                                        "message": "The Bearer token does not match the x-supertab-client-id header | Missing or invalid x-supertab-client-id | Invalid subject type {request_subject_type} found, {expected_token_type} expected | Forbidden",
+                                        "code": "client_id_mismatch | missing_or_invalid_x_supertab_client_id | invalid_subject_type | forbidden"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Forbidden"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": {
+                                        "message": "Invalid authentication credentials",
+                                        "code": "invalid_credentials"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Unauthorized"
                     },
                     "422": {
                         "description": "Validation Error",
@@ -428,6 +421,32 @@
                         },
                         "description": "Bad Request"
                     },
+                    "409": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": {
+                                        "message": "Purchases are not enabled for the merchant | The purchase's currency does not match the tab's currency",
+                                        "code": "purchases_not_enabled_for_merchant | currency_mismatch_error"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Conflict"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": {
+                                        "message": "No offering price found",
+                                        "code": "offering_price_not_found"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
                     "401": {
                         "content": {
                             "application/json": {
@@ -453,32 +472,6 @@
                             }
                         },
                         "description": "Forbidden"
-                    },
-                    "404": {
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "error": {
-                                        "message": "No offering price found",
-                                        "code": "offering_price_not_found"
-                                    }
-                                }
-                            }
-                        },
-                        "description": "Not Found"
-                    },
-                    "409": {
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "error": {
-                                        "message": "Purchases are not enabled for the merchant | The purchase's currency does not match the tab's currency",
-                                        "code": "purchases_not_enabled_for_merchant | currency_mismatch_error"
-                                    }
-                                }
-                            }
-                        },
-                        "description": "Conflict"
                     },
                     "422": {
                         "description": "Validation Error",
@@ -570,6 +563,32 @@
                         },
                         "description": "Bad Request"
                     },
+                    "409": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": {
+                                        "message": "This one-time offering was already consumed | The amount of the Pay-Now tab is below the allowed limit | Purchases are not enabled for the merchant",
+                                        "code": "onetime_offering_already_consumed | pay_now_tab_amount_below_limit | purchases_not_enabled_for_merchant"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Conflict"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": {
+                                        "message": "One-time offering not found",
+                                        "code": "onetime_offering_not_found"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
                     "401": {
                         "content": {
                             "application/json": {
@@ -595,32 +614,6 @@
                             }
                         },
                         "description": "Forbidden"
-                    },
-                    "404": {
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "error": {
-                                        "message": "One-time offering not found",
-                                        "code": "onetime_offering_not_found"
-                                    }
-                                }
-                            }
-                        },
-                        "description": "Not Found"
-                    },
-                    "409": {
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "error": {
-                                        "message": "This one-time offering was already consumed | The amount of the Pay-Now tab is below the allowed limit | Purchases are not enabled for the merchant",
-                                        "code": "onetime_offering_already_consumed | pay_now_tab_amount_below_limit | purchases_not_enabled_for_merchant"
-                                    }
-                                }
-                            }
-                        },
-                        "description": "Conflict"
                     },
                     "422": {
                         "description": "Validation Error",
@@ -704,19 +697,6 @@
                             }
                         }
                     },
-                    "401": {
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "error": {
-                                        "message": "Invalid authentication credentials",
-                                        "code": "invalid_credentials"
-                                    }
-                                }
-                            }
-                        },
-                        "description": "Unauthorized"
-                    },
                     "403": {
                         "content": {
                             "application/json": {
@@ -742,6 +722,19 @@
                             }
                         },
                         "description": "Not Found"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": {
+                                        "message": "Invalid authentication credentials",
+                                        "code": "invalid_credentials"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Unauthorized"
                     },
                     "422": {
                         "description": "Validation Error",
@@ -809,6 +802,19 @@
                             }
                         }
                     },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "error": {
+                                        "message": "Currency not found | No offering price found | Site not found.",
+                                        "code": "currency_not_found | offering_price_not_found | site_not_found"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
                     "401": {
                         "content": {
                             "application/json": {
@@ -834,19 +840,6 @@
                             }
                         },
                         "description": "Forbidden"
-                    },
-                    "404": {
-                        "content": {
-                            "application/json": {
-                                "example": {
-                                    "error": {
-                                        "message": "Currency not found | No offering price found | Site not found.",
-                                        "code": "currency_not_found | offering_price_not_found | site_not_found"
-                                    }
-                                }
-                            }
-                        },
-                        "description": "Not Found"
                     },
                     "422": {
                         "description": "Validation Error",
@@ -1365,10 +1358,6 @@
                 ],
                 "title": "OnetimeOfferingPurchaseResult"
             },
-            "NewSchema": {
-                "description": "New schema",
-                "": ""
-            },
             "Price": {
                 "properties": {
                     "amount": {
@@ -1808,29 +1797,6 @@
                 ],
                 "title": "ValidationError"
             }
-        },
-        "securitySchemes": {
-          "oauth": {
-            "type": "oauth2",
-              "description": "OAuth 2.0 flow. The following scopes are available:\n\n- `capi:read`: Access to view capi\n- `capi:write`: Access to write for capi",
-            "flows": {
-              "clientCredentials": {
-                "tokenUrl": "http://hydra:4444/oauth2/token",
-                "scopes": {
-                  "capi:read": "Access to view capi",
-                  "capi:write": "Access to write for capi"
-                }
-              },
-              "authorizationCode": {
-                "authorizationUrl": "http://hydra:4444/oauth2/auth",
-                "tokenUrl": "http://hydra:4444/oauth2/token",
-                "scopes": {
-                  "capi:read": "Access to view capi",
-                  "capi:write": "Access to write for capi"
-                }
-              }
-            }
-          }
         }
     }
 }

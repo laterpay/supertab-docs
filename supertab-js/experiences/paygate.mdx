@@ -18,15 +18,9 @@ Make sure that you have:
 
 First, create a new `Supertab` instance using your client ID.
 
-<CodeGroup>
-    ```javascript Installed via npm
-    const supertabClient = new Supertab({clientId: "client.your_client"});
-    ```
-
-    ```javascript Installed via CDN
-    const supertabClient = new window.Supertab({clientId: "client.your_client"});
-    ```
-</CodeGroup>
+```javascript
+const supertabClient = new Supertab({clientId: "client.your_client"});
+```
 
 Replace `client.your_client` with the live or test client ID associated with site you created
 when setting up your experiences. Supertab.js uses this client ID to make sure its running

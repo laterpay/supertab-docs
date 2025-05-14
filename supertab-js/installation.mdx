@@ -12,7 +12,7 @@ You can find the `clientId` associated with each of your sites in the [business 
 ## with npm
 
 ```bash Install
-npm install @getsupertab/supertab-js@3.0.0
+npm install @getsupertab/supertab-js@beta
 ```
 
 Then import `Supertab` class and instantiate it:
@@ -28,9 +28,10 @@ const supertabClient = new Supertab({ clientId: "test_client.X" });
 The compiled bundle exposes `Supertab` class to `window` object.
 
 ```javascript Include & Initialize
-<script src="https://js.supertab.co/v3/supertab.js"></script>
-<script>
-  const supertabClient = new window.Supertab({ clientId: "test_client.X" });
+<script type="module">
+import { Supertab } from "https://js.supertab.co/v3.0.0-beta.5/sdk.js"
+
+const supertabClient = new Supertab({ clientId: "test_client.X" });
 </script>
 ```
 

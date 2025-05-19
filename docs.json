@@ -40,7 +40,6 @@
             "group": "Integrate",
             "pages": [
               "supertab-integrate/google",
-              "supertab-integrate/tab-js",
               "supertab-integrate/custom-integrations"
             ]
           }

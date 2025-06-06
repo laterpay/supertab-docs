@@ -1,0 +1,43 @@
+---
+title: "Off-App Purchases"
+description: 'Enable seamless purchases through your app with a simple redirect flow.'
+---
+
+## Overview
+
+Off-App Purchases enables merchants to generate a link allowing users to purchase a specific offering through their web or mobile app.
+
+When users follow the link, they're redirected to the Supertab Off-App Purchase Page to sign in and confirm the purchase. Once the flow is complete, they're redirected back to your app with details included in the URL query parameters.
+
+## Prerequisites
+
+Before generating a link, ensure you have:
+
+- Configured <a href="/supertab-experiences/sites">Site</a> with a URL that matches your app's domain. This can be app's deep link URL which will be used as the post-purchase redirect destination.
+- Added <a href="/supertab-experiences/products-offerings-pricing">an Offering</a> to purchase.
+
+## Creating a Purchase link
+
+The following query parameters are required to generate a valid purchase link:
+
+- `client_id` – A live or test client ID associated with <a href="/supertab-experiences/sites">Site</a> you created.
+- `offering_id` – The ID of the <a href="/supertab-experiences/offerings">Offering</a> to purchase.
+
+### Example
+
+```
+https://purchase.supertab.co/?client_id=client.your_client&offering_id=offering.your_offering
+```
+
+You may also include an optional `metadata` parameter with any custom information. This metadata will be returned in URL query parameters with the redirect back to your app.
+
+## Handling the redirect
+
+After the user completes or exits the purchase flow, they're redirected back to your app with the following query parameters:
+
+| Parameter | Description | Example |
+| --------- | ----------- | ------- |
+| `purchase_id` | The ID of the purchase. It can be used to <a href="/customer-api/endpoints/retrieve-a-purchase">retrieve the purchase details</a> using Customer API. | `"purchase.cf637646-71a4-430d-aaea-a66f1a48a83c"` |
+| `status` | The status of the purchase. Possible values:<ul><li>`completed` - purchase was completed</li><li>`abandoned` - user exited the flow without completing the purchase</li></ul> | `"completed"` |
+| `offering_id` | The ID of the offering initially selected, i.e. passed in the purchase link. | `"offering.4df706b5-297a-49c5-a4cd-2a10eca12ff9"` |
+| `metadata` | Arbitrary metadata you included in the purchase link. | `"{\"key\":\"value\"}"` |

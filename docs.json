@@ -40,7 +40,7 @@
             "group": "Integrate",
             "pages": [
               "supertab-integrate/google",
-              "supertab-integrate/off-site-purchases",
+              "supertab-integrate/off-app-purchases",
               "supertab-integrate/custom-integrations"
             ]
           }

@@ -29,7 +29,21 @@ The following query parameters are required to generate a valid purchase link:
 https://purchase.supertab.co/?client_id=client.your_client&offering_id=offering.your_offering
 ```
 
-You may also include an optional `metadata` parameter with any custom information. This metadata will be returned in URL query parameters with the redirect back to your app.
+### Metadata
+
+You may also include an optional `metadata` parameter with key-value pairs of custom information. This metadata will be returned as URL query parameter `metadata` with the redirect back to your app. Metadata is also attached to the purchase object once the customer has confirmed the purchase.
+
+Encoding:
+
+1. Metadata has to be formatted as a URL query string, for example `user_id=123&nonce=456`.
+2. Then it has to be URL component encoded, for example `user_id%3D123%26nonce%3D456`.
+
+Example purchase link with metadata:
+
+```
+https://purchase.supertab.co/?client_id=client.your_client&offering_id=offering.your_offering&metadata=user_id%3D123%26nonce%3D456
+```
+
 
 ## Handling the redirect
 
@@ -40,4 +54,4 @@ After the user completes or exits the purchase flow, they're redirected back to 
 | `purchase_id` | The ID of the purchase. It can be used to <a href="/customer-api/endpoints/retrieve-a-purchase">retrieve the purchase details</a> using Customer API. | `"purchase.cf637646-71a4-430d-aaea-a66f1a48a83c"` |
 | `status` | The status of the purchase. Possible values:<ul><li>`completed` - purchase was completed</li><li>`abandoned` - user exited the flow without completing the purchase</li></ul> | `"completed"` |
 | `offering_id` | The ID of the offering initially selected, i.e. passed in the purchase link. | `"offering.4df706b5-297a-49c5-a4cd-2a10eca12ff9"` |
-| `metadata` | Arbitrary metadata you included in the purchase link. | `"{\"key\":\"value\"}"` |
+| `metadata` | Key-value pairs of custom information you included in the purchase link. | `"user_id=123&nonce=456"` |

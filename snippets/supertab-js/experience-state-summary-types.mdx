@@ -29,9 +29,11 @@ type Purchase = {
     description: string;
     price: Price;
     status: PurchaseStatus;
-    metadata: unknown;
+    metadata: Metadata;
     entitlementStatus: EntitlementStatus | null;
 }
+
+type Metadata = Record<string, string | number | boolean | null>;
 
 enum PurchaseStatus {
     PENDING = "pending",

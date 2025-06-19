@@ -5,15 +5,16 @@ description: 'Enable seamless purchases through your app with a simple redirect 
 
 ## Overview
 
-Off-App Purchases let you generate a link that your users can click on to purchase a specific offering from your web or mobile app.
+Off-App Purchases let you generate a URL that your users can use to purchase a specific offering from your web or mobile app.
 
-When a user clicks the link, they’re taken to the Supertab Off-App Purchase Page, where they sign in and confirm their purchase. Once completed, Supertab redirects them back to your app with purchase details included in the URL’s query parameters.
+When opening the Off-App Purchase URL, customers sign up and confirm their purchase with Supertab. After completion,
+Supertab redirects the customer back to your app.
 
 ## Prerequisites
 
-Before generating a link, make sure you have:
+Before generating a URL, make sure you have:
 
-- A configured <a href="/supertab-experiences/sites">Site</a> with a URL or deep link that matches your app’s domain. This will be used as the post-purchase redirect destination.
+- A <a href="/supertab-experiences/sites">Site</a> with a URL you wish to use as the post-purchase redirect destination.
 - An <a href="/supertab-experiences/products-offerings-pricing">Offering</a> available for purchase.
 
 ## Creating a Purchase Link
@@ -23,9 +24,7 @@ Include the following required query parameters to generate a valid purchase lin
 - `client_id` – A live or test client ID associated with the <a href="/supertab-experiences/sites">Site</a> you created.
 - `offering_id` – The ID of the <a href="/supertab-experiences/offerings">Offering</a> the user is purchasing.
 
-### Example
-
-```
+```text Purchase URL
 https://purchase.supertab.co/?client_id=client.your_client&offering_id=offering.your_offering
 ```
 
@@ -38,22 +37,38 @@ You can optionally include a `metadata` parameter with custom key-value pairs. T
 
 **How to encode metadata:**
 
-1. Format it as a URL query string (e.g. `user_id=123&nonce=456`).
-2. Encode it using URL component encoding (e.g. `user_id%3D123%26nonce%3D456`).
+1. Format metadata as a URL query string (e.g. `user_id=123&nonce=456`).
+2. Then encode using URL component encoding (e.g. `user_id%3D123%26nonce%3D456`).
+
+<CodeGroup>
+    ```javascript js
+    const metadata = {
+        user_id: "123",
+        nonce: "456",
+        timestamp: Date.now()
+    };
+
+    const queryString = new URLSearchParams(metadata).toString();
+    const encodedMetadata = encodeURIComponent(queryString);
+
+    const purchaseUrl = `https://purchase.supertab.co/?client_id=client.your_client&offering_id=offering.your_offering&metadata=${encodedMetadata}`;
+    ```
+</CodeGroup>
 
 **Example with metadata:**
 
-```
+```text Purchase URL with Metadata
 https://purchase.supertab.co/?client_id=client.your_client&offering_id=offering.your_offering&metadata=user_id%3D123%26nonce%3D456
 ```
 
 ## Handling the Redirect
 
-After a user completes or exits the purchase flow, they’re redirected to your app with the following query parameters:
+The customer is redirected to your app when they have completed the purchase flow.
 
-| Parameter      | Description                                                                                                       | Example                                                  |
-|----------------|-------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------|
-| `purchase_id`  | The ID of the purchase. Use it to <a href="/customer-api/endpoints/retrieve-a-purchase">retrieve purchase details</a> via the Customer API. | "purchase.cf637646-71a4-430d-aaea-a66f1a48a83c"        |
-| `status`       | The purchase status. Possible values:<ul><li>`completed` – the purchase was successful</li><li>`abandoned` – the user exited before completing</li></ul> | "completed"                                            |
-| `offering_id`  | The ID of the selected offering, passed in the original purchase link.                                            | "offering.4df706b5-297a-49c5-a4cd-2a10eca12ff9"        |
-| `metadata`     | The custom key-value metadata you included in the original link.                                                  | "user_id=123&nonce=456"                                |
+
+| Parameter     | Description                                                                                                                                            | Example                                         |
+|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------|
+| `purchase_id` | The ID of the purchase.                                                                                                                                | "purchase.cf637646-71a4-430d-aaea-a66f1a48a83c" |
+| `status`      | The purchase status. <ul><li>`completed` – the purchase was successful</li><li>`abandoned` – the user abandoned the purchase</li></ul> | "completed"                                     |
+| `offering_id` | The ID of the selected offering, passed in the original purchase URL.                                                                                  | "offering.4df706b5-297a-49c5-a4cd-2a10eca12ff9" |
+| `metadata`    | The custom key-value metadata you included in the original URL.                                                                                        | "user_id=123&nonce=456"                         |

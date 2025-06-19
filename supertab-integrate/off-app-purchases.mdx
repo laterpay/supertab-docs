@@ -5,23 +5,23 @@ description: 'Enable seamless purchases through your app with a simple redirect 
 
 ## Overview
 
-Off-App Purchases enables merchants to generate a link allowing users to purchase a specific offering through their web or mobile app.
+Off-App Purchases let you generate a link that your users can click on to purchase a specific offering from your web or mobile app.
 
-When users follow the link, they're redirected to the Supertab Off-App Purchase Page to sign in and confirm the purchase. Once the flow is complete, they're redirected back to your app with details included in the URL query parameters.
+When users click the link, they’re taken to the Supertab Off-App Purchase Page, where they sign in and confirm their purchase. Once complete, Supertab redirects them back to your app with purchase details included in the URL’s query parameters.
 
 ## Prerequisites
 
-Before generating a link, ensure you have:
+Before generating a link, make sure you have:
 
-- Configured <a href="/supertab-experiences/sites">Site</a> with a URL that matches your app's domain. This can be app's deep link URL which will be used as the post-purchase redirect destination.
-- Added <a href="/supertab-experiences/products-offerings-pricing">an Offering</a> to purchase.
+- A configured <a href="/supertab-experiences/sites">Site</a> with a URL or deep link that matches your app’s domain. This will be used as the post-purchase redirect destination.
+- An <a href="/supertab-experiences/products-offerings-pricing">Offering</a> available for purchase.
 
-## Creating a Purchase link
+## Creating a Purchase Link
 
-The following query parameters are required to generate a valid purchase link:
+Include the following required query parameters to generate a valid purchase link:
 
-- `client_id` – A live or test client ID associated with <a href="/supertab-experiences/sites">Site</a> you created.
-- `offering_id` – The ID of the <a href="/supertab-experiences/offerings">Offering</a> to purchase.
+- `client_id` – A live or test client ID associated with the <a href="/supertab-experiences/sites">Site</a> you created.
+- `offering_id` – The ID of the <a href="/supertab-experiences/offerings">Offering</a> the user is purchasing.
 
 ### Example
 
@@ -31,27 +31,29 @@ https://purchase.supertab.co/?client_id=client.your_client&offering_id=offering.
 
 ### Metadata
 
-You may also include an optional `metadata` parameter with key-value pairs of custom information. This metadata will be returned as URL query parameter `metadata` with the redirect back to your app. Metadata is also attached to the purchase object once the customer has confirmed the purchase.
+You can optionally include a `metadata` parameter with custom key-value pairs. This metadata:
 
-Encoding:
+- Is returned in the `metadata` query parameter during the redirect back to your app.
+- Is also attached to the purchase object after confirmation.
 
-1. Metadata has to be formatted as a URL query string, for example `user_id=123&nonce=456`.
-2. Then it has to be URL component encoded, for example `user_id%3D123%26nonce%3D456`.
+**How to encode metadata:**
 
-Example purchase link with metadata:
+1. Format it as a URL query string (e.g. `user_id=123&nonce=456`).
+2. Encode it using URL component encoding (e.g. `user_id%3D123%26nonce%3D456`).
+
+**Example with metadata:**
 
 ```
 https://purchase.supertab.co/?client_id=client.your_client&offering_id=offering.your_offering&metadata=user_id%3D123%26nonce%3D456
 ```
 
+## Handling the Redirect
 
-## Handling the redirect
+After users complete or exit the purchase flow, they’re redirected to your app with the following query parameters:
 
-After the user completes or exits the purchase flow, they're redirected back to your app with the following query parameters:
-
-| Parameter | Description | Example |
-| --------- | ----------- | ------- |
-| `purchase_id` | The ID of the purchase. It can be used to <a href="/customer-api/endpoints/retrieve-a-purchase">retrieve the purchase details</a> using Customer API. | `"purchase.cf637646-71a4-430d-aaea-a66f1a48a83c"` |
-| `status` | The status of the purchase. Possible values:<ul><li>`completed` - purchase was completed</li><li>`abandoned` - user exited the flow without completing the purchase</li></ul> | `"completed"` |
-| `offering_id` | The ID of the offering initially selected, i.e. passed in the purchase link. | `"offering.4df706b5-297a-49c5-a4cd-2a10eca12ff9"` |
-| `metadata` | Key-value pairs of custom information you included in the purchase link. | `"user_id=123&nonce=456"` |
+| Parameter      | Description                                                                                                       | Example                                                  |
+|----------------|-------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------|
+| `purchase_id`  | The ID of the purchase. Use it to <a href="/customer-api/endpoints/retrieve-a-purchase">retrieve purchase details</a> via the Customer API. | "purchase.cf637646-71a4-430d-aaea-a66f1a48a83c"        |
+| `status`       | The purchase status. Possible values:<ul><li>`completed` – the purchase was successful</li><li>`abandoned` – the user exited before completing</li></ul> | "completed"                                            |
+| `offering_id`  | The ID of the selected offering, passed in the original purchase link.                                            | "offering.4df706b5-297a-49c5-a4cd-2a10eca12ff9"        |
+| `metadata`     | The custom key-value metadata you included in the original link.                                                  | "user_id=123&nonce=456"                                |

@@ -26,6 +26,10 @@ const supertabPaygate = await supertabClient.createPaygate({
   ID of the paygate experience created in Business Portal.
 </ParamField>
 
+<ParamField path="purchaseMetadata" type="object">
+  Key-value pairs of custom information associated with the purchase.
+</ParamField>
+
 ### Return value
 
 A promise which resolves with an object with following properties:

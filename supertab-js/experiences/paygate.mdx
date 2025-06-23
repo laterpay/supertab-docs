@@ -51,9 +51,10 @@ await supertabPaygate.show()
 Offerings available for sale, messaging text and styling are controlled from the Business Portal
 
 
-| Key            | Type     | Required | Description                                                 |
-|:---------------|:---------|:---------|:------------------------------------------------------------|
-| `experienceId` | `string` | Yes      | ID of the Paygate experience created in the Business Portal |
+| Key                | Type     | Required | Description                                                         |
+|:-------------------|:---------|:---------|:--------------------------------------------------------------------|
+| `experienceId`     | `string` | Yes      | ID of the Paygate experience created in the Business Portal         |
+| `purchaseMetadata` | `object` | No       | Key-value pairs of custom information associated with the purchase. |
 
 
 #### PaygateExperienceResult

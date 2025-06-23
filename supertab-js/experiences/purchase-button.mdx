@@ -33,6 +33,10 @@ const supertabButton = await supertabClient.startPurchaseButton({
   ID of the purchase button experience created in Business Portal.
 </ParamField>
 
+<ParamField path="purchaseMetadata" type="object">
+  Key-value pairs of custom information associated with the purchase.
+</ParamField>
+
 <ParamField path="onDone" type="function">
   Callback function called when user leaves the purchase flow either as a result of successful purchase or cancellation.
 

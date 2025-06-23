@@ -36,9 +36,9 @@ The authentication status of the user.
 
 ```typescript
 enum AuthStatus {
-  MISSING: "missing",
-  EXPIRED: "expired",
-  VALID: "valid",
+    MISSING: "missing",
+    EXPIRED: "expired",
+    VALID: "valid",
 }
 ```
 
@@ -88,10 +88,10 @@ A promise which resolves with the user's session data object.
 
 ```typescript
 type AuthData = {
-  accessToken: string;
-  refreshToken: string;
-  expiresAt: Date;
-  tokenType: string;
+    accessToken: string;
+    refreshToken: string;
+    expiresAt: Date;
+    tokenType: string;
 }
 ```
 

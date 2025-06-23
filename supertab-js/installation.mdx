@@ -9,13 +9,15 @@ you must first install and initialize Supertab.js
 You must have a Supertab `clientId` to use Supertab.js.
 You can find the `clientId` associated with each of your sites in the [business portal](/supertab-experiences/sites).
 
-## with npm
+## From npm
+
+For use with bundlers, you can install Supertab.js from the npm registry.
 
 ```bash Install
 npm install @getsupertab/supertab-js
 ```
 
-Then import `Supertab` class and instantiate it:
+Then import the `Supertab` class and instantiate it:
 
 ```javascript Initialize
 import { Supertab } from "@getsupertab/supertab-js";
@@ -23,17 +25,48 @@ import { Supertab } from "@getsupertab/supertab-js";
 const supertabClient = new Supertab({ clientId: "test_client.X" });
 ```
 
-## with CDN
+## From CDN
 
-The compiled module exports `Supertab` class.
+You can load Supertab.js from our CDN using either a direct ES Module import or by using the global loader script.
+
+### With an ES Module import
+
+The compiled module exports the `Supertab` class.
 
 ```javascript Import & Initialize
 <script type="module">
-import { Supertab } from "https://js.supertab.co/v3/supertab.js"
+    import { Supertab } from "https://js.supertab.co/v3/supertab.js"
 
-const supertabClient = new Supertab({ clientId: "test_client.X" });
+    const supertabClient = new Supertab({ clientId: "test_client.X" });
 </script>
 ```
+
+### With the global loader function
+
+For environments that don't support ES modules, you can use the global loader. This script exposes the global function `window.loadSupertab()`. It returns a promise that resolves with the `Supertab` class..
+
+You can handle promises through the use of async / await or through promise chaining with .then().
+
+<CodeGroup>
+    ```javascript async / await
+    <script src="https://js.supertab.co/v3/supertab.global.js"></script>
+    <script>
+        (async () => {
+            const { Supertab } = await window.loadSupertab();
+            const supertabClient = new Supertab({ clientId: "test_client.X" });
+        })();
+    </script>
+    ```
+
+    ```javascript Promise chaining with .then()
+    <script src="https://js.supertab.co/v3/supertab.global.js"></script>
+    <script>
+        window.loadSupertab().then(({ Supertab }) => {
+            new Supertab({ clientId: "test_client.X" })
+        });
+    </script>
+    ```
+</CodeGroup>
 
 ### Versioning
 

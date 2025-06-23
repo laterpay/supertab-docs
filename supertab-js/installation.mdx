@@ -48,24 +48,24 @@ For environments that don't support ES modules, you can use the global loader. T
 You can handle promises through the use of async / await or through promise chaining with .then().
 
 <CodeGroup>
-  ```javascript async / await
-  <script src="https://js.supertab.co/v3/supertab.global.js"></script>
-  <script>
-      (async () => {
-          const { Supertab } = await window.loadSupertab();
-          const supertabClient = new Supertab({ clientId: "test_client.X" });
-      })();
-  </script>
-  ```
+    ```javascript async / await
+    <script src="https://js.supertab.co/v3/supertab.global.js"></script>
+    <script>
+        (async () => {
+            const { Supertab } = await window.loadSupertab();
+            const supertabClient = new Supertab({ clientId: "test_client.X" });
+        })();
+    </script>
+    ```
 
-  ```javascript Promise chaining with .then()
-  <script src="https://js.supertab.co/v3/supertab.global.js"></script>
-  <script>
-      window.loadSupertab().then(({ Supertab }) => {
-          new Supertab({ clientId: "test_client.X" })
-      });
-  </script>
-  ```
+    ```javascript Promise chaining with .then()
+    <script src="https://js.supertab.co/v3/supertab.global.js"></script>
+    <script>
+        window.loadSupertab().then(({ Supertab }) => {
+            new Supertab({ clientId: "test_client.X" })
+        });
+    </script>
+    ```
 </CodeGroup>
 
 ### Versioning

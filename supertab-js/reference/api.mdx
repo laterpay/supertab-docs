@@ -226,7 +226,7 @@ const { contentKeys } = await supertabClient.retrieveSite();
 // Check entitlement
 const entitlement = await Promise.all(
     contentKeys.map(async (contentKey) => {
-        return await supertabClient.checkEntitlement(contentKey);
+        return await supertabClient.checkEntitlement({ contentKey });
     })
 );
 ```

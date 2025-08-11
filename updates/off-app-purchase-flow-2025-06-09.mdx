@@ -1,30 +1,30 @@
 ---
-title: "Introducing Off-App Purchases — Your New Direct Revenue Stream"
-description: "Enable direct transactions outside of app stores with Supertab’s new Off-App Purchase flow, keeping more revenue in your hands while offering a seamless user experience."
+title: "Off-App Purchases — Keep More of Every Sale"
+description: "You can now run purchases outside of app stores with Supertab’s Off-App Purchase flow. That means direct transactions, no store fees, and a smoother path from intent to payment — all while keeping users in your experience."
 date: "Sun Jun 08 2025 19:00:00 GMT-0500 (Central Daylight Time)"
 ---
 
 ### What’s new
 
-We’re thrilled to introduce **Off-App Purchases**, a seamless, purchase flow that lets you bypass in-app purchases and retain full control of transactions.
+You can now generate a seamless off-app purchase link that lets customers buy without being routed through in-app purchase systems. You own the transaction end-to-end.
 
 ### Why it matters
 
-Following the recent court decision allowing developers to sell off-app without being forced into Apple’s in-app ecosystem, this update empowers you to offer your Supertab-powered experiences directly inside your app or site—keeping more revenue in your hands.
+A recent court decision cleared the way for developers to sell off-app without being locked into Apple’s payment system. This update puts that power in your hands — letting you keep more revenue, stay in control of pricing, and deliver the same friction-free checkout you expect from Supertab.
 
 ### How it works
 
-**1. Generate a Purchase Link**
-Simply append `client_id` (your site’s live or test ID) and `offering_id` to Supertab’s purchase endpoint:
+**1. Generate a Purchase Link**\
+Append your client_id (live or test) and offering_id to Supertab’s purchase endpoint:
 
 ```plaintext
 https://purchase.supertab.co/?client_id=client.your_client&offering_id=offering.your_offering
 ```
 
-This creates a URL users can click or be redirected to for a streamlined purchase. See [our documentation](https://docs.supertab.co/supertab-integrate/off-app-purchases) for details.
+Users can click or be redirected to this link for a quick checkout.
 
-**2. Add Optional Metadata**
-Boost context and tracking with metadata: encode it as a URL string and pass it in your redirect for seamless handling:
+**2. Add Optional Metadata**\
+Pass extra context — like user_id, nonce, or timestamp — encoded into the URL. It returns with the purchase object, making attribution and validation simple.
 
 ```js
 const metadata = { user_id: "123", nonce: "456", timestamp: Date.now() };
@@ -32,23 +32,19 @@ const encoded = encodeURIComponent(new URLSearchParams(metadata).toString());
 const url = `https://purchase.supertab.co/?client_id=...&offering_id=...&metadata=${encoded}`;
 ```
 
-On success, this data returns with the purchase object—making attribution and validation easier. See [our documentation](https://docs.supertab.co/supertab-integrate/off-app-purchases) for details.
+**3. Handle the Redirect**\
+After purchase, users are sent back to your site or app with:
 
-**3. Handle the Redirect**
-After purchase, the user is sent back to your app or site. You’ll receive clear parameters:
-
-- `purchase_id` — a Supertab-generated identifier
-- `status` — either `completed` or `abandoned`
-- `offering_id` — the purchased item’s ID
-- `metadata` — your custom information, if provided
+- `purchase_id` — Supertab’s transaction ID
+- `status` — `completed` or `abandoned`
+- `offering_id` — your product ID
+- `metadata` — any custom data you passed in
 
 ### Your Next Steps
 
-- **Set up or reuse your Supertab site** for purchase landing and redirect management.
-- **Enable one or multiple offerings** you want to make available off-app.
-- **Generate and integrate personalized links** within your app or web interface.
-- **Test end-to-end redirects and metadata handling** to ensure the flow is intuitive and reliable.
+- Set up or reuse your Supertab site for landing and redirect handling.
+- Enable one or more offerings for off-app availability.
+- Generate links and place them in your app or site flows.
+- Test the redirect and metadata flow end-to-end.
 
----
-
-This is your chance to unlock direct monetization and make the customer experience smoother than ever. Want to learn more or request features? [Contact us](mailto:sales@supertab.co).
+Want more details? [Check our docs](/supertab-integrate/off-app-purchases) for integration examples or [Contact us](mailto:sales@supertab.co) to learn more or request new features.

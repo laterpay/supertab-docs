@@ -39,6 +39,12 @@ Supertab.js returns the response object keys in camelCase.
 ```typescript retrieveCustomer return type [expandable]
 {
     authenticated: boolean;
+    user: {
+        id: string;
+        email: string;
+        firstName: string;
+        lastName: string;
+    };
     tab: {
         currency: {
             symbol: string;
@@ -102,7 +108,7 @@ Supertab.js returns the response object keys in camelCase.
 #### Example
 
 ```typescript
-await supertabClient.retrieveCustomer();
+await supertabClient.api.retrieveCustomer();
 ```
 
 ---
@@ -178,7 +184,7 @@ Supertab.js returns the response object keys in camelCase.
 #### Example
 
 ```typescript
-await supertabClient.retrieveSite();
+await supertabClient.api.retrieveSite();
 ```
 
 ---
@@ -214,19 +220,19 @@ Supertab.js returns the response object keys in camelCase.
 #### Examples
 
 ```typescript Check entitlement for a specific content key
-await supertabClient.checkEntitlement({
+await supertabClient.api.checkEntitlement({
     contentKey: "content-key"
 });
 ```
 
 ```typescript Check entitlement for all site content keys
 // Retrieve site to get content keys
-const { contentKeys } = await supertabClient.retrieveSite();
+const { contentKeys } = await supertabClient.api.retrieveSite();
 
 // Check entitlement
 const entitlement = await Promise.all(
     contentKeys.map(async (contentKey) => {
-        return await supertabClient.checkEntitlement({ contentKey });
+        return await supertabClient.api.checkEntitlement({ contentKey });
     })
 );
 ```
@@ -311,7 +317,7 @@ Supertab.js returns the response object keys in camelCase.
 #### Example
 
 ```typescript
-await supertabClient.purchase({
+await supertabClient.api.purchase({
     offeringId: "offering-id",
     currencyCode: "USD"
 });
@@ -373,7 +379,7 @@ Supertab.js returns the response object keys in camelCase.
 #### Example
 
 ```typescript
-await supertabClient.retrievePurchase({
+await supertabClient.api.retrievePurchase({
     purchaseId: "purchase-id"
 });
 ```

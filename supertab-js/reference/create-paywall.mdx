@@ -1,31 +1,26 @@
 ---
-title: "Supertab.createPaygate (Deprecated)"
-description: "API reference for `Supertab.createPaygate`"
+title: "Supertab.createPaywall"
+description: "API reference for `Supertab.createPaywall`"
 ---
 
 import ExperienceStateSummaryTypes from "/snippets/supertab-js/experience-state-summary-types.mdx";
-
-<Warning>
-`Supertab.createPaygate` is deprecated. Use [`Supertab.createPaywall`](/supertab-js/reference/create-paywall) instead.
-</Warning>
-
 
 ## Parameters
 
 | Key                | Type     | Required | Description                                                         |
 |:-------------------|:---------|:---------|:--------------------------------------------------------------------|
-| `experienceId`     | `string` | Yes      | ID of the Paygate experience created in the Business Portal         |
+| `experienceId`     | `string` | Yes      | ID of the Paywall experience created in the Business Portal         |
 | `purchaseMetadata` | `object` | No       | Key-value pairs of custom information associated with the purchase. |
 
 ## Returns
 
-A promise that resolves to the initial state of the Paygate and methods for showing it to users. Type of the response is [`PaygateExperienceResult`](#paygateexperienceresult).
+A promise that resolves to the initial state of the Paywall and methods for showing it to users. Type of the response is [`PaywallExperienceResult`](#paywallexperienceresult).
 
 | Field          | Type                                    | Description                                                                                                                                     |
 |:---------------|:----------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------|
-| `initialState` | `ExperienceStateSummary`                | The state of the paygate immediately after config is loaded, can be used to check if the user is logged in or has a priort entitlement already. |
+| `initialState` | `ExperienceStateSummary`                | The state of the paywall immediately after config is loaded, can be used to check if the user is logged in or has a priort entitlement already. |
 | `logIn`        | `() => Promise<ExperienceStateSummary>` | Launch an auth flow immediately, if necessary. The returned promise resolves when the login flow is completed.                                  |
-| `show`         | `() => Promise<ExperienceStateSummary>` | Display the paygate to the user, the returned promise resolves when the paygate closes.                                                         |
+| `show`         | `() => Promise<ExperienceStateSummary>` | Display the paywall to the user, the returned promise resolves when the paywall closes.                                                         |
 | `destroy`      | `() => void`                            | Clean up and remove all Supertab elements from the DOM.                                                                                         |
 
 ## Example
@@ -33,7 +28,7 @@ A promise that resolves to the initial state of the Paygate and methods for show
 ```javascript
 const supertabClient = new Supertab({clientId: "client.your_client"});
 
-const supertabPaygate = await supertabClient.createPaygate({
+const supertabPaywall = await supertabClient.createPaywall({
     experienceId: "experience.your_experience"
 });
 ```
@@ -44,10 +39,10 @@ const supertabPaygate = await supertabClient.createPaygate({
 
 <ExperienceStateSummaryTypes />
 
-### `PaygateExperienceResult`
+### `PaywallExperienceResult`
 
-```typescript PaygateExperienceResult type definition
-interface PaygateExperienceResult {
+```typescript PaywallExperienceResult type definition
+interface PaywallExperienceResult {
     show: () => Promise<ExperienceStateSummary>;
     logIn: () => Promise<ExperienceStateSummary>;
     destroy: () => void;

@@ -1,6 +1,6 @@
 ---
-title: "Basic Paygate"
-description: "Invoking Basic Paygate experience in Supertab.js"
+title: "Paywall"
+description: "Invoking Paywall experience in Supertab.js"
 ---
 
 import ExperiencesConfigParameters from "/snippets/supertab-js/experiences-config-parameters.mdx";
@@ -8,22 +8,22 @@ import ResponseFieldsCurrency from "/snippets/supertab-js/response-fields-curren
 import ResponseFieldsEntitlement from "/snippets/supertab-js/response-fields-entitlement.mdx";
 import ExperienceStateSummary from "/snippets/supertab-js/experience-state-summary.mdx";
 
-## `createPaygate`
+## `createPaywall`
 
 ```javascript
 const supertabClient = new Supertab({ clientId: "test_client.abc" });
 
-const supertabPaygate = await supertabClient.createPaygate({
+const supertabPaywall = await supertabClient.createPaywall({
   experienceId: "experience.abc"
 });
 ```
 
 ### Parameters
 
-`createPaygate` accepts the object with following properties:
+`createPaywall` accepts the object with following properties:
 
 <ParamField path="experienceId" type="string" required>
-  ID of the paygate experience created in Business Portal.
+  ID of the paywall experience created in Business Portal.
 </ParamField>
 
 <ParamField path="purchaseMetadata" type="object">
@@ -35,11 +35,11 @@ const supertabPaygate = await supertabClient.createPaygate({
 A promise which resolves with an object with following properties:
 
 <ResponseField name="show" type="function">
-  Show paygate UI.
+  Show paywall UI.
 
-  Returns a promise which resolves with the paygate summary. See [Paygate summary](#paygate-summary) for more details.
+  Returns a promise which resolves with the paywall summary. See [Paywall summary](#paywall-summary) for more details.
   <Info>
-    If current user has prior entitlement to the content, the paygate will not
+    If current user has prior entitlement to the content, the paywall will not
     show.
   </Info>
 </ResponseField>
@@ -48,19 +48,19 @@ A promise which resolves with an object with following properties:
   Starts the login flow. Opens Supertab SSO popup window if user is unknown.
   Otherwise will log user in silently if auth data are found but has expired.
 
-  Returns a promise which resolves with the paygate summary. See [Paygate summary](#paygate-summary) for more details.
+  Returns a promise which resolves with the paywall summary. See [Paywall summary](#paywall-summary) for more details.
 </ResponseField>
 
 <ResponseField name="initialState" type="object">
-  Initial state of the paygate. See [Paygate summary](#paygate-summary) for more details.
+  Initial state of the paywall. See [Paywall summary](#paywall-summary) for more details.
 </ResponseField>
 
 <ResponseField name="destroy" type="function">
-  Destroy paygate instance. This removes all nodes related to paygate from DOM.
+  Destroy paywall instance. This removes all nodes related to paywall from DOM.
 </ResponseField>
 
-## Paygate summary
+## Paywall summary
 
-All functions launching user interaction with the paygate UI return a promise which resolves with the paygate summary. The paygate summary is an object with the following properties:
+All functions launching user interaction with the paywall UI return a promise which resolves with the paywall summary. The paywall summary is an object with the following properties:
 
 <ExperienceStateSummary />

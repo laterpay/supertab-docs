@@ -70,13 +70,14 @@
               },
               {
                 "group": "Experiences",
-                "pages": ["supertab-js/experiences/paygate"]
+                "pages": ["supertab-js/experiences/paywall"]
               },
               {
                 "group": "API Reference",
                 "pages": [
                   "supertab-js/reference/overview",
                   "supertab-js/reference/create-paygate",
+                  "supertab-js/reference/create-paywall",
                   "supertab-js/reference/auth",
                   "supertab-js/reference/api",
                   "supertab-js/reference/checkout",

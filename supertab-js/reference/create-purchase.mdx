@@ -1,0 +1,48 @@
+---
+title: "Supertab.createPurchase"
+description: "API reference for `Supertab.createPurchase`"
+sidebarTitle: "Supertab.createPurchase"
+---
+
+import PurchaseStateSummaryTypes from "/snippets/supertab-js/purchase-state-summary-types.mdx";
+
+## Parameters
+
+| Key                | Type     | Required | Description                                                         |
+| :----------------- | :------- | :------- | :------------------------------------------------------------------ |
+| `offeringId`       | `string` | Yes      | ID of the offering created in the Business Portal                   |
+| `purchaseMetadata` | `object` | No       | Key-value pairs of custom information associated with the purchase. |
+
+## Returns
+
+A promise that resolves to the initial state of the purchase and methods for showing it to users. Type of the response is [`CreatePurchaseResult`](#createpurchaseresult).
+
+| Field           | Type                   | Description                                                                                                                                     |
+| :-------------- | :--------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `startPurchase` | `PurchaseStateSummary` | The state of the purchase immediately after config is loaded, can be used to check if the user is logged in or has a prior entitlement already. |
+| `destroy`       | `() => void`           | Clean up and remove all Supertab elements from the DOM.                                                                                         |
+
+## Example
+
+```javascript
+const supertabClient = new Supertab({ clientId: "client.your_client" });
+
+const { startPurchase, destroy } = await supertabClient.createPurchase({
+  offeringId: "offering.your-offering-id",
+});
+```
+
+## Types
+
+### `PurchaseStateSummary`
+
+<PurchaseStateSummaryTypes />
+
+### `CreatePurchaseResult`
+
+```typescript CreatePurchaseResult type definition
+interface CreatePurchaseResult {
+  startPurchase: () => Promise<PurchaseStateSummary>;
+  destroy: () => void;
+}
+```

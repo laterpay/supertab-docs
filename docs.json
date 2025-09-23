@@ -78,6 +78,7 @@
                   "supertab-js/reference/overview",
                   "supertab-js/reference/create-paygate",
                   "supertab-js/reference/create-paywall",
+                  "supertab-js/reference/create-purchase",
                   "supertab-js/reference/auth",
                   "supertab-js/reference/api",
                   "supertab-js/reference/checkout",

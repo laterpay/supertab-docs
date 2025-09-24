@@ -15,12 +15,12 @@ import PurchaseStateSummaryTypes from "/snippets/supertab-js/purchase-state-summ
 
 ## Returns
 
-A promise that resolves to the initial state of the purchase and methods for showing it to users. Type of the response is [`CreatePurchaseResult`](#createpurchaseresult).
+A promise that resolves to the result of the purchase and a destroy method to control the purchase widget programmatically. Type of the response is [`CreatePurchaseResult`](#createpurchaseresult).
 
-| Field           | Type                   | Description                                                                                                                                     |
-| :-------------- | :--------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `startPurchase` | `PurchaseStateSummary` | The state of the purchase immediately after config is loaded, can be used to check if the user is logged in or has a prior entitlement already. |
-| `destroy`       | `() => void`           | Clean up and remove all Supertab elements from the DOM.                                                                                         |
+| Field           | Type                   | Description                                                                       |
+| :-------------- | :--------------------- | :-------------------------------------------------------------------------------- |
+| `startPurchase` | `PurchaseStateSummary` | The result of the startPurchase - can be used to check the state of the purchase. |
+| `destroy`       | `() => void`           | Clean up and remove all Supertab elements from the DOM.                           |
 
 ## Example
 

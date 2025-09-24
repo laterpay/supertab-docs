@@ -17,10 +17,10 @@ import PurchaseStateSummaryTypes from "/snippets/supertab-js/purchase-state-summ
 
 A promise that resolves to the function to start the purchase and a destroy method to control the purchase widget programmatically. Type of the response is [`CreatePurchaseResult`](#createpurchaseresult).
 
-| Field           | Type                   | Description                                             |
-| :-------------- | :--------------------- | :------------------------------------------------------ |
-| `startPurchase` | `PurchaseStateSummary` | The startPurchase function to start the purchase flow.  |
-| `destroy`       | `() => void`           | Clean up and remove all Supertab elements from the DOM. |
+| Field           | Type                                  | Description                                             |
+| :-------------- | :------------------------------------ | :------------------------------------------------------ |
+| `startPurchase` | `() => Promise<PurchaseStateSummary>` | The startPurchase function to start the purchase flow.  |
+| `destroy`       | `() => void`                          | Clean up and remove all Supertab elements from the DOM. |
 
 ## Example
 
@@ -30,6 +30,17 @@ const supertabClient = new Supertab({ clientId: "client.your_client" });
 const { startPurchase, destroy } = await supertabClient.createPurchase({
   offeringId: "offering.your-offering-id",
 });
+
+const result = await purchaseController.startPurchase();
+
+// Then you can handle the result
+if (result.purchase?.status === "completed") {
+  console.log("Purchase completed successfully:", result.purchase);
+} else if (result.purchase?.status === "abandoned") {
+  console.log("Purchase cancelled:", result.purchase);
+} else if (result.priorEntitlement) {
+  console.log("User already has entitlement:", result.priorEntitlement);
+}
 ```
 
 ## Types

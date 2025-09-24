@@ -15,12 +15,12 @@ import PurchaseStateSummaryTypes from "/snippets/supertab-js/purchase-state-summ
 
 ## Returns
 
-A promise that resolves to the result of the purchase and a destroy method to control the purchase widget programmatically. Type of the response is [`CreatePurchaseResult`](#createpurchaseresult).
+A promise that resolves to the function to start the purchase and a destroy method to control the purchase widget programmatically. Type of the response is [`CreatePurchaseResult`](#createpurchaseresult).
 
-| Field           | Type                   | Description                                                                       |
-| :-------------- | :--------------------- | :-------------------------------------------------------------------------------- |
-| `startPurchase` | `PurchaseStateSummary` | The result of the startPurchase - can be used to check the state of the purchase. |
-| `destroy`       | `() => void`           | Clean up and remove all Supertab elements from the DOM.                           |
+| Field           | Type                   | Description                                             |
+| :-------------- | :--------------------- | :------------------------------------------------------ |
+| `startPurchase` | `PurchaseStateSummary` | The startPurchase function to start the purchase flow.  |
+| `destroy`       | `() => void`           | Clean up and remove all Supertab elements from the DOM. |
 
 ## Example
 

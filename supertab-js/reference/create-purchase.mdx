@@ -32,7 +32,7 @@ const { startPurchase, destroy } = await supertabClient.createPurchase({
   offeringId: "offering.your-offering-id",
 });
 
-const result = await purchaseController.startPurchase();
+const result = await startPurchase();
 
 // Then you can handle the result
 if (result.purchase?.status === "completed") {

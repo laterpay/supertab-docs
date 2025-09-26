@@ -1,77 +1,77 @@
 ```typescript PurchaseStateSummary type definition
 interface PurchaseStateSummary {
-    priorEntitlement: EntitlementStatus[] | null;
-    authStatus: AuthStatus;
-    purchase: Purchase | null;
-    purchasedOffering: Offering | null;
-    tab: Tab | null;
-    paymentResult: boolean;
+  priorEntitlement: EntitlementStatus[] | null;
+  authStatus: AuthStatus;
+  purchase: Purchase | null;
+  purchasedOffering: Offering | null;
+  tab: Tab | null;
+  paymentResult: boolean;
 }
 
 type EntitlementStatus = {
-    contentKey: string;
-    hasEntitlement: boolean;
-    expires: string;
-    recursAt: Date | null;
-}
+  contentKey: string;
+  hasEntitlement: boolean;
+  expires: string; // ISO 8601 date string (e.g., "2023-11-07T05:31:56Z")
+  recursAt: string | null; // ISO 8601 date string when not null (e.g., "2023-11-07T05:31:56Z")
+};
 
 enum AuthStatus {
-    MISSING = "missing",
-    EXPIRED = "expired",
-    VALID = "valid"
+  MISSING = "missing",
+  EXPIRED = "expired",
+  VALID = "valid",
 }
 
 type Purchase = {
-    id: string;
-    offeringId?: string | null;
-    purchasedAt: string | null;
-    completedAt: string | null;
-    description: string;
-    price: Price;
-    status: PurchaseStatus;
-    metadata: Metadata;
-    entitlementStatus: EntitlementStatus | null;
-}
+  id: string;
+  offeringId?: string | null;
+  purchasedAt: string | null; // ISO 8601 date string when not null
+  completedAt: string | null; // ISO 8601 date string when not null
+  description: string;
+  price: Price;
+  status: PurchaseStatus;
+  metadata: Metadata;
+  entitlementStatus: EntitlementStatus | null;
+};
 
 type Metadata = Record<string, string | number | boolean | null>;
 
 enum PurchaseStatus {
-    PENDING = "pending",
-    COMPLETED = "completed",
-    ABANDONED = "abandoned"
+  PENDING = "pending",
+  COMPLETED = "completed",
+  ABANDONED = "abandoned",
 }
 
 type Price = {
-    amount: number;
-    currency: Currency;
-}
+  amount: number;
+  currency: Currency;
+};
 
 type Currency = {
-    code: string;
-    symbol: string;
-    name: string;
-    baseUnit: number;
-}
+  code: string;
+  symbol: string;
+  name: string;
+  baseUnit: number;
+};
 
 type Offering = {
-    id: string;
-    description: string;
-    entitlementDetails: EntitlementDetails;
-    price: Price;
-    isPayNow: boolean;
-}
+  id: string;
+  description: string;
+  entitlementDetails: EntitlementDetails;
+  price: Price;
+  isPayNow: boolean;
+};
 
 type EntitlementDetails = {
-    contentKey: string;
-    duration: string;
-    isRecurring: boolean;
-}
+  contentKey: string;
+  duration: string;
+  isRecurring: boolean;
+};
 
 type Tab = {
-    testMode: boolean;
-    currency: Currency;
-    total: Price;
-    limit: Price;
-    purchases: Purchase[];
-}
+  testMode: boolean;
+  currency: Currency;
+  total: Price;
+  limit: Price;
+  purchases: Purchase[];
+};
 ```

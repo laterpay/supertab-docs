@@ -1,6 +1,6 @@
 ---
 title: "Supertab.createPurchase"
-description: "API reference for `Supertab.createPurchase`"
+description: "API reference for `supertabClient.createPurchase`"
 sidebarTitle: "Supertab.createPurchase"
 ---
 
@@ -11,12 +11,14 @@ import PurchaseStateSummaryTypes from "/snippets/supertab-js/purchase-state-summ
 | Key                | Type                                                | Required | Description                                                         |
 | :----------------- | :-------------------------------------------------- | :------- | :------------------------------------------------------------------ |
 | `offeringId`       | `string`                                            | Yes      | ID of the offering created in the Business Portal                   |
+| `merchantName`     | `string`                                            | No       | The name of the merchant to display in the purchase widget.         |
+| `merchantLogoUrl`  | `string`                                            | No       | URL of the merchant's logo to display in the purchase widget.       |
 | `purchaseMetadata` | `object`                                            | No       | Key-value pairs of custom information associated with the purchase. |
 | `uiConfig`         | [`CreatePurchaseUiConfig`](#createpurchaseuiconfig) | No       | Custom color configuration for the purchase widget.                 |
 
 ## Returns
 
-A promise that resolves to the function to start the purchase and a destroy method to control the purchase widget programmatically. Type of the response is [`CreatePurchaseResult`](#createpurchaseresult).
+An object containing a `startPurchase` function and a `destroy` method to control the purchase widget programmatically. Type of the response is [`CreatePurchaseResult`](#createpurchaseresult).
 
 | Field           | Type                                  | Description                                             |
 | :-------------- | :------------------------------------ | :------------------------------------------------------ |
@@ -54,7 +56,7 @@ The purchase widget determines which colors to use based on a priority system:
 
 1. **Highest Priority**: `uiConfig` passed directly to `createPurchase()`
 2. **Medium Priority**: Experience configuration colors (if the offering is associated with an experience)
-3. **Lowest Priority**: Default Supertab colors (`#ffffffff` for text, `#000000ff` for background)
+3. **Lowest Priority**: Default Supertab colors (`#ffffff` for text, `#000000` for background)
 
 ### Example with Custom Colors
 
@@ -65,7 +67,7 @@ const { startPurchase, destroy } = await supertabClient.createPurchase({
   merchantLogoUrl: "https://example.com/logo.png",
   uiConfig: {
     colors: {
-      text: "#FF0000", // Red text
+      text: "#FFFFFF", // White text
       background: "#0000FF", // Blue background
     },
   },

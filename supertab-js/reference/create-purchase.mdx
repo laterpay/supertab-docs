@@ -1,6 +1,6 @@
 ---
 title: "Supertab.createPurchase"
-description: "API reference for `Supertab.createPurchase`"
+description: "API reference for `supertabClient.createPurchase`"
 sidebarTitle: "Supertab.createPurchase"
 ---
 
@@ -8,14 +8,17 @@ import PurchaseStateSummaryTypes from "/snippets/supertab-js/purchase-state-summ
 
 ## Parameters
 
-| Key                | Type     | Required | Description                                                         |
-| :----------------- | :------- | :------- | :------------------------------------------------------------------ |
-| `offeringId`       | `string` | Yes      | ID of the offering created in the Business Portal                   |
-| `purchaseMetadata` | `object` | No       | Key-value pairs of custom information associated with the purchase. |
+| Key                | Type                                                | Required | Description                                                         |
+| :----------------- | :-------------------------------------------------- | :------- | :------------------------------------------------------------------ |
+| `offeringId`       | `string`                                            | Yes      | ID of the offering created in the Business Portal                   |
+| `merchantName`     | `string`                                            | No       | The name of the merchant to display in the purchase widget.         |
+| `merchantLogoUrl`  | `string`                                            | No       | URL of the merchant's logo to display in the purchase widget.       |
+| `purchaseMetadata` | `object`                                            | No       | Key-value pairs of custom information associated with the purchase. |
+| `uiConfig`         | [`CreatePurchaseUiConfig`](#createpurchaseuiconfig) | No       | Custom color configuration for the purchase widget.                 |
 
 ## Returns
 
-A promise that resolves to the function to start the purchase and a destroy method to control the purchase widget programmatically. Type of the response is [`CreatePurchaseResult`](#createpurchaseresult).
+An object containing a `startPurchase` function and a `destroy` method to control the purchase widget programmatically. Type of the response is [`CreatePurchaseResult`](#createpurchaseresult).
 
 | Field           | Type                                  | Description                                             |
 | :-------------- | :------------------------------------ | :------------------------------------------------------ |
@@ -43,6 +46,121 @@ if (result.purchase?.status === "completed") {
 }
 ```
 
+## UI Configuration
+
+The `uiConfig` parameter allows you to customize the visual appearance of the purchase widget by overriding the default color scheme.
+
+### Color Priority System
+
+The purchase widget determines which colors to use based on a priority system:
+
+1. **Highest Priority**: `uiConfig` passed directly to `createPurchase()`
+2. **Medium Priority**: Experience configuration colors (if the offering is associated with an experience)
+3. **Lowest Priority**: Default Supertab colors (`#ffffff` for text, `#000000` for background)
+
+### Example with Custom Colors
+
+```javascript
+const { startPurchase, destroy } = await supertabClient.createPurchase({
+  offeringId: "offering.premium-access",
+  merchantName: "Demo Merchant",
+  merchantLogoUrl: "https://example.com/logo.png",
+  uiConfig: {
+    colors: {
+      text: "#FFFFFF", // White text
+      background: "#0000FF", // Blue background
+    },
+  },
+});
+```
+
+### How Colors Affect the Widget
+
+**`colors.text`** controls:
+
+- Button text (e.g., "Continue" button label)
+- Text color contrast on colored backgrounds
+- Any text overlaid on colored elements
+
+**`colors.background`** controls:
+
+- Primary action button background (e.g., "Continue" button)
+- Progress indicator ring (Omega ring showing Tab balance)
+- Visual accents and highlights throughout the widget
+
+### Visual Examples
+
+<div
+  style={{
+    display: "flex",
+    flexDirection: "row",
+    gap: "1rem",
+    marginBottom: "1rem",
+    flexWrap: "wrap",
+}}
+
+>
+
+{" "}
+
+<div style={{ flex: "1", minWidth: "300px" }}>
+  <img
+    src="/images/default-ui-config.png"
+    alt="Default colors"
+    style={{
+      width: "100%",
+      height: "auto",
+      borderRadius: "8px",
+      border: "1px solid #e5e7eb",
+    }}
+  />
+  <p
+    style={{
+      marginTop: "0.5rem",
+      fontSize: "0.875rem",
+      color: "#6b7280",
+      textAlign: "center",
+    }}
+  >
+    Default widget appearance without custom uiConfig
+  </p>
+</div>
+
+  <div style={{ flex: "1", minWidth: "300px" }}>
+    <img
+      src="/images/custom-ui-config.png"
+      alt="Custom colors"
+      style={{
+        width: "100%",
+        height: "auto",
+        borderRadius: "8px",
+        border: "1px solid #e5e7eb",
+      }}
+    />
+    <p
+      style={{
+        marginTop: "0.5rem",
+        fontSize: "0.875rem",
+        color: "#6b7280",
+        textAlign: "center",
+      }}
+    >
+      Widget with custom colors: white text (#FFFFFF) and blue background
+      (#0000FF)
+    </p>
+  </div>
+</div>
+
+<Note>
+  The `uiConfig` always takes precedence over experience configuration colors.
+  This ensures you have full control over the widget appearance when needed.
+</Note>
+
+<Warning>
+  Ensure sufficient contrast between text and background colors for
+  accessibility. Test your color combinations to verify readability.
+</Warning>
+
 ## Types
 
 ### `PurchaseStateSummary`
@@ -55,5 +173,108 @@ if (result.purchase?.status === "completed") {
 interface CreatePurchaseResult {
   startPurchase: () => Promise<PurchaseStateSummary>;
   destroy: () => void;
+}
+```
+
+### `CreatePurchaseUiConfig`
+
+```typescript CreatePurchaseUiConfig type definition
+interface CreatePurchaseUiConfig {
+  colors: {
+    text: string; // Text color for all text elements
+    background: string; // Background color for buttons and interactive elements
+  };
+}
+```
+
+## Advanced Examples
+
+### Override Experience Colors
+
+```javascript
+// Even if this offering has yellow/black theme in the experience configuration,
+// the custom uiConfig colors will be used instead
+const { startPurchase, destroy } = await supertabClient.createPurchase({
+  offeringId: "offering.premium-access",
+  merchantName: "My Publication",
+  uiConfig: {
+    colors: {
+      text: "#FFFFFF", // White text
+      background: "#FF6B6B", // Coral background
+    },
+  },
+});
+```
+
+### Conditional Color Theming
+
+```javascript
+// Apply different themes based on user preferences or context
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+const { startPurchase, destroy } = await supertabClient.createPurchase({
+  offeringId: "offering.premium-access",
+  uiConfig: isDarkMode
+    ? {
+        colors: {
+          text: "#FFFFFF",
+          background: "#1E90FF", // Dodger blue
+        },
+      }
+    : {
+        colors: {
+          text: "#000000",
+          background: "#FFD700", // Gold
+        },
+      },
+});
+```
+
+### Full Implementation Example
+
+```javascript
+async function initializePurchase() {
+  const supertabClient = new Supertab({ clientId: "client.your_client" });
+
+  try {
+    const { startPurchase, destroy } = await supertabClient.createPurchase({
+      offeringId: "offering.premium-article",
+      merchantName: "Tech News Daily",
+      merchantLogoUrl: "https://example.com/logo.png",
+      purchaseMetadata: {
+        articleId: "article-123",
+        section: "technology",
+        author: "Jane Doe",
+      },
+      uiConfig: {
+        colors: {
+          text: "#2C3E50", // Dark blue-gray text
+          background: "#3498DB", // Bright blue background
+        },
+      },
+    });
+
+    const result = await startPurchase();
+
+    if (result.purchase?.status === "completed") {
+      // Unlock the content
+      unlockPremiumContent();
+
+      // Clean up the widget
+      destroy();
+
+      // Track the conversion
+      analytics.track("Purchase Completed", {
+        purchaseId: result.purchase.id,
+        offeringId: "offering.premium-article",
+      });
+    } else if (result.priorEntitlement) {
+      // User already has access
+      unlockPremiumContent();
+      destroy();
+    }
+  } catch (error) {
+    console.error("Purchase initialization failed:", error);
+  }
 }
 ```

@@ -1,11 +1,11 @@
 ---
-title: 'Authentication'
-sidebarTitle: 'Authentication'
-description: 'Generate bearer tokens for usage with the Customer API'
+title: "Authentication"
+sidebarTitle: "Authentication"
+description: "Generate bearer tokens for usage with the Customer API"
 icon: lock
 ---
 
-import SdkWarning from '/snippets/sdk-warning.mdx';
+import SdkWarning from "/snippets/sdk-warning.mdx";
 
 <SdkWarning />
 
@@ -19,7 +19,6 @@ Instead of implementing OAuth2 yourself, you should consider using an [existing 
 [Supertab.js](/supertab-js/reference/auth) to authenticate users and obtain tokens.
 
 Example authenticated request to the Customer API:
-
 
 <CodeGroup>
     ```bash curl
@@ -45,9 +44,10 @@ Example authenticated request to the Customer API:
         return response.json();
     })
     ```
+
 </CodeGroup>
 
-----
+---
 
 ### Clients
 
@@ -61,26 +61,26 @@ You **must** pass an `x-supertab-client-id` header with every request containing
 The client id is used by the Customer API to determine which Website the request is for, and whether the request is in test or live mode.
 
 <Warning>
-    Make sure to use the client detail generated for your site when working with the Customer API.
+    Make sure to use the client detail generated for your website when working with the Customer API.
 
     The API Keys generated separately in the API Keys section of the Business Portal are for use with the [Merchant API](/merchant-api).
-</Warning>
 
+</Warning>
 
 ### API Settings
 
-| | |
-|--|--|
-| Base URL | `https://tapi.supertab.co/capi/` |
-| Supported Grants | `Authorization Code + PKCE`, `Refresh Token` |
-| Authentication URL | `https://auth.supertab.co/oauth2/auth` |
-| Token URL | `https://auth.supertab.co/oauth2/token` |
-| Token Type | `bearer` |
+|                    |                                              |
+| ------------------ | -------------------------------------------- |
+| Base URL           | `https://tapi.supertab.co/capi/`             |
+| Supported Grants   | `Authorization Code + PKCE`, `Refresh Token` |
+| Authentication URL | `https://auth.supertab.co/oauth2/auth`       |
+| Token URL          | `https://auth.supertab.co/oauth2/token`      |
+| Token Type         | `bearer`                                     |
 
 ### Redirect URIs
 
 In order to successfully authenticate using oAuth2 you must pass a known redirect URI to the Authentication URL.
-You can configure your site's redirect URI from the [Business Portal](https://business.supertab.co) - this is the Site URI that you provided when creating the site.
+You can configure your website's redirect URI from the [Business Portal](https://business.supertab.co) - this is the Website URI that you provided when creating the website.
 
 We recommend you use [Supertab.js](/supertab-js) to handle all authentication.
 

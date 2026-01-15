@@ -1,54 +1,77 @@
 ---
 title: "Installation"
-description: "Including Supertab.js on your page"
+description: "Install, load and initialize Supertab.js on a Website"
 ---
 
-Before [launching an experience](/supertab-js/experiences/starting-experiences)
-you must first install and initialize Supertab.js
+## Prerequisites
 
-You must have a Supertab `clientId` to use Supertab.js.
-You can find the `clientId` associated with each of your Websites in the [business portal](/supertab-experiences/sites).
+You'll need your Website's `clientId` to initialize Supertab.js. If you haven't created a Website yet, follow the guide [Create Websites](/supertab-experiences/sites) first.
+
+To find your Website's `clientId`, log in to the [Business Portal](https://business.supertab.co/), navigate to Organization / Websites, then click the "..." button next to your Website.
+
+## Quick Start
+
+Choose an installation method based on your setup:
+
+- **Using a bundler** (Webpack, Vite, Rollup, etc.) → [Install from npm](#from-npm)
+- **Modern browsers with ES modules** → [CDN with ES Module import](#with-an-es-module-import)
+- **Legacy browser support** → [CDN with global loader](#with-the-global-loader)
 
 ## From npm
 
-For use with bundlers, you can install Supertab.js from the npm registry.
+Install Supertab.js from npm for use with bundlers like Webpack, Vite, or Rollup:
 
-```bash Install
+```bash
 npm install @getsupertab/supertab-js
 ```
 
-Then import the `Supertab` class and instantiate it:
+Import, load and initialize the client in your application:
 
-```javascript Initialize
-import { Supertab } from "@getsupertab/supertab-js";
+<CodeGroup>
+    ```javascript async/await
+    import { loadSupertab } from "@getsupertab/supertab-js";
 
-const supertabClient = new Supertab({ clientId: "test_client.X" });
-```
+    (async () => {
+        const { Supertab } = await loadSupertab();
+        const supertabClient = new Supertab({ clientId: "test_client.X" });
+    })();
+    ```
 
-## From CDN
+    ```javascript .then()
+    import { loadSupertab } from "@getsupertab/supertab-js";
 
-You can load Supertab.js from our CDN using either a direct ES Module import or by using the global loader script.
+    loadSupertab().then(({ Supertab }) => {
+        const supertabClient = new Supertab({ clientId: "test_client.X" });
+    });
+    ```
+</CodeGroup>
+
+<Note>
+    `loadSupertab()` loads the latest compatible Supertab.js version from our CDN. It must be called in a browser environment—it won't work server-side.
+</Note>
+
+## Directly from CDN
+
+Load Supertab.js directly from our CDN without a build step. Two options:
 
 ### With an ES Module import
 
-The compiled module exports the `Supertab` class.
+Use this method for modern browsers that support ES modules:
 
-```javascript Import & Initialize
+```html
 <script type="module">
-    import { Supertab } from "https://js.supertab.co/v3/supertab.js"
+    import { Supertab } from "https://js.supertab.co/v3/supertab.js";
 
     const supertabClient = new Supertab({ clientId: "test_client.X" });
 </script>
 ```
 
-### With the global loader function
+### With the global loader
 
-For environments that don't support ES modules, you can use the global loader. This script exposes the global function `window.loadSupertab()`. It returns a promise that resolves with the `Supertab` class..
-
-You can handle promises through the use of async / await or through promise chaining with .then().
+Use this method for environments without ES module support. The script `supertab.global.js` exposes the global function `window.loadSupertab()`:
 
 <CodeGroup>
-    ```javascript async / await
+    ```html async/await
     <script src="https://js.supertab.co/v3/supertab.global.js"></script>
     <script>
         (async () => {
@@ -58,17 +81,23 @@ You can handle promises through the use of async / await or through promise chai
     </script>
     ```
 
-    ```javascript Promise chaining with .then()
+    ```html .then()
     <script src="https://js.supertab.co/v3/supertab.global.js"></script>
     <script>
         window.loadSupertab().then(({ Supertab }) => {
-            new Supertab({ clientId: "test_client.X" })
+            const supertabClient = new Supertab({ clientId: "test_client.X" });
         });
     </script>
     ```
 </CodeGroup>
 
-### Versioning
+## Versioning
 
-The CDN URL is versioned, including `v3` will automatically upgrade you to new *minor* versions.
-Breaking changes are included in new *major* versions.
+CDN URLs are versioned. Using `v3` automatically loads the latest `3.x.x` version (patch and minor releases). Breaking changes are released as new major versions.
+
+## Next Steps
+
+Once installed, you can launch experiences or build custom purchase flows:
+
+- [Starting experiences](/supertab-js/experiences/starting-experiences)
+- [SDK Overview](/supertab-js/reference/overview)

@@ -7,7 +7,8 @@
 </ResponseField>
 
 <ResponseField name="authStatus" type="AuthStatus">
-  Current authentication status of the user. Possible values: `missing`, `expired`, `valid`.
+  Current authentication status of the user. Possible values: `missing`,
+  `expired`, `valid`.
 </ResponseField>
 
 <ResponseField name="purchase" type="Purchase | null">
@@ -39,7 +40,7 @@
     </ResponseField>
 
     <ResponseField name="description" type="string">
-      A summary of the purchase, usually including the site name and the type of a given entitlement.
+      A summary of the purchase, usually including the website name and the type of a given entitlement.
 
       Example: `"The Leek - 24 Hours Time Pass"`
     </ResponseField>
@@ -76,6 +77,7 @@
         <ResponseFieldsEntitlement />
       </Expandable>
     </ResponseField>
+
   </Expandable>
 </ResponseField>
 
@@ -143,7 +145,6 @@
       <ResponseFieldsPrice />
     </ResponseField>
 
-
   </Expandable>
 </ResponseField>
 
@@ -198,9 +199,11 @@
 
       Each purchase in the array has the same structure as the previously described [Purchase object](#param-purchase).
     </ResponseField>
+
   </Expandable>
 </ResponseField>
 
 <ResponseField name="paymentResult" type="boolean">
-  If a purchase required payment, this will be `true` if payment was successful. `false` otherwise.
+  If a purchase required payment, this will be `true` if payment was successful.
+  `false` otherwise.
 </ResponseField>

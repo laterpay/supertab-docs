@@ -11,7 +11,11 @@ This interface is particularly useful for custom integrations that require direc
 
 ## Methods
 
-<Info>Each method returns a promise which resolves with the response from the Customer API endpoint with object keys transformed from snake_case to camelCase.</Info>
+<Info>
+  Each method returns a promise which resolves with the response from the
+  Customer API endpoint with object keys transformed from snake_case to
+  camelCase.
+</Info>
 
 See <a href="./errors">Errors</a> for a list of common exceptions.
 
@@ -26,13 +30,13 @@ Retrieves the current customer.
     Call this method again <a href="/supertab-js/reference/auth">after auth</a> to get limits in the user's tab currency.
 
     You must re-fetch this information after a new auth session is started.
+
 </Info>
 
 #### Returns
 
 Customer object. See <a href="/customer-api/endpoints/retrieve-customer">Retrieve current customer</a>.
 Supertab.js returns the response object keys in camelCase.
-
 
 #### Type
 
@@ -104,7 +108,6 @@ Supertab.js returns the response object keys in camelCase.
 }
 ```
 
-
 #### Example
 
 ```typescript
@@ -124,6 +127,7 @@ Retrieves the site object associated with the client ID used to [initialize Supe
     Call this method again <a href="/supertab-js/reference/auth">after auth</a> to get prices in the user's tab currency.
 
     You must re-fetch this information after a new auth session is started in order to show correct pricing.
+
 </Info>
 
 #### Returns
@@ -170,11 +174,6 @@ Supertab.js returns the response object keys in camelCase.
         offerings: string[];
         configuration: {
             onClose: string | (string | null)[] | null;
-            upsells: {
-                mainOffering: string;
-                upsellOffering: string;
-                discount: number;
-            }[];
             uiConfig?: unknown;
         };
     }[];
@@ -198,7 +197,7 @@ This method checks the entitlement details for a given content key.
 #### Parameters
 
 <ParamField path="contentKey" type="string" required>
-    The content key of the entitlement to check.
+  The content key of the entitlement to check.
 </ParamField>
 
 #### Returns
@@ -221,7 +220,7 @@ Supertab.js returns the response object keys in camelCase.
 
 ```typescript Check entitlement for a specific content key
 await supertabClient.api.checkEntitlement({
-    contentKey: "content-key"
+  contentKey: "content-key",
 });
 ```
 
@@ -231,9 +230,9 @@ const { contentKeys } = await supertabClient.api.retrieveSite();
 
 // Check entitlement
 const entitlement = await Promise.all(
-    contentKeys.map(async (contentKey) => {
-        return await supertabClient.api.checkEntitlement({ contentKey });
-    })
+  contentKeys.map(async (contentKey) => {
+    return await supertabClient.api.checkEntitlement({ contentKey });
+  }),
 );
 ```
 
@@ -250,20 +249,22 @@ Purchases an offering or a one-time offering.
 <Info>Either `offeringId` or `onetimeOfferingId` must be provided.</Info>
 
 <ParamField path="offeringId" type="string">
-    The offering ID to purchase.
+  The offering ID to purchase.
 </ParamField>
 
 <ParamField path="onetimeOfferingId" type="string">
-    The onetime offering ID to purchase.
+  The onetime offering ID to purchase.
 </ParamField>
 
 <ParamField path="currencyCode" type="string" required>
-    ISO4217 currency code.
-    <Warning>Must match the currency of user's tab, otherwise the purchase will fail.</Warning>
+  ISO4217 currency code.
+  <Warning>
+    Must match the currency of user's tab, otherwise the purchase will fail.
+  </Warning>
 </ParamField>
 
 <ParamField path="metadata" type="object">
-    Free-form metadata to associate with the purchase.
+  Free-form metadata to associate with the purchase.
 </ParamField>
 
 #### Returns
@@ -318,8 +319,8 @@ Supertab.js returns the response object keys in camelCase.
 
 ```typescript
 await supertabClient.api.purchase({
-    offeringId: "offering-id",
-    currencyCode: "USD"
+  offeringId: "offering-id",
+  currencyCode: "USD",
 });
 ```
 
@@ -334,7 +335,7 @@ This method retrieves a purchase object for a given purchase ID.
 #### Parameters
 
 <ParamField path="purchaseId" type="string" required>
-    The purchase ID to retrieve.
+  The purchase ID to retrieve.
 </ParamField>
 
 #### Returns
@@ -380,6 +381,6 @@ Supertab.js returns the response object keys in camelCase.
 
 ```typescript
 await supertabClient.api.retrievePurchase({
-    purchaseId: "purchase-id"
+  purchaseId: "purchase-id",
 });
 ```

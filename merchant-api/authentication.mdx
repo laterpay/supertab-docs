@@ -94,7 +94,7 @@ $clientId = 'YOUR_CLIENT_ID';
 $clientSecret = 'YOUR_CLIENT_SECRET';
 
 $client = new Client();
-$response = $client->post('https://auth.supertab.co/oauth2/token', [
+$response = $client->post('https://merchant-auth.supertab.co/oauth2/token', [
     RequestOptions::HEADERS => [
         'Authorization' => 'Basic ' . base64_encode("$clientId:$clientSecret"),
         'Content-Type' => 'application/x-www-form-urlencoded',

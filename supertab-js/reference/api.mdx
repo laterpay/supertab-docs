@@ -115,7 +115,7 @@ await supertabClient.api.retrieveCustomer();
 
 ### `retrieveSite`
 
-Retrieves the site object associated with the client ID used to [initialize Supertab.js](/supertab-js/installation).
+Retrieves the website object associated with the client ID used to [initialize Supertab.js](/supertab-js/installation).
 
 <Info>
     **Auth:** optional
@@ -128,7 +128,7 @@ Retrieves the site object associated with the client ID used to [initialize Supe
 
 #### Returns
 
-Site object. See <a href="/customer-api/endpoints/retrieve-site">Retrieve site</a>.
+Website object. See <a href="/customer-api/endpoints/retrieve-site">Retrieve site</a>.
 Supertab.js returns the response object keys in camelCase.
 
 #### Type
@@ -226,7 +226,7 @@ await supertabClient.api.checkEntitlement({
 ```
 
 ```typescript Check entitlement for all site content keys
-// Retrieve site to get content keys
+// Retrieve website to get content keys
 const { contentKeys } = await supertabClient.api.retrieveSite();
 
 // Check entitlement

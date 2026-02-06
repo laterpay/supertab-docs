@@ -29,7 +29,7 @@ To obtain a token, you must send a POST request to the token URL with your clien
 ```bash curl
 CLIENT_ID="YOUR_CLIENT_ID"
 CLIENT_SECRET="YOUR_CLIENT_SECRET"
-AUTH_URL="https://auth.supertab.co/oauth2/token"
+AUTH_URL="https://merchant-auth.supertab.co/oauth2/token"
 
 # Encode the credentials in base64
 BASIC_AUTH=$(echo -n "$CLIENT_ID:$CLIENT_SECRET" | base64)
@@ -47,7 +47,7 @@ const clientSecret = 'YOUR_CLIENT_SECRET';
 const basicAuth = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
 
 async function getToken() {
-  const res = await fetch('https://auth.supertab.co/oauth2/token', {
+  const res = await fetch('https://merchant-auth.supertab.co/oauth2/token', {
     method: 'POST',
     headers: {
       'Authorization': `Basic ${basicAuth}`,
@@ -71,7 +71,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 
 response = requests.post(
-    'https://auth.supertab.co/oauth2/token',
+    'https://merchant-auth.supertab.co/oauth2/token',
     data={
         'grant_type': 'client_credentials',
         'scope': 'mapi:read mapi:write'

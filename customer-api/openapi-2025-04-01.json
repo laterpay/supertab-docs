@@ -264,7 +264,8 @@
                 "site.cf637646-71a4-430d-aaea-a66f1a48a83c"
               ]
             },
-            "description": "The content_key to check access for"
+            "description": "The content_key to check access for",
+            "example": {}
           },
           {
             "name": "x-api-version",
@@ -2127,6 +2128,11 @@
             "type": "boolean",
             "title": "Is Pay Now",
             "description": "Offering requires upfront payment, customer will be taken to checkout immediately on purchase.\n\nUsed to control Call To Action during purchase confirmation."
+          },
+          "guest_checkout_available": {
+            "type": "boolean",
+            "title": "Guest Checkout Available",
+            "description": "Whether this offering is eligible for guest checkout in the displayed currency. When True, the frontend can initiate a guest checkout session for this offering."
           }
         },
         "type": "object",
@@ -2135,7 +2141,8 @@
           "description",
           "entitlement_details",
           "price",
-          "is_pay_now"
+          "is_pay_now",
+          "guest_checkout_available"
         ],
         "title": "Offering"
       },
@@ -2621,6 +2628,12 @@
             "type": "boolean",
             "title": "Test Mode",
             "description": "See Test Mode's [Documentation](https://docs.supertab.co/supertab-experiences/test-mode) for details"
+          },
+          "white_label": {
+            "type": "boolean",
+            "title": "White Label",
+            "description": "Whether the merchant has the white-label option enabled. When True, Supertab surfaces (paywall, button, checkout) should render the white-labelled version with Supertab branding removed.",
+            "default": false
           }
         },
         "type": "object",
@@ -2632,7 +2645,8 @@
           "content_keys",
           "offerings",
           "experiences",
-          "test_mode"
+          "test_mode",
+          "white_label"
         ],
         "title": "Site",
         "description": "A site is any website, SaaS product or any other place you deploy Supertab.\n\nIt is the top level object in your inventory and contains all offerings."

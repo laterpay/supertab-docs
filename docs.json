@@ -5,7 +5,7 @@
   "colors": {
     "primary": "#0A0E1A",
     "light": "#F3F3F4",
-    "dark": "#FF8D28"
+    "dark": "#0A0E1A"
   },
   "favicon": "/favicon.webp",
   "api": {

@@ -4,8 +4,8 @@
   "name": "Supertab docs",
   "colors": {
     "primary": "#FF8D28",
-    "light": "#9D8AFF",
-    "dark": "#5132F0"
+    "light": "#FFF4EA",
+    "dark": "#FF8D28"
   },
   "favicon": "/favicon.webp",
   "api": {
